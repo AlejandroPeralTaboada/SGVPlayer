@@ -4,16 +4,16 @@
     <item
         android:id="@+id/nav_music"
         android:icon="@drawable/ic_menu_send"
-        android:title="My music" />
+        android:title="@string/action_music" />
 
     <item
         android:id="@+id/nav_classifier"
         android:icon="@drawable/ic_menu_send"
-        android:title="Music classifier" />
+        android:title="@string/action_classifier" />
 
     <item
         android:id="@+id/nav_settings"
         android:icon="@drawable/ic_menu_send"
-        android:title="Settings" />
+        android:title="@string/action_settings" />
 
 </menu>
