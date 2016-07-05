@@ -8,6 +8,14 @@
     <!-- Main menu -->
     <string name="action_music">Music</string>
     <string name="action_classifier">Music classifier</string>
-     <string name="action_settings">Settings</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- Music action strings -->
+    <string name="music_all">All songs</string>
+    <string name="music_artists">Artists</string>
+    <string name="music_albums">Albums</string>
+    <string name="music_genres">Genres</string>
+    <string name="music_playlists">Playlists</string>
+    <string name="music_folders">Folders</string>
 
 </resources>
