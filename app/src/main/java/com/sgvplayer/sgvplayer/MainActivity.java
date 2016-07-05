@@ -80,22 +80,12 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_all) {
-            // Handle the camera action
-        } else if (id == R.id.nav_artists) {
-
-        } else if (id == R.id.nav_albums) {
-
-        } else if (id == R.id.nav_genres) {
-
-        } else if (id == R.id.nav_folders) {
-
-        } else if (id == R.id.nav_playlists) {
-
+        if (id == R.id.nav_music) {
+            // Handle the music action
         } else if (id == R.id.nav_classifier) {
-
+            //Handle the music classifier action
         } else if (id == R.id.nav_settings) {
-
+            //Handle the settings action
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
