@@ -6,12 +6,21 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <!--
+        <item name="actionOverflowMenuStyle">@style/CMOptionsMenu</item>
+        -->
     </style>
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
+    <!--
+    <style name="CMOptionsMenu" parent="Widget.AppCompat.PopupMenu.Overflow">
+        <item name="android:popupBackground">#70A5B0</item>
+    </style>
+    -->
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
