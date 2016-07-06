@@ -13,9 +13,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+//Added by Alvaro:
+import android.support.v4.app.FragmentTransaction;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
-                   MusicFragment.OnFragmentInteractionListener {
+                   MusicFragment.OnFragmentInteractionListener,
+                   ClassifierFragment.OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +50,8 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         //onCreate continues here::
+
+        //Create a MusicFragment:
 
         // Check that the activity is using the layout version with
         // the fragment_container FrameLayout
@@ -113,15 +119,41 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_music) {
-            // Handle the music action
+            moveToMusicFragment();
         } else if (id == R.id.nav_classifier) {
-            //Handle the music classifier action
+            moveToClassifierFragment();
         } else if (id == R.id.nav_settings) {
             //Handle the settings action
         }
 
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+    private void moveToMusicFragment(){
+        // Create fragment
+        MusicFragment newFragment = new MusicFragment();
+
+        // Replace whatever is in the fragment_container view with this fragment
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, newFragment);
+
+        // Commit the transaction
+        transaction.commit();
+    }
+
+    private void moveToClassifierFragment(){
+        // Create fragment
+        ClassifierFragment newFragment = new ClassifierFragment();
+
+        // Replace whatever is in the fragment_container view with this fragment,
+        // and add the transaction to the back stack so the user can navigate back
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, newFragment);
+        //transaction.addToBackStack(null);
+
+        // Commit the transaction
+        transaction.commit();
     }
 }
