@@ -6,27 +6,76 @@
     android:background="@mipmap/strokes_wallpaper"
     tools:context="com.sgvplayer.sgvplayer.MusicFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <Button
+        android:id="@+id/all_songs_button"
+        android:layout_width="160dp"
+        android:layout_height="100dp"
+        android:text="@string/music_all"
+        android:alpha="0.6"
+        android:layout_marginTop="41dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="46dp"
+        android:layout_gravity="start|top"/>
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Button"
-        android:id="@+id/button"
+        android:id="@+id/playlists_button"
+        android:layout_width="160dp"
+        android:layout_height="100dp"
+        android:text="@string/music_playlists"
+        android:alpha="0.6"
+        android:layout_marginTop="41dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="46dp"
+        android:layout_gravity="end|top" />
+
+    <Button
+        android:id="@+id/artists_button"
+        android:layout_width="160dp"
+        android:layout_height="100dp"
+        android:text="@string/music_artists"
+        android:alpha="0.6"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="100dp"
+        android:layout_gravity="start|center" />
+
+    <Button
+        android:id="@+id/albums_button"
+        android:layout_width="160dp"
+        android:layout_height="100dp"
+        android:text="@string/music_albums"
+        android:alpha="0.6"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="100dp"
+        android:layout_gravity="end|center" />
+
+    <Button
+        android:id="@+id/genres_button"
+        android:layout_width="160dp"
+        android:layout_height="100dp"
+        android:text="@string/music_genres"
+        android:alpha="0.6"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="209dp"
+        android:layout_gravity="start|bottom" />
+
+    <Button
+        android:id="@+id/folders_button"
+        android:layout_width="160dp"
+        android:layout_height="100dp"
+        android:text="@string/music_folders"
+        android:alpha="0.6"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="209dp"
         android:layout_gravity="end|bottom" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Button"
-        android:id="@+id/button2"
-        android:layout_gravity="start|top" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Button"
-        android:id="@+id/button3"
-        android:layout_gravity="center" />
 
 </FrameLayout>
