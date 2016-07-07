@@ -1,6 +1,10 @@
 package com.sgvplayer.sgvplayer;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.View;
@@ -15,6 +19,7 @@ import android.view.MenuItem;
 
 //Added by Alvaro:
 import android.support.v4.app.FragmentTransaction;
+import android.widget.Toast;
 
 import com.sgvplayer.sgvplayer.FragmentSelector.FragmentSelector;
 import com.sgvplayer.sgvplayer.navigationListener.MainNavigationListener;
@@ -26,6 +31,8 @@ public class MainActivity extends AppCompatActivity
         AllSongsFragment.OnFragmentInteractionListener,
         FragmentSelector {
 
+
+    private static final int READ_EXTERNAL_STORAGE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +70,31 @@ public class MainActivity extends AppCompatActivity
             // Add the fragment to the 'fragment_container' FrameLayout
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.fragment_container, firstFragment).commit();
+        }
+        checkPermissions();
+    }
+
+
+    private void checkPermissions() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                if (shouldShowRequestPermissionRationale(Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                    Toast.makeText(this, R.string.storage_permissions, Toast.LENGTH_LONG).show();
+                }
+                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, READ_EXTERNAL_STORAGE);
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == READ_EXTERNAL_STORAGE) {
+            if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                //TODO cambiar esta basura
+                Toast.makeText(this, "IDIOTA TENIAS QUE ACEPTARLO MANCO", Toast.LENGTH_LONG).show();
+            }
+        } else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 

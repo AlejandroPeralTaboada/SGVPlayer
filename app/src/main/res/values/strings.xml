@@ -10,6 +10,8 @@
     <string name="action_classifier">Music classifier</string>
     <string name="action_settings">Settings</string>
 
+    <!--Permisions-->
+    <string name="storage_permissions">Storage permissions needed</string>
     <!-- Music action strings -->
     <string name="music_all">All songs</string>
     <string name="music_artists">Artists</string>
