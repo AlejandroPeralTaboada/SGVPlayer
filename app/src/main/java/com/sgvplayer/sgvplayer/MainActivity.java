@@ -19,7 +19,8 @@ import android.support.v4.app.FragmentTransaction;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
                    MusicFragment.OnFragmentInteractionListener,
-                   ClassifierFragment.OnFragmentInteractionListener {
+                   ClassifierFragment.OnFragmentInteractionListener,
+                   AllSongsFragment.OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -156,4 +157,5 @@ public class MainActivity extends AppCompatActivity
         // Commit the transaction
         transaction.commit();
     }
+
 }
