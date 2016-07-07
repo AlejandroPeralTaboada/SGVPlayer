@@ -16,10 +16,15 @@ import android.view.MenuItem;
 //Added by Alvaro:
 import android.support.v4.app.FragmentTransaction;
 
+import com.sgvplayer.sgvplayer.FragmentSelector.FragmentSelector;
+import com.sgvplayer.sgvplayer.navigationListener.MainNavigationListener;
+
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,
-                   MusicFragment.OnFragmentInteractionListener,
-                   ClassifierFragment.OnFragmentInteractionListener {
+        implements
+        MusicFragment.OnFragmentInteractionListener,
+        ClassifierFragment.OnFragmentInteractionListener,
+        FragmentSelector {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,26 +33,13 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        /*
-        //This code is for the FloatingActionButton:
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-        */
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setNavigationItemSelectedListener(new MainNavigationListener(drawer, this));
 
         //onCreate continues here::
 
@@ -74,7 +66,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onFragmentInteraction(){
+    public void onFragmentInteraction() {
         //do stuff
     }
 
@@ -112,26 +104,23 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
+
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_music) {
-            moveToMusicFragment();
-        } else if (id == R.id.nav_classifier) {
-            moveToClassifierFragment();
-        } else if (id == R.id.nav_settings) {
-            //Handle the settings action
+    public void select(int id) {
+        switch (id) {
+            case R.id.nav_music:
+                moveToMusicFragment();
+                break;
+            case R.id.nav_classifier:
+                moveToClassifierFragment();
+                break;
+            case R.id.nav_settings:
+                break;
+            default:
         }
-
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
     }
-    private void moveToMusicFragment(){
+
+    private void moveToMusicFragment() {
         // Create fragment
         MusicFragment newFragment = new MusicFragment();
 
@@ -143,7 +132,7 @@ public class MainActivity extends AppCompatActivity
         transaction.commit();
     }
 
-    private void moveToClassifierFragment(){
+    private void moveToClassifierFragment() {
         // Create fragment
         ClassifierFragment newFragment = new ClassifierFragment();
 
