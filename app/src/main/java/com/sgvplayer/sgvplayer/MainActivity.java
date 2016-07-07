@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity
         implements
         MusicFragment.OnFragmentInteractionListener,
         ClassifierFragment.OnFragmentInteractionListener,
+        AllSongsFragment.OnFragmentInteractionListener,
         FragmentSelector {
 
 
