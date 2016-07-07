@@ -8,6 +8,9 @@ import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.GridView;
+import android.widget.Toast;
 
 
 /**
@@ -65,7 +68,9 @@ public class AllSongsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_all_songs, container, false);
+        View view = inflater.inflate(R.layout.fragment_all_songs, container, false);
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
