@@ -2,6 +2,7 @@ package com.sgvplayer.sgvplayer;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -28,6 +29,7 @@ import com.sgvplayer.sgvplayer.navigationListener.MainNavigationListener;
 
 public class MainActivity extends AppCompatActivity
         implements
+        PlayerFragment.OnFragmentInteractionListener,
         MusicFragment.OnFragmentInteractionListener,
         ClassifierFragment.OnFragmentInteractionListener,
         AllSongsFragment.OnListFragmentInteractionListener,
@@ -100,8 +102,15 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    //All Fragment listeners should go here:
+
     @Override
     public void onFragmentInteraction() {
+        //do stuff
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
         //do stuff
     }
 
