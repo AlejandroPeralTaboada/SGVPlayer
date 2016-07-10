@@ -17,7 +17,8 @@ public class MP3File implements Serializable {
         file = new File(path);
         internalStorage = isInternalStorage(file);
     }
-    //Probando a añadir un no-arg constructor para usar serializable:
+    //Probando a añadir un no-arg constructor para usar serializable:;
+
     public MP3File(){}
 
     public File getFile() {
