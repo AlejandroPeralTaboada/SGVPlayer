@@ -1,6 +1,7 @@
 package com.sgvplayer.sgvplayer;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -116,7 +118,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onListFragmentInteraction(MP3File mp3File){
-        //do stuff
+        startPlayerFragment(mp3File);
     }
 
     @Override
@@ -193,5 +195,16 @@ public class MainActivity extends AppCompatActivity
 
         // Commit the transaction
         transaction.commit();
+    }
+
+    private void startPlayerFragment(MP3File mp3File){
+        PlayerFragment newFragment =PlayerFragment.newInstance(mp3File);
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.fragment_container, newFragment).commit();
+        // Send the (@link MP3File) selected. See:
+        // http://stackoverflow.com/questions/13445594/data-sharing-between-fragments-and-activity-in-android
+        // http://stackoverflow.com/questions/17436298/how-to-pass-a-variable-from-activity-to-fragment-and-pass-it-back
+        // http://stackoverflow.com/questions/21093809/pass-custom-class-to-fragment
     }
 }

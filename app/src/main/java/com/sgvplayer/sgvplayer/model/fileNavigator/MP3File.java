@@ -3,12 +3,13 @@ package com.sgvplayer.sgvplayer.model.fileNavigator;
 import android.os.Environment;
 
 import java.io.File;
+import java.io.Serializable;
 
 /**
  * Encapsulates a mp3file and checks if it is on the internal storage or on a external sd
  * Created by apt_a on 07/07/2016.
  */
-public class MP3File {
+public class MP3File implements Serializable {
     private File file;
     private boolean internalStorage;
 
@@ -16,6 +17,8 @@ public class MP3File {
         file = new File(path);
         internalStorage = isInternalStorage(file);
     }
+    //Probando a añadir un no-arg constructor para usar serializable:
+    public MP3File(){}
 
     public File getFile() {
         return file;
