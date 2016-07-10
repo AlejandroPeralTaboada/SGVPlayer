@@ -7,9 +7,6 @@ import android.net.Uri;
 import android.os.Binder;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
-import android.widget.Toast;
-
-import com.sgvplayer.sgvplayer.R;
 import com.sgvplayer.sgvplayer.model.fileNavigator.MP3File;
 
 
@@ -41,9 +38,22 @@ public class Mp3Service extends Service {
 
     @Override
     public void onDestroy() {
-        Toast.makeText(this, R.string.ServiceStoped, Toast.LENGTH_LONG).show();
         super.onDestroy();
         mediaPlayer.stop();
+        mediaPlayer.release();
+    }
+
+    protected class LocalService extends Binder {
+        Mp3Service getService() {
+            return Mp3Service.this;
+        }
+    }
+
+
+    public void playSong(MP3File song) {
+        this.song = song;
+        mediaPlayer = MediaPlayer.create(this, Uri.parse(song.getFile().getAbsolutePath()));
+        mediaPlayer.start();
     }
 
     public void startStop() {
@@ -75,19 +85,8 @@ public class Mp3Service extends Service {
     }
 
     public void setCurrentPosition(int position) {
+
         mediaPlayer.seekTo(position);
-    }
-
-    public void setSong(MP3File song) {
-        this.song = song;
-        mediaPlayer = MediaPlayer.create(this, Uri.parse(song.getFile().getAbsolutePath()));
-        mediaPlayer.start();
-    }
-
-    public class LocalService extends Binder {
-        Mp3Service getService() {
-            return Mp3Service.this;
-        }
     }
 
 
