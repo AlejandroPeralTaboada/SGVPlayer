@@ -64,7 +64,7 @@ public class PlayerFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_player, container, false);
-        String name = "Playing" + this.mp3File.getFile().getName();
+        String name = "Playing " + this.mp3File.getFile().getName();
         TextView fileName = (TextView) view.findViewById(R.id.file_name);
         fileName.setText(name);
 
