@@ -25,7 +25,9 @@
                       android:host="www.example.com"
                       android:pathPrefix="/gizmos" />
             </intent-filter>
+
         </activity>
+        <service android:name=".model.mp3Service.Mp3Service"/>
     </application>
 
 </manifest>
