@@ -20,15 +20,17 @@ import android.view.MenuItem;
 //Added by Alvaro:
 import android.support.v4.app.FragmentTransaction;
 import android.widget.Toast;
+import com.sgvplayer.sgvplayer.model.fileNavigator.MP3File;
 
 import com.sgvplayer.sgvplayer.FragmentSelector.FragmentSelector;
+import com.sgvplayer.sgvplayer.dummy.DummyContent;
 import com.sgvplayer.sgvplayer.navigationListener.MainNavigationListener;
 
 public class MainActivity extends AppCompatActivity
         implements
         MusicFragment.OnFragmentInteractionListener,
         ClassifierFragment.OnFragmentInteractionListener,
-        AllSongsFragment.OnFragmentInteractionListener,
+        AllSongsFragment.OnListFragmentInteractionListener,
         FragmentSelector {
 
 
@@ -100,6 +102,11 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onFragmentInteraction() {
+        //do stuff
+    }
+
+    @Override
+    public void onListFragmentInteraction(MP3File mp3File){
         //do stuff
     }
 
