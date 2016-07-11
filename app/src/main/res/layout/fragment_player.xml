@@ -14,4 +14,12 @@
         android:gravity="center"
         android:text="@string/hello_blank_fragment" />
 
+    <Button
+        android:id="@+id/play_pause_button"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Play/Pause"
+        android:layout_gravity="center_horizontal|bottom" />
+
 </FrameLayout>

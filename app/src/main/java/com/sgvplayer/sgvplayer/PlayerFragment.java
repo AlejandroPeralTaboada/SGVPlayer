@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -26,7 +27,9 @@ import java.io.Serializable;
  * Use the {@link PlayerFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PlayerFragment extends Fragment implements Mp3ServiceProvided {
+public class PlayerFragment extends Fragment
+         implements Mp3ServiceProvided,
+                    View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
      private static final String ARG_MP3FILE = "mp3File";
@@ -74,6 +77,10 @@ public class PlayerFragment extends Fragment implements Mp3ServiceProvided {
         TextView fileName = (TextView) view.findViewById(R.id.file_name);
         fileName.setText(name);
 
+        //Initialise buttons:
+        Button playPauseButton = (Button) view.findViewById(R.id.play_pause_button);
+        playPauseButton.setOnClickListener(this);
+
         return view;
     }
 
@@ -101,13 +108,22 @@ public class PlayerFragment extends Fragment implements Mp3ServiceProvided {
         mListener = null;
     }
 
+     @Override
+     public void onClick(View v) {
+         switch (v.getId()) {
+             case R.id.play_pause_button:
+                 this.mp3Service.startStop();
+                 break;
+         }
+     }
+
      //Media Player methods:
      //Called by Mp3ServiceProvider
      @Override
      public void onServiceConnected(Mp3Service mp3Service){
          //implement onServiceConnected
          this.mp3Service = mp3Service;
-         mp3Service.playSong(mp3File);
+         this.mp3Service.playSong(mp3File);
      }
 
     /**
