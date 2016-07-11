@@ -11,6 +11,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.sgvplayer.sgvplayer.model.fileNavigator.MP3File;
+import com.sgvplayer.sgvplayer.model.mp3Service.Mp3Service;
+import com.sgvplayer.sgvplayer.model.mp3Service.Mp3ServiceProvided;
+import com.sgvplayer.sgvplayer.model.mp3Service.Mp3ServiceProvider;
 
 import java.io.Serializable;
 
@@ -23,12 +26,13 @@ import java.io.Serializable;
  * Use the {@link PlayerFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PlayerFragment extends Fragment {
+public class PlayerFragment extends Fragment implements Mp3ServiceProvided {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
      private static final String ARG_MP3FILE = "mp3File";
 
     private MP3File mp3File;
+     private Mp3Service mp3Service; //need to add to bundle
 
     private OnFragmentInteractionListener mListener;
 
@@ -57,6 +61,8 @@ public class PlayerFragment extends Fragment {
         if (getArguments() != null) {
             mp3File = (MP3File) getArguments().getSerializable(ARG_MP3FILE);
         }
+        //Para el player:
+        Mp3ServiceProvider mp3ServiceProvider = new Mp3ServiceProvider(this, this.getActivity());
     }
 
     @Override
@@ -94,6 +100,15 @@ public class PlayerFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
+     //Media Player methods:
+     //Called by Mp3ServiceProvider
+     @Override
+     public void onServiceConnected(Mp3Service mp3Service){
+         //implement onServiceConnected
+         this.mp3Service = mp3Service;
+         mp3Service.playSong(mp3File);
+     }
 
     /**
      * This interface must be implemented by activities that contain this

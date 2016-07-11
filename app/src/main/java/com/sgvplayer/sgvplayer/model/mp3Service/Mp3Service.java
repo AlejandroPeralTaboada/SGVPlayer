@@ -79,7 +79,7 @@ public class Mp3Service extends Service {
         return mediaPlayer.getDuration();
     }
 
-    public boolean isPlayin() {
+    public boolean isPlaying() {
 
         return mediaPlayer.isPlaying();
     }
