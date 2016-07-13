@@ -3,6 +3,7 @@ package com.sgvplayer.sgvplayer;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -15,16 +16,26 @@ import android.widget.HorizontalScrollView;
 import android.widget.TabHost;
 
 
+import com.sgvplayer.sgvplayer.MusicFragment.OnFragmentInteractionListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class MusicTabHostFragment extends Fragment implements ViewPager.OnPageChangeListener, TabHost.OnTabChangeListener {
+public class MusicTabHostFragment extends Fragment implements ViewPager.OnPageChangeListener, TabHost.OnTabChangeListener, OnFragmentInteractionListener {
 
     ViewPager viewPager;
     TabHost tabHost;
     View view;
 
+    public static int ALL_SONGS = 1;
+    public static int ARTIST = 2;
+    public static int ALBUM = 3;
+    public static int GENRES = 4;
+    public static int PLAYLISTS = 5;
+    public static int FOLDERS = 6;
+
     public MusicTabHostFragment() {
+
 
     }
 
@@ -100,6 +111,23 @@ public class MusicTabHostFragment extends Fragment implements ViewPager.OnPageCh
         horizontalScrollView.smoothScrollBy(scrollpos, 0);
 
 
+    }
+
+
+    public void directSelect(int id){
+        tabHost.setCurrentTab(id);
+        viewPager.setCurrentItem(tabHost.getCurrentTab());
+        HorizontalScrollView horizontalScrollView = (HorizontalScrollView) view.findViewById(R.id.h_scrool_view);
+        View tabView = tabHost.getCurrentTabView();
+        int scrollpos = tabView.getLeft() - (horizontalScrollView.getWidth() - tabView.getWidth()) / 2;
+        horizontalScrollView.smoothScrollBy(scrollpos, 0);
+
+
+    }
+
+    @Override
+    public void onFragmentInteraction(int id) {
+        directSelect(id);
     }
 
 

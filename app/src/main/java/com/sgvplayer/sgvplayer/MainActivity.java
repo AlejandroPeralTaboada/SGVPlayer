@@ -27,7 +27,6 @@ import com.sgvplayer.sgvplayer.navigationListener.MainNavigationListener;
 public class MainActivity extends AppCompatActivity
         implements
         PlayerFragment.OnFragmentInteractionListener,
-        MusicFragment.OnFragmentInteractionListener,
         ClassifierFragment.OnFragmentInteractionListener,
         AllSongsFragment.OnListFragmentInteractionListener,
         FragmentSelector {
@@ -95,6 +94,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onFragmentInteraction(Uri uri) {
+
         //do stuff
     }
 
@@ -153,10 +153,11 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    MusicTabHostFragment musicTabHostFragment;
     private void moveToMusicTabHostFragment(){
-        MusicTabHostFragment newFragment = new MusicTabHostFragment();
+        musicTabHostFragment = new MusicTabHostFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container, newFragment);
+        transaction.replace(R.id.fragment_container, musicTabHostFragment);
         transaction.commit();
     }
 
@@ -184,4 +185,5 @@ public class MainActivity extends AppCompatActivity
         // http://stackoverflow.com/questions/17436298/how-to-pass-a-variable-from-activity-to-fragment-and-pass-it-back
         // http://stackoverflow.com/questions/21093809/pass-custom-class-to-fragment
     }
+
 }
