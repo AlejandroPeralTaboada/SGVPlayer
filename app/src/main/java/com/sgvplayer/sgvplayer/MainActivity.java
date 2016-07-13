@@ -1,16 +1,12 @@
 package com.sgvplayer.sgvplayer;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -26,7 +22,6 @@ import android.widget.Toast;
 import com.sgvplayer.sgvplayer.model.fileNavigator.MP3File;
 
 import com.sgvplayer.sgvplayer.FragmentSelector.FragmentSelector;
-import com.sgvplayer.sgvplayer.dummy.DummyContent;
 import com.sgvplayer.sgvplayer.navigationListener.MainNavigationListener;
 
 public class MainActivity extends AppCompatActivity
@@ -55,28 +50,15 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(new MainNavigationListener(drawer, this));
 
-        //onCreate continues here::
-
-        //Create a MusicFragment:
-
-        // Check that the activity is using the layout version with
-        // the fragment_container FrameLayout
         if (findViewById(R.id.fragment_container) != null) {
-
-            // However, if we're being restored from a previous state,
-            // then we don't need to do anything and should return or else
-            // we could end up with overlapping fragments.
             if (savedInstanceState != null) {
                 return;
             }
+            MusicTabHostFragment firstFragment = new MusicTabHostFragment();
 
-            // Create a new Fragment to be placed in the activity layout
-            MusicFragment firstFragment = new MusicFragment();
-
-            // Add the fragment to the 'fragment_container' FrameLayout
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragment_container, firstFragment).commit();
+            getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, firstFragment).commit();
         }
+
         checkPermissions();
     }
 
@@ -160,7 +142,7 @@ public class MainActivity extends AppCompatActivity
     public void select(int id) {
         switch (id) {
             case R.id.nav_music:
-                moveToMusicFragment();
+                moveToMusicTabHostFragment();
                 break;
             case R.id.nav_classifier:
                 moveToClassifierFragment();
@@ -171,15 +153,10 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private void moveToMusicFragment() {
-        // Create fragment
-        MusicFragment newFragment = new MusicFragment();
-
-        // Replace whatever is in the fragment_container view with this fragment
+    private void moveToMusicTabHostFragment(){
+        MusicTabHostFragment newFragment = new MusicTabHostFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, newFragment);
-
-        // Commit the transaction
         transaction.commit();
     }
 
