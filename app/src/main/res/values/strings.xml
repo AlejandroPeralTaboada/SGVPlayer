@@ -34,4 +34,5 @@
         <item>@string/music_playlists</item>
         <item>@string/music_folders</item>
     </string-array>
+    <string name="title_activity_player">PlayerActivity</string>
 </resources>

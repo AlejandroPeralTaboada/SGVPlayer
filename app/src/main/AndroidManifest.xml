@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.sgvplayer.sgvplayer">
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
-        android:fullBackupContent="@xml/configuration_file"
-        android:debuggable="true"
         android:allowBackup="true"
+        android:debuggable="true"
+        android:fullBackupContent="@xml/configuration_file"
         android:icon="@mipmap/menu_icon"
         android:label="@string/app_name"
         android:supportsRtl="true"
@@ -17,17 +18,25 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <action android:name="android.intent.action.VIEW" />
                 <!-- Accepts URIs that begin with "http://www.example.com/gizmos” -->
-                <data android:scheme="http"
-                      android:host="www.example.com"
-                      android:pathPrefix="/gizmos" />
+                <data
+                    android:host="www.example.com"
+                    android:pathPrefix="/gizmos"
+                    android:scheme="http" />
             </intent-filter>
-
         </activity>
-        <service android:name=".model.mp3Service.Mp3Service"/>
+
+        <service android:name=".model.mp3Service.Mp3Service" />
+
+        <activity
+            android:name=".PlayerActivity"
+            android:label="@string/title_activity_player"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

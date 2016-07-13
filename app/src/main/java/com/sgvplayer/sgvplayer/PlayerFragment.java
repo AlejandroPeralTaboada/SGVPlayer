@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -30,13 +31,14 @@ import java.io.Serializable;
 public class PlayerFragment extends Fragment
          implements Mp3ServiceProvided,
                     View.OnClickListener {
-    // TODO: Rename parameter arguments, choose names that match
+
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
      private static final String ARG_MP3FILE = "mp3File";
+     //private static final String ARG_MP3SERVICE = "mp3Service";
+
 
     private MP3File mp3File;
-     private Mp3Service mp3Service; //need to add to bundle
-
+     private Mp3Service mp3Service; //need to add to bundle--MAYBE NOT
     private OnFragmentInteractionListener mListener;
 
     public PlayerFragment() {
@@ -49,7 +51,6 @@ public class PlayerFragment extends Fragment
      * @param mp3File File to play.
      * @return A new instance of fragment PlayerFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static PlayerFragment newInstance(Serializable mp3File) {
         PlayerFragment fragment = new PlayerFragment();
         Bundle args = new Bundle();
@@ -78,7 +79,7 @@ public class PlayerFragment extends Fragment
         fileName.setText(name);
 
         //Initialise buttons:
-        Button playPauseButton = (Button) view.findViewById(R.id.play_pause_button);
+        ImageButton playPauseButton = (ImageButton) view.findViewById(R.id.play_pause_button);
         playPauseButton.setOnClickListener(this);
 
         return view;

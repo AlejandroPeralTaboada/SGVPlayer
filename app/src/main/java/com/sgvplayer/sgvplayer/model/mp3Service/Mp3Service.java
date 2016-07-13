@@ -10,7 +10,8 @@ import android.support.annotation.Nullable;
 import com.sgvplayer.sgvplayer.model.fileNavigator.MP3File;
 
 
-public class Mp3Service extends Service {
+
+public class Mp3Service extends Service{
     private MediaPlayer mediaPlayer;
     private MP3File song;
 
