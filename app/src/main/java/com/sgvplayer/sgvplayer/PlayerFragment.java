@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.sgvplayer.sgvplayer.model.fileNavigator.MP3File;
@@ -40,6 +41,10 @@ public class PlayerFragment extends Fragment
     private MP3File mp3File;
      private Mp3Service mp3Service; //need to add to bundle--MAYBE NOT
     private OnFragmentInteractionListener mListener;
+
+     //For the media player:
+     Thread updateSeekBar;
+     SeekBar seekBar;
 
     public PlayerFragment() {
         // Required empty public constructor
@@ -78,9 +83,14 @@ public class PlayerFragment extends Fragment
         TextView fileName = (TextView) view.findViewById(R.id.file_name);
         fileName.setText(name);
 
-        //Initialise buttons:
+        //Initialise player widget:
         ImageButton playPauseButton = (ImageButton) view.findViewById(R.id.play_pause_button);
         playPauseButton.setOnClickListener(this);
+        seekBar = (SeekBar) view.findViewById(R.id.seek_bar);
+        String songTitle = this.mp3File.getFile().getName();
+        TextView scrollingSongTitle = (TextView) view.findViewById(R.id.scrolling_song_title);
+        scrollingSongTitle.setText(songTitle);
+        scrollingSongTitle.setSelected(true);
 
         return view;
     }
@@ -91,6 +101,7 @@ public class PlayerFragment extends Fragment
             mListener.onFragmentInteraction(uri);
         }
     }
+
 
     @Override
     public void onAttach(Context context) {
@@ -125,6 +136,47 @@ public class PlayerFragment extends Fragment
          //implement onServiceConnected
          this.mp3Service = mp3Service;
          this.mp3Service.playSong(mp3File);
+         initSeekBar();
+     }
+
+     //Seek bar:
+     private void initSeekBar() {
+         updateSeekBar = new Thread() {
+             @Override
+             public void run() {
+                 int totalDuration = mp3Service.getDuration();
+                 int currentPosition = mp3Service.getCurrentPosition();
+                 seekBar.setMax(totalDuration);
+                 while (currentPosition < totalDuration) {
+                     try {
+                         sleep(250);
+                         currentPosition = mp3Service.getCurrentPosition();
+                         if (!seekBar.isPressed())
+                             seekBar.setProgress(currentPosition);
+                     } catch (InterruptedException e) {
+                         e.printStackTrace();
+                     }
+                 }
+             }
+         };
+         updateSeekBar.start();
+
+         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+             @Override
+             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+
+             }
+
+             @Override
+             public void onStartTrackingTouch(SeekBar seekBar) {
+
+             }
+
+             @Override
+             public void onStopTrackingTouch(SeekBar seekBar) {
+                 mp3Service.setCurrentPosition(seekBar.getProgress());
+             }
+         });
      }
 
     /**
