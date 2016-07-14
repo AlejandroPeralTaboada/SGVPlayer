@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -19,7 +18,7 @@ import android.view.MenuItem;
 //Added by Alvaro:
 import android.support.v4.app.FragmentTransaction;
 import android.widget.Toast;
-import com.sgvplayer.sgvplayer.model.fileNavigator.MP3File;
+import com.sgvplayer.sgvplayer.model.fileNavigator.Mp3File;
 
 import com.sgvplayer.sgvplayer.FragmentSelector.FragmentSelector;
 import com.sgvplayer.sgvplayer.navigationListener.MainNavigationListener;
@@ -100,7 +99,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onListFragmentInteraction(MP3File mp3File){
+    public void onListFragmentInteraction(Mp3File mp3File){
         startPlayerFragment(mp3File);
     }
 
@@ -194,7 +193,7 @@ public class MainActivity extends AppCompatActivity
         transaction.commit();
     }
 
-    private void startPlayerFragment(MP3File mp3File){
+    private void startPlayerFragment(Mp3File mp3File){
         PlayerFragment newFragment =PlayerFragment.newInstance(mp3File);
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -203,7 +202,7 @@ public class MainActivity extends AppCompatActivity
 
         //FragmentManager fragmentManager = getSupportFragmentManager();
         //fragmentManager.beginTransaction().replace(R.id.fragment_container, newFragment).commit();
-        // Send the (@link MP3File) selected. See:
+        // Send the (@link Mp3File) selected. See:
         // http://stackoverflow.com/questions/13445594/data-sharing-between-fragments-and-activity-in-android
         // http://stackoverflow.com/questions/17436298/how-to-pass-a-variable-from-activity-to-fragment-and-pass-it-back
         // http://stackoverflow.com/questions/21093809/pass-custom-class-to-fragment

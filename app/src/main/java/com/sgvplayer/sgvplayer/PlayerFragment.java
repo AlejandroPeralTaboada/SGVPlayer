@@ -7,13 +7,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.sgvplayer.sgvplayer.model.fileNavigator.MP3File;
+import com.sgvplayer.sgvplayer.model.fileNavigator.Mp3File;
 import com.sgvplayer.sgvplayer.model.mp3Service.Mp3Service;
 import com.sgvplayer.sgvplayer.model.mp3Service.Mp3ServiceProvided;
 import com.sgvplayer.sgvplayer.model.mp3Service.Mp3ServiceProvider;
@@ -35,11 +33,9 @@ public class PlayerFragment extends Fragment
 
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
      private static final String ARG_MP3FILE = "mp3File";
-     //private static final String ARG_MP3SERVICE = "mp3Service";
 
-
-    private MP3File mp3File;
-     private Mp3Service mp3Service; //need to add to bundle--MAYBE NOT
+    private Mp3File mp3File;
+     private Mp3Service mp3Service;
     private OnFragmentInteractionListener mListener;
 
      //For the media player:
@@ -68,7 +64,7 @@ public class PlayerFragment extends Fragment
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mp3File = (MP3File) getArguments().getSerializable(ARG_MP3FILE);
+            mp3File = (Mp3File) getArguments().getSerializable(ARG_MP3FILE);
         }
         //Para el player:
         Mp3ServiceProvider mp3ServiceProvider = new Mp3ServiceProvider(this, this.getActivity());
@@ -79,9 +75,14 @@ public class PlayerFragment extends Fragment
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_player, container, false);
+
         String name = "Playing " + this.mp3File.getFile().getName();
         TextView fileName = (TextView) view.findViewById(R.id.file_name);
         fileName.setText(name);
+
+        String artist = this.mp3File.getArtist();
+        TextView artistName = (TextView) view.findViewById(R.id.artist_name);
+        artistName.setText(artist);
 
         //Initialise player widget:
         ImageButton playPauseButton = (ImageButton) view.findViewById(R.id.play_pause_button);

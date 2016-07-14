@@ -3,20 +3,15 @@ package com.sgvplayer.sgvplayer;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.ListFragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
-import com.sgvplayer.sgvplayer.dummy.DummyContent;
-import com.sgvplayer.sgvplayer.dummy.DummyContent.DummyItem;
 import com.sgvplayer.sgvplayer.model.fileNavigator.FileNavigatorImp;
-import com.sgvplayer.sgvplayer.model.fileNavigator.MP3File;
+import com.sgvplayer.sgvplayer.model.fileNavigator.Mp3File;
 
 /**
  * A fragment representing a list of Items.
@@ -108,6 +103,6 @@ public class AllSongsFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(MP3File mp3File);
+        void onListFragmentInteraction(Mp3File mp3File);
     }
 }

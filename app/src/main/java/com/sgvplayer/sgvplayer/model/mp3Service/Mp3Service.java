@@ -7,13 +7,13 @@ import android.net.Uri;
 import android.os.Binder;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
-import com.sgvplayer.sgvplayer.model.fileNavigator.MP3File;
+import com.sgvplayer.sgvplayer.model.fileNavigator.Mp3File;
 
 
 
 public class Mp3Service extends Service{
     private MediaPlayer mediaPlayer;
-    private MP3File song;
+    private Mp3File song;
 
     private final IBinder iBinder = new LocalService();
 
@@ -51,7 +51,7 @@ public class Mp3Service extends Service{
     }
 
 
-    public void playSong(MP3File song) {
+    public void playSong(Mp3File song) {
         this.song = song;
         if (mediaPlayer!=null){
             mediaPlayer.release();

@@ -15,5 +15,5 @@ public interface FileNavigator {
      * @param activity the activity who invokes that method
      * @return a list of MP3Files of all system
      */
-    List<MP3File> getAllMp3Files(Activity activity);
+    List<Mp3File> getAllMp3Files(Activity activity);
 }

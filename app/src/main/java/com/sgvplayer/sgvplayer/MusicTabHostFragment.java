@@ -3,7 +3,6 @@ package com.sgvplayer.sgvplayer;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,16 +12,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
+import android.widget.ImageButton;
+import android.widget.SeekBar;
 import android.widget.TabHost;
 import android.widget.TextView;
 
 
 import com.sgvplayer.sgvplayer.MusicFragment.OnFragmentInteractionListener;
+import com.sgvplayer.sgvplayer.model.fileNavigator.Mp3File;
+import com.sgvplayer.sgvplayer.model.mp3Service.Mp3Service;
+import com.sgvplayer.sgvplayer.model.mp3Service.Mp3ServiceProvided;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MusicTabHostFragment extends Fragment implements ViewPager.OnPageChangeListener, TabHost.OnTabChangeListener, OnFragmentInteractionListener {
+public class MusicTabHostFragment extends Fragment
+        implements ViewPager.OnPageChangeListener,
+        TabHost.OnTabChangeListener,
+        OnFragmentInteractionListener,
+        View.OnClickListener,
+        Mp3ServiceProvided {
 
     ViewPager viewPager;
     TabHost tabHost;
@@ -35,10 +44,16 @@ public class MusicTabHostFragment extends Fragment implements ViewPager.OnPageCh
     public static int PLAYLISTS = 5;
     public static int FOLDERS = 6;
 
-    public MusicTabHostFragment() {
+    //For the Media Player:
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_MP3FILE = "mp3File";
+    private Mp3File mp3File;
+    private Mp3Service mp3Service;
+    private OnFragmentInteractionListener mListener;
+    Thread updateSeekBar;
+    SeekBar seekBar;
 
-
-    }
+    public MusicTabHostFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
@@ -47,6 +62,7 @@ public class MusicTabHostFragment extends Fragment implements ViewPager.OnPageCh
 
         initTabHost();
         initViewPager();
+     //   initMusicPlayer(); //Necesito mantener el servicio iniciado en el player, no iniciar uno nuevo :(
         return view;
 
     }
@@ -84,7 +100,25 @@ public class MusicTabHostFragment extends Fragment implements ViewPager.OnPageCh
         fragments.add(new FoldersFragment());
         viewPager.setAdapter(new MyFragmentPageAdapter(getChildFragmentManager(), fragments));
         viewPager.addOnPageChangeListener(this);
+    }
 
+    private void initMusicPlayer(){
+        ImageButton playPauseButton = (ImageButton) view.findViewById(R.id.play_pause_button);
+        playPauseButton.setOnClickListener(this);
+        seekBar = (SeekBar) view.findViewById(R.id.seek_bar);
+        String songTitle = this.mp3File.getFile().getName();
+        TextView scrollingSongTitle = (TextView) view.findViewById(R.id.scrolling_song_title);
+        scrollingSongTitle.setText(songTitle);
+        scrollingSongTitle.setSelected(true);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.play_pause_button:
+                this.mp3Service.startStop();
+                break;
+        }
     }
 
     @Override
@@ -133,6 +167,55 @@ public class MusicTabHostFragment extends Fragment implements ViewPager.OnPageCh
         directSelect(id);
     }
 
+    //Media Player methods:
+    //Called by Mp3ServiceProvider
+    @Override
+    public void onServiceConnected(Mp3Service mp3Service){
+        //implement onServiceConnected
+        this.mp3Service = mp3Service;
+        //this.mp3Service.playSong(mp3File);
+        initSeekBar();
+    }
+
+    //Seek bar:
+    private void initSeekBar() {
+        updateSeekBar = new Thread() {
+            @Override
+            public void run() {
+                int totalDuration = mp3Service.getDuration();
+                int currentPosition = mp3Service.getCurrentPosition();
+                seekBar.setMax(totalDuration);
+                while (currentPosition < totalDuration) {
+                    try {
+                        sleep(250);
+                        currentPosition = mp3Service.getCurrentPosition();
+                        if (!seekBar.isPressed())
+                            seekBar.setProgress(currentPosition);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+        updateSeekBar.start();
+
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                mp3Service.setCurrentPosition(seekBar.getProgress());
+            }
+        });
+    }
 
     public class MyFragmentPageAdapter extends FragmentPagerAdapter {
 

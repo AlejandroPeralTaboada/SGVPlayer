@@ -74,10 +74,4 @@
         android:layout_alignLeft="@+id/albums_button"
         android:layout_alignStart="@+id/albums_button" />
 
-    <include layout="@layout/shared_player_main"
-        android:layout_alignParentBottom="true"
-        android:layout_height="120dp"
-        android:layout_width="match_parent"
-        android:id="@+id/include" />
-
 </RelativeLayout>

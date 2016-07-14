@@ -1,20 +1,17 @@
 package com.sgvplayer.sgvplayer;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 
-import com.sgvplayer.sgvplayer.model.fileNavigator.MP3File;
+import com.sgvplayer.sgvplayer.model.fileNavigator.Mp3File;
 import com.sgvplayer.sgvplayer.model.mp3Service.Mp3Service;
 import com.sgvplayer.sgvplayer.model.mp3Service.Mp3ServiceProvided;
 
 public class PlayerActivity extends AppCompatActivity
         implements Mp3ServiceProvided {
 
-    private MP3File mp3File;
+    private Mp3File mp3File;
     private Mp3Service mp3Service; //need to add to bundle--MAYBE NOT
 
     @Override

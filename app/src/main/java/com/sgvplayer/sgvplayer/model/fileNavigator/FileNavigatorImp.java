@@ -5,11 +5,12 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.widget.TextView;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+//Metadata retriever:
+
 
 /**
  * Implementation of FileNavigator using cursors and media providers
@@ -18,7 +19,7 @@ import java.util.List;
 public class FileNavigatorImp implements FileNavigator {
 
     @Override
-    public List<MP3File> getAllMp3Files(Activity activity) {
+    public List<Mp3File> getAllMp3Files(Activity activity) {
         Uri uri = MediaStore.Audio.Media.getContentUri("external");
         String[] cols = new String[]{MediaStore.Audio.Media.DATA};
         Cursor cursor = null;
@@ -27,9 +28,9 @@ public class FileNavigatorImp implements FileNavigator {
             if (cursor == null)
                 return null;
             int idxData = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA);
-            List<MP3File> mp3Files = new ArrayList<>();
+            List<Mp3File> mp3Files = new ArrayList<>();
             while (cursor.moveToNext()) {
-                mp3Files.add(new MP3File(cursor.getString(idxData)));
+                mp3Files.add(new Mp3File(cursor.getString(idxData)));
             }
             return mp3Files;
         } catch (NullPointerException e) {
