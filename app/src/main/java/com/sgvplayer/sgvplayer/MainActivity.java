@@ -194,7 +194,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void startPlayerFragment(Mp3File mp3File){
-        PlayerFragment newFragment =PlayerFragment.newInstance(mp3File);
+        PlayerFragment newFragment = PlayerFragment.newInstance(mp3File);
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.addToBackStack(null);
