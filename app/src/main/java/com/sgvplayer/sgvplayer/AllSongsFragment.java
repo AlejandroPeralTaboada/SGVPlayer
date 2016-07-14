@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.sgvplayer.sgvplayer.model.fileNavigator.FileNavigatorImp;
 import com.sgvplayer.sgvplayer.model.fileNavigator.Mp3File;
+import com.sgvplayer.sgvplayer.viewAdapters.MyAllSongsRecyclerViewAdapter;
 
 import java.util.List;
 

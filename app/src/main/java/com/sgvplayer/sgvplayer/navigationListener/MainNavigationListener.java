@@ -5,7 +5,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
 
-import com.sgvplayer.sgvplayer.FragmentSelector.FragmentSelector;
+import com.sgvplayer.sgvplayer.fragmentSelector.FragmentSelector;
 
 /**
  * Manages the animation of a toolbar

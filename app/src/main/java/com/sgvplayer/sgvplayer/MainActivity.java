@@ -20,7 +20,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.widget.Toast;
 import com.sgvplayer.sgvplayer.model.fileNavigator.Mp3File;
 
-import com.sgvplayer.sgvplayer.FragmentSelector.FragmentSelector;
+import com.sgvplayer.sgvplayer.fragmentSelector.FragmentSelector;
 import com.sgvplayer.sgvplayer.navigationListener.MainNavigationListener;
 
 import java.io.Serializable;
