@@ -164,19 +164,12 @@ public class PlayerFragment extends Fragment
     }
 
     private void forwardButtonAction(){
-        if (index+1 <= mp3Files.size()){
-            PlayerFragment newFragment =PlayerFragment.newInstance((Serializable) mp3Files,index+1);
-            FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            transaction.replace(R.id.fragment_container, newFragment).commit();
-        }
+        mp3Service.nextSong();
+
     }
 
     private void rewindButtonAction(){
-        if (index-1 >= 0){
-            PlayerFragment newFragment =PlayerFragment.newInstance((Serializable) mp3Files,index-1);
-            FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            transaction.replace(R.id.fragment_container, newFragment).commit();
-        }
+       mp3Service.previousSong();
     }
 
     //Media Player methods:
@@ -185,7 +178,7 @@ public class PlayerFragment extends Fragment
     public void onServiceConnected(Mp3Service mp3Service) {
         //implement onServiceConnected
         this.mp3Service = mp3Service;
-        this.mp3Service.playSong(mp3Files.get(index));
+        this.mp3Service.playSong(mp3Files,index);
         initSeekBar();
     }
 

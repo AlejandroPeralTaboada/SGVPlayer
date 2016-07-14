@@ -9,11 +9,13 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import com.sgvplayer.sgvplayer.model.fileNavigator.Mp3File;
 
+import java.util.List;
 
 
 public class Mp3Service extends Service{
     private MediaPlayer mediaPlayer;
-    private Mp3File song;
+    private List<Mp3File> songs;
+    private int index;
 
     private final IBinder iBinder = new LocalService();
 
@@ -51,12 +53,13 @@ public class Mp3Service extends Service{
     }
 
 
-    public void playSong(Mp3File song) {
-        this.song = song;
+    public void playSong(List<Mp3File> songs,int index) {
+        this.songs = songs;
+        this.index = index;
         if (mediaPlayer!=null){
             mediaPlayer.release();
         }
-        mediaPlayer = MediaPlayer.create(this, Uri.parse(song.getFile().getAbsolutePath()));
+        mediaPlayer = MediaPlayer.create(this, Uri.parse(songs.get(index).getFile().getAbsolutePath()));
         mediaPlayer.start();
     }
 
@@ -91,6 +94,22 @@ public class Mp3Service extends Service{
     public void setCurrentPosition(int position) {
 
         mediaPlayer.seekTo(position);
+    }
+
+    public void nextSong(){
+        mediaPlayer.release();
+        index = (index+1)%songs.size();
+        mediaPlayer = MediaPlayer.create(this, Uri.parse(songs.get(index).getFile().getAbsolutePath()));
+        mediaPlayer.start();
+    }
+
+    public void previousSong(){
+        mediaPlayer.release();
+        index = (index-1)%songs.size();
+        if (index <0)
+            index = songs.size()-1;
+        mediaPlayer = MediaPlayer.create(this, Uri.parse(songs.get(index).getFile().getAbsolutePath()));
+        mediaPlayer.start();
     }
 
 

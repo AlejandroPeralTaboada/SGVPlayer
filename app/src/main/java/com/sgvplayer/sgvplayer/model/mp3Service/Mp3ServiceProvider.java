@@ -19,7 +19,7 @@ public class Mp3ServiceProvider implements ServiceConnection {
         this.mp3ServiceProvided = mp3ServiceProvided;
         this.activity=activity;
         Intent intent = new Intent(activity.getBaseContext(), Mp3Service.class);
-
+        activity.startService(intent);
         activity.bindService(intent, this, Context.BIND_AUTO_CREATE);
     }
 

@@ -28,7 +28,7 @@ public class PlayerActivity extends AppCompatActivity
     public void onServiceConnected(Mp3Service mp3Service){
         //implement onServiceConnected
         this.mp3Service = mp3Service;
-        this.mp3Service.playSong(mp3File);
+        //this.mp3Service.playSong(mp3File);
     }
 
 }
