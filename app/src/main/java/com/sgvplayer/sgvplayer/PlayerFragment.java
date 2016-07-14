@@ -89,6 +89,13 @@ public class PlayerFragment extends Fragment
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_player, container, false);
 
+        initPlayerDisplay(view);
+        initPlayerUI(view);
+
+        return view;
+    }
+
+    private void initPlayerDisplay(View view){
         String name = "Playing " + this.mp3File.getFile().getName();
         TextView fileName = (TextView) view.findViewById(R.id.file_name);
         fileName.setText(name);
@@ -96,13 +103,9 @@ public class PlayerFragment extends Fragment
         String artist = this.mp3File.getArtist();
         TextView artistName = (TextView) view.findViewById(R.id.artist_name);
         artistName.setText(artist);
-
-        initPlayerUI(view);
-
-        return view;
     }
 
-    /***
+    /**
      * Initialises the player widget UI
      */
     private void initPlayerUI(View view){
@@ -165,11 +168,12 @@ public class PlayerFragment extends Fragment
 
     private void forwardButtonAction(){
         mp3Service.nextSong();
-
+        //Update UI
     }
 
     private void rewindButtonAction(){
        mp3Service.previousSong();
+        //Update UI
     }
 
     //Media Player methods:
