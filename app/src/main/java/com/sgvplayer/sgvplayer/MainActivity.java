@@ -23,6 +23,9 @@ import com.sgvplayer.sgvplayer.model.fileNavigator.Mp3File;
 import com.sgvplayer.sgvplayer.FragmentSelector.FragmentSelector;
 import com.sgvplayer.sgvplayer.navigationListener.MainNavigationListener;
 
+import java.io.Serializable;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity
         implements
         MusicFragment.OnFragmentInteractionListener,
@@ -193,8 +196,8 @@ public class MainActivity extends AppCompatActivity
         transaction.commit();
     }
 
-    private void startPlayerFragment(Mp3File mp3File){
-        PlayerFragment newFragment = PlayerFragment.newInstance(mp3File);
+    private void startPlayerFragment(List<Mp3File> mp3File, int index){
+        PlayerFragment newFragment =PlayerFragment.newInstance((Serializable) mp3File,index);
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.addToBackStack(null);
