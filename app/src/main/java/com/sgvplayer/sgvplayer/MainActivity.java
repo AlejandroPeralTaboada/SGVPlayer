@@ -110,14 +110,26 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            int count = getFragmentManager().getBackStackEntryCount();
-            if (count == 0){
-                super.onBackPressed();
-            } else {
-                getFragmentManager().popBackStack();
-            }
+            super.onBackPressed();
         }
     }
+
+    /*
+    @Override
+    public void onBackPressed(){
+        int count = getFragmentManager().getBackStackEntryCount();
+        if (count == 0){
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            if (drawer.isDrawerOpen(GravityCompat.START)){
+                drawer.closeDrawer(GravityCompat.START);
+            } else {
+                super.onBackPressed();
+            }
+        } else {
+            getFragmentManager().popBackStack();
+        }
+    }
+    */
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -164,7 +176,7 @@ public class MainActivity extends AppCompatActivity
         musicTabHostFragment = new MusicTabHostFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, musicTabHostFragment);
-        transaction.addToBackStack(null);
+        //transaction.addToBackStack(null);
         transaction.commit();
     }
 
@@ -176,7 +188,7 @@ public class MainActivity extends AppCompatActivity
         // and add the transaction to the back stack so the user can navigate back
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, newFragment);
-        transaction.addToBackStack(null);
+        //transaction.addToBackStack(null);
 
         // Commit the transaction
         transaction.commit();
@@ -185,8 +197,12 @@ public class MainActivity extends AppCompatActivity
     private void startPlayerFragment(MP3File mp3File){
         PlayerFragment newFragment =PlayerFragment.newInstance(mp3File);
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.fragment_container, newFragment).commit();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.addToBackStack(null);
+        transaction.replace(R.id.fragment_container, newFragment).commit();
+
+        //FragmentManager fragmentManager = getSupportFragmentManager();
+        //fragmentManager.beginTransaction().replace(R.id.fragment_container, newFragment).commit();
         // Send the (@link MP3File) selected. See:
         // http://stackoverflow.com/questions/13445594/data-sharing-between-fragments-and-activity-in-android
         // http://stackoverflow.com/questions/17436298/how-to-pass-a-variable-from-activity-to-fragment-and-pass-it-back
