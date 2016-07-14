@@ -53,6 +53,9 @@ public class Mp3Service extends Service{
 
     public void playSong(MP3File song) {
         this.song = song;
+        if (mediaPlayer!=null){
+            mediaPlayer.release();
+        }
         mediaPlayer = MediaPlayer.create(this, Uri.parse(song.getFile().getAbsolutePath()));
         mediaPlayer.start();
     }
