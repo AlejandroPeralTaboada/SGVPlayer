@@ -110,7 +110,12 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            int count = getFragmentManager().getBackStackEntryCount();
+            if (count == 0){
+                super.onBackPressed();
+            } else {
+                getFragmentManager().popBackStack();
+            }
         }
     }
 
@@ -159,6 +164,7 @@ public class MainActivity extends AppCompatActivity
         musicTabHostFragment = new MusicTabHostFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, musicTabHostFragment);
+        transaction.addToBackStack(null);
         transaction.commit();
     }
 
@@ -170,7 +176,7 @@ public class MainActivity extends AppCompatActivity
         // and add the transaction to the back stack so the user can navigate back
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, newFragment);
-        //transaction.addToBackStack(null);
+        transaction.addToBackStack(null);
 
         // Commit the transaction
         transaction.commit();
