@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
 import android.widget.TabHost;
+import android.widget.TextView;
 
 
 import com.sgvplayer.sgvplayer.MusicFragment.OnFragmentInteractionListener;
@@ -57,9 +58,11 @@ public class MusicTabHostFragment extends Fragment implements ViewPager.OnPageCh
         String[] tabNames = resources.getStringArray(R.array.tabs_name);
 
         for (String s : tabNames) {
-            TabHost.TabSpec tabSpec;
-            tabSpec = tabHost.newTabSpec(s);
-            tabSpec.setIndicator(s);
+
+            View tabView =LayoutInflater.from(getActivity()).inflate(R.layout.tabs_layout,tabHost.getTabWidget(),false);
+           ((TextView)tabView.findViewById(R.id.tabs_layout_text)).setText(s);
+            TabHost.TabSpec tabSpec = tabHost.newTabSpec(s);
+            tabSpec.setIndicator(tabView);
             tabSpec.setContent(new FakeContent(getContext()));
             tabHost.addTab(tabSpec);
         }
