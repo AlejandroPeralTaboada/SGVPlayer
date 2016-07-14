@@ -102,9 +102,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onListFragmentInteraction(List<Mp3File> mp3File, int index){
-
-        startPlayerFragment(mp3File,index);
+    public void onListFragmentInteraction(Mp3File mp3File){
+        startPlayerFragment(mp3File);
     }
 
     @Override

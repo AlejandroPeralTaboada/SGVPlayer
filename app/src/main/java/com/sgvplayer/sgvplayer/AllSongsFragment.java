@@ -33,8 +33,7 @@ public class AllSongsFragment extends Fragment {
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public AllSongsFragment() {
-    }
+    public AllSongsFragment() {}
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
