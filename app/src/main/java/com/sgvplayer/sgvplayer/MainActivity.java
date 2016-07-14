@@ -26,6 +26,7 @@ import com.sgvplayer.sgvplayer.navigationListener.MainNavigationListener;
 
 public class MainActivity extends AppCompatActivity
         implements
+        MusicFragment.OnFragmentInteractionListener,
         PlayerFragment.OnFragmentInteractionListener,
         ClassifierFragment.OnFragmentInteractionListener,
         AllSongsFragment.OnListFragmentInteractionListener,
@@ -186,4 +187,8 @@ public class MainActivity extends AppCompatActivity
         // http://stackoverflow.com/questions/21093809/pass-custom-class-to-fragment
     }
 
+    @Override
+    public void onFragmentInteraction(int id) {
+
+    }
 }
