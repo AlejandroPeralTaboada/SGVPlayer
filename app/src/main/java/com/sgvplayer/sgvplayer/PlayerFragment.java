@@ -1,9 +1,12 @@
 package com.sgvplayer.sgvplayer;
 
 import android.content.Context;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,7 +70,7 @@ public class PlayerFragment extends Fragment
         return fragment;
     }
 
-    @Override @SuppressWarnings("unchecked")
+    @Override @SuppressWarnings("unchecked") //Alv:This is SO ugly
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
@@ -94,16 +97,30 @@ public class PlayerFragment extends Fragment
         TextView artistName = (TextView) view.findViewById(R.id.artist_name);
         artistName.setText(artist);
 
-        //Initialise player widget:
+        initPlayerUI(view);
+
+        return view;
+    }
+
+    /***
+     * Initialises the player widget UI
+     */
+    private void initPlayerUI(View view){
         ImageButton playPauseButton = (ImageButton) view.findViewById(R.id.play_pause_button);
         playPauseButton.setOnClickListener(this);
+
+        ImageButton forwardButton = (ImageButton) view.findViewById(R.id.forward_button);
+        forwardButton.setOnClickListener(this);
+
+        ImageButton rewindButton = (ImageButton) view.findViewById(R.id.rewind_button);
+        rewindButton.setOnClickListener(this);
+
         seekBar = (SeekBar) view.findViewById(R.id.seek_bar);
+
         String songTitle = this.mp3File.getFile().getName();
         TextView scrollingSongTitle = (TextView) view.findViewById(R.id.scrolling_song_title);
         scrollingSongTitle.setText(songTitle);
         scrollingSongTitle.setSelected(true);
-
-        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -137,6 +154,28 @@ public class PlayerFragment extends Fragment
             case R.id.play_pause_button:
                 this.mp3Service.startStop();
                 break;
+            case R.id.forward_button:
+                forwardButtonAction();
+                break;
+            case R.id.rewind_button:
+                rewindButtonAction();
+                break;
+        }
+    }
+
+    private void forwardButtonAction(){
+        if (index+1 <= mp3Files.size()){
+            PlayerFragment newFragment =PlayerFragment.newInstance((Serializable) mp3Files,index+1);
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.replace(R.id.fragment_container, newFragment).commit();
+        }
+    }
+
+    private void rewindButtonAction(){
+        if (index-1 >= 0){
+            PlayerFragment newFragment =PlayerFragment.newInstance((Serializable) mp3Files,index-1);
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.replace(R.id.fragment_container, newFragment).commit();
         }
     }
 

@@ -196,8 +196,8 @@ public class MainActivity extends AppCompatActivity
         transaction.commit();
     }
 
-    private void startPlayerFragment(List<Mp3File> mp3File, int index){
-        PlayerFragment newFragment =PlayerFragment.newInstance((Serializable) mp3File,index);
+    private void startPlayerFragment(List<Mp3File> mp3FileList, int index){
+        PlayerFragment newFragment =PlayerFragment.newInstance((Serializable) mp3FileList,index);
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.addToBackStack(null);
