@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import com.sgvplayer.sgvplayer.model.fileNavigator.FileNavigatorImp;
 import com.sgvplayer.sgvplayer.model.fileNavigator.Mp3File;
 
+import java.util.List;
+
 /**
  * A fragment representing a list of Items.
  * <p>
@@ -103,6 +105,6 @@ public class AllSongsFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(Mp3File mp3File);
+        void onListFragmentInteraction(List<Mp3File> mp3File, int index);
     }
 }

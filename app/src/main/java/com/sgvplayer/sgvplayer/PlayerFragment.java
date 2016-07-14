@@ -1,4 +1,4 @@
- package com.sgvplayer.sgvplayer;
+package com.sgvplayer.sgvplayer;
 
 import android.content.Context;
 import android.net.Uri;
@@ -17,9 +17,11 @@ import com.sgvplayer.sgvplayer.model.mp3Service.Mp3ServiceProvided;
 import com.sgvplayer.sgvplayer.model.mp3Service.Mp3ServiceProvider;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 
- /**
+/**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
  * {@link PlayerFragment.OnFragmentInteractionListener} interface
@@ -28,19 +30,22 @@ import java.io.Serializable;
  * create an instance of this fragment.
  */
 public class PlayerFragment extends Fragment
-         implements Mp3ServiceProvided,
-                    View.OnClickListener {
+        implements Mp3ServiceProvided,
+        View.OnClickListener {
 
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-     private static final String ARG_MP3FILE = "mp3File";
+    private static final String ARG_MP3FILES = "mp3File";
+    private static final String ARG_INDEX = "index";
 
+    private int index;
     private Mp3File mp3File;
-     private Mp3Service mp3Service;
+    private List<Mp3File> mp3Files;
+    private Mp3Service mp3Service;
     private OnFragmentInteractionListener mListener;
 
-     //For the media player:
-     Thread updateSeekBar;
-     SeekBar seekBar;
+    //For the media player:
+    Thread updateSeekBar;
+    SeekBar seekBar;
 
     public PlayerFragment() {
         // Required empty public constructor
@@ -49,22 +54,27 @@ public class PlayerFragment extends Fragment
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
-     * @param mp3File File to play.
+     *
+     * @param mp3Files File to play.
      * @return A new instance of fragment PlayerFragment.
      */
-    public static PlayerFragment newInstance(Serializable mp3File) {
+    public static PlayerFragment newInstance(Serializable mp3Files, int index) {
         PlayerFragment fragment = new PlayerFragment();
         Bundle args = new Bundle();
-        args.putSerializable(ARG_MP3FILE, mp3File);
+        args.putSerializable(ARG_MP3FILES, mp3Files);
+        args.putSerializable(ARG_INDEX, index);
         fragment.setArguments(args);
         return fragment;
     }
 
-    @Override
+    @Override @SuppressWarnings("unchecked")
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mp3File = (Mp3File) getArguments().getSerializable(ARG_MP3FILE);
+            Object o = getArguments().getSerializable(ARG_MP3FILES);
+            mp3Files = (List<Mp3File>) o;
+            index = (int) getArguments().getSerializable(ARG_INDEX);
+            mp3File = mp3Files.get(index);
         }
         //Para el player:
         Mp3ServiceProvider mp3ServiceProvider = new Mp3ServiceProvider(this, this.getActivity());
@@ -121,64 +131,64 @@ public class PlayerFragment extends Fragment
         mListener = null;
     }
 
-     @Override
-     public void onClick(View v) {
-         switch (v.getId()) {
-             case R.id.play_pause_button:
-                 this.mp3Service.startStop();
-                 break;
-         }
-     }
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.play_pause_button:
+                this.mp3Service.startStop();
+                break;
+        }
+    }
 
-     //Media Player methods:
-     //Called by Mp3ServiceProvider
-     @Override
-     public void onServiceConnected(Mp3Service mp3Service){
-         //implement onServiceConnected
-         this.mp3Service = mp3Service;
-         this.mp3Service.playSong(mp3File);
-         initSeekBar();
-     }
+    //Media Player methods:
+    //Called by Mp3ServiceProvider
+    @Override
+    public void onServiceConnected(Mp3Service mp3Service) {
+        //implement onServiceConnected
+        this.mp3Service = mp3Service;
+        this.mp3Service.playSong(mp3Files.get(index));
+        initSeekBar();
+    }
 
-     //Seek bar:
-     private void initSeekBar() {
-         updateSeekBar = new Thread() {
-             @Override
-             public void run() {
-                 int totalDuration = mp3Service.getDuration();
-                 int currentPosition = mp3Service.getCurrentPosition();
-                 seekBar.setMax(totalDuration);
-                 while (currentPosition < totalDuration) {
-                     try {
-                         sleep(250);
-                         currentPosition = mp3Service.getCurrentPosition();
-                         if (!seekBar.isPressed())
-                             seekBar.setProgress(currentPosition);
-                     } catch (InterruptedException e) {
-                         e.printStackTrace();
-                     }
-                 }
-             }
-         };
-         updateSeekBar.start();
+    //Seek bar:
+    private void initSeekBar() {
+        updateSeekBar = new Thread() {
+            @Override
+            public void run() {
+                int totalDuration = mp3Service.getDuration();
+                int currentPosition = mp3Service.getCurrentPosition();
+                seekBar.setMax(totalDuration);
+                while (currentPosition < totalDuration) {
+                    try {
+                        sleep(250);
+                        currentPosition = mp3Service.getCurrentPosition();
+                        if (!seekBar.isPressed())
+                            seekBar.setProgress(currentPosition);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+        updateSeekBar.start();
 
-         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-             @Override
-             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
 
-             }
+            }
 
-             @Override
-             public void onStartTrackingTouch(SeekBar seekBar) {
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
 
-             }
+            }
 
-             @Override
-             public void onStopTrackingTouch(SeekBar seekBar) {
-                 mp3Service.setCurrentPosition(seekBar.getProgress());
-             }
-         });
-     }
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                mp3Service.setCurrentPosition(seekBar.getProgress());
+            }
+        });
+    }
 
     /**
      * This interface must be implemented by activities that contain this

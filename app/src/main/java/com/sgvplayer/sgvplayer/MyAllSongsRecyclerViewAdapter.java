@@ -34,8 +34,8 @@ public class MyAllSongsRecyclerViewAdapter extends RecyclerView.Adapter<MyAllSon
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
+        final int index = holder.getAdapterPosition();
         //holder.mIdView.setText(mValues.get(position));
         holder.mContentView.setText(mValues.get(position).getFile().getName());
 
@@ -45,7 +45,7 @@ public class MyAllSongsRecyclerViewAdapter extends RecyclerView.Adapter<MyAllSon
                 if (null != mListener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
+                    mListener.onListFragmentInteraction(mValues,index);
                 }
             }
         });
@@ -60,7 +60,6 @@ public class MyAllSongsRecyclerViewAdapter extends RecyclerView.Adapter<MyAllSon
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
-        public Mp3File mItem;
 
         //Alv: Does this the display of a full object?
         public ViewHolder(View view) {
