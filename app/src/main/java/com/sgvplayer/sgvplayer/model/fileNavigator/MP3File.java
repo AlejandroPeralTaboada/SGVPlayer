@@ -1,8 +1,14 @@
 package com.sgvplayer.sgvplayer.model.fileNavigator;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.MediaMetadataRetriever;
 import android.os.Environment;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+
+import com.sgvplayer.sgvplayer.R;
 
 import java.io.File;
 import java.io.Serializable;
@@ -62,6 +68,13 @@ public class Mp3File implements Serializable {
         MediaMetadataRetriever metadataRetriever = new MediaMetadataRetriever();
         metadataRetriever.setDataSource(this.file.getPath());
         return metadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_GENRE);
+    }
+
+    public Bitmap getAlbumCover(){
+        MediaMetadataRetriever metadataRetriever = new MediaMetadataRetriever();
+        metadataRetriever.setDataSource(this.file.getPath());
+        byte [] imageData = metadataRetriever.getEmbeddedPicture();
+        return BitmapFactory.decodeByteArray(imageData, 0, imageData.length);
     }
 
 

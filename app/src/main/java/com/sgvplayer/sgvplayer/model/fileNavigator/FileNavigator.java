@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * Interface to navigate mp3files
- * Created by alejandro on 4/07/16.
+ * Created by Alejandro and Alvaro on 4/07/16.
  */
 public interface FileNavigator {
     /**
@@ -16,4 +16,10 @@ public interface FileNavigator {
      * @return a list of MP3Files of all system
      */
     List<Mp3File> getAllMp3Files(Activity activity);
+
+    List<String> getAllArtists(Activity activity);
+
+    List<String> getAllAlbums (Activity activity);
+
+    List<String> getAllGenres (Activity activity);
 }

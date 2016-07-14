@@ -6,6 +6,8 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Log;
 
+import com.sgvplayer.sgvplayer.model.mp3Service.Mp3Service;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,4 +43,41 @@ public class FileNavigatorImp implements FileNavigator {
                 cursor.close();
         }
     }
+
+    @Override
+    public List<String> getAllArtists(Activity activity){
+        List<String> artistList = new ArrayList<>();
+        List<Mp3File> allMp3Files = getAllMp3Files(activity);
+        for (Mp3File file : allMp3Files){
+            if (!(artistList.contains(file.getArtist()))){
+                artistList.add(file.getArtist());
+            }
+        }
+        return artistList;
+    }
+
+    @Override
+    public List<String> getAllAlbums(Activity activity){
+        List<String> albumList = new ArrayList<>();
+        List<Mp3File> allMp3Files = getAllMp3Files(activity);
+        for (Mp3File file : allMp3Files){
+            if (!(albumList.contains(file.getAlbum()))){
+                albumList.add(file.getAlbum());
+            }
+        }
+        return albumList;
+    }
+
+    @Override
+    public List<String> getAllGenres(Activity activity){
+        List<String> genreList = new ArrayList<>();
+        List<Mp3File> allMp3Files = getAllMp3Files(activity);
+        for (Mp3File file : allMp3Files){
+            if (!(genreList.contains(file.getGenre()))){
+                genreList.add(file.getGenre());
+            }
+        }
+        return genreList;
+    }
+
 }
