@@ -56,6 +56,17 @@ public class FileNavigatorImp implements FileNavigator {
         return artistList;
     }
 
+    public List<Mp3File> getAllSongsFromArtist(Activity activity, String artist){
+        List<Mp3File> songList = new ArrayList<>();
+        List<Mp3File> allMp3Files = getAllMp3Files(activity);
+        for (Mp3File file : allMp3Files){
+            if (file.getArtist().equals(artist)){
+                songList.add(file);
+            }
+        }
+        return songList;
+    }
+
     @Override
     public List<String> getAllAlbums(Activity activity){
         List<String> albumList = new ArrayList<>();

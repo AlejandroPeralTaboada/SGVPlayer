@@ -46,9 +46,12 @@ public class PlayerFragment extends Fragment
     private Mp3Service mp3Service;
     private OnFragmentInteractionListener mListener;
 
-    //For the media player:
+    //For the UI:
     Thread updateSeekBar;
     SeekBar seekBar;
+    TextView fileName;
+    TextView artistName;
+    TextView scrollingSongTitle;
 
     public PlayerFragment() {
         // Required empty public constructor
@@ -97,11 +100,11 @@ public class PlayerFragment extends Fragment
 
     private void initPlayerDisplay(View view){
         String name = "Playing " + this.mp3File.getFile().getName();
-        TextView fileName = (TextView) view.findViewById(R.id.file_name);
+        fileName = (TextView) view.findViewById(R.id.file_name);
         fileName.setText(name);
 
         String artist = this.mp3File.getArtist();
-        TextView artistName = (TextView) view.findViewById(R.id.artist_name);
+        artistName = (TextView) view.findViewById(R.id.artist_name);
         artistName.setText(artist);
     }
 
@@ -121,7 +124,7 @@ public class PlayerFragment extends Fragment
         seekBar = (SeekBar) view.findViewById(R.id.seek_bar);
 
         String songTitle = this.mp3File.getFile().getName();
-        TextView scrollingSongTitle = (TextView) view.findViewById(R.id.scrolling_song_title);
+        scrollingSongTitle = (TextView) view.findViewById(R.id.scrolling_song_title);
         scrollingSongTitle.setText(songTitle);
         scrollingSongTitle.setSelected(true);
     }
@@ -190,18 +193,15 @@ public class PlayerFragment extends Fragment
         initSeekBar();
 
         String songTitle = this.mp3File.getFile().getName();
-        TextView scrollingSongTitle = (TextView) getView().findViewById(R.id.scrolling_song_title);
         scrollingSongTitle.setText(songTitle);
         scrollingSongTitle.setSelected(true);
     }
 
     private void updatePlayerDisplay(){
         String name = "Playing " + this.mp3File.getFile().getName();
-        TextView fileName = (TextView) getView().findViewById(R.id.file_name);
         fileName.setText(name);
 
         String artist = this.mp3File.getArtist();
-        TextView artistName = (TextView) getView().findViewById(R.id.artist_name);
         artistName.setText(artist);
     }
 

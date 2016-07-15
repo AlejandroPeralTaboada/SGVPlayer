@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity
         ClassifierFragment.OnFragmentInteractionListener,
         AllSongsFragment.OnListFragmentInteractionListener,
         ArtistsFragment.OnListFragmentInteractionListener,
+        ArtistSongsFragment.OnListFragmentInteractionListener,
         FragmentSelector {
 
 
@@ -110,6 +111,11 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onArtistsListFragmentInteraction(String artistName){
         //populate a list fragment with songs of an author
+    }
+
+    @Override
+    public void onArtistSongsListFragmentInteraction(List<Mp3File> mp3Files, int index){
+        startPlayerFragment(mp3Files, index);
     }
 
     @Override

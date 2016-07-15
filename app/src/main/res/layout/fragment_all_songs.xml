@@ -9,4 +9,4 @@
     android:background="@color/transparent"
     app:layoutManager="LinearLayoutManager"
     tools:context="com.sgvplayer.sgvplayer.AllSongsFragment"
-    tools:listitem="@layout/fragment_all_songs_list" />
+    tools:listitem="@layout/fragment_all_songs_list_item" />

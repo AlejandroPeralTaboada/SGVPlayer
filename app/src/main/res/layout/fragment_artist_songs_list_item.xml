@@ -3,9 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/list"
-    android:name="com.sgvplayer.sgvplayer.ArtistsFragment"
+    android:name="com.sgvplayer.sgvplayer.ArtistSongsFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
-    tools:context="com.sgvplayer.sgvplayer.ArtistsFragment"
-    tools:listitem="@layout/fragment_artists_list_item" />
+    tools:context="com.sgvplayer.sgvplayer.ArtistSongsFragment"
+    tools:listitem="@layout/fragment_artist_songs" />
