@@ -19,6 +19,8 @@ public interface FileNavigator {
 
     List<String> getAllArtists(Activity activity);
 
+    List <Mp3File> getAllSongsFromArtist(Activity activity, String artist);
+
     List<String> getAllAlbums (Activity activity);
 
     List<String> getAllGenres (Activity activity);

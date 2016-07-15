@@ -8,13 +8,12 @@ import android.widget.TextView;
 
 import com.sgvplayer.sgvplayer.ArtistSongsFragment.OnListFragmentInteractionListener;
 import com.sgvplayer.sgvplayer.R;
-import com.sgvplayer.sgvplayer.dummy.DummyContent.DummyItem;
 import com.sgvplayer.sgvplayer.model.fileNavigator.Mp3File;
 
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
+ * {@link RecyclerView.Adapter} that can display a {@link Mp3File} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
@@ -39,6 +38,7 @@ public class MyArtistSongsRecyclerViewAdapter extends RecyclerView.Adapter<MyArt
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         final int index = holder.getAdapterPosition();
         holder.mContentView.setText(mValues.get(position).getName());
+
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,8 +60,8 @@ public class MyArtistSongsRecyclerViewAdapter extends RecyclerView.Adapter<MyArt
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
-        public DummyItem mItem;
 
+        //Alv: Does this the display of a full object?
         public ViewHolder(View view) {
             super(view);
             mView = view;

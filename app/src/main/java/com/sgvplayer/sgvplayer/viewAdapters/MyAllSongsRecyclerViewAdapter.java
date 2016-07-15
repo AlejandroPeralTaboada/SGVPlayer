@@ -13,7 +13,7 @@ import com.sgvplayer.sgvplayer.model.fileNavigator.Mp3File;
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link Mp3File } and makes a call to the
+ * {@link RecyclerView.Adapter} that can display a {@link Mp3File} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
@@ -37,7 +37,6 @@ public class MyAllSongsRecyclerViewAdapter extends RecyclerView.Adapter<MyAllSon
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         final int index = holder.getAdapterPosition();
-        //holder.mIdView.setText(mValues.get(position));
         holder.mContentView.setText(mValues.get(position).getName());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {

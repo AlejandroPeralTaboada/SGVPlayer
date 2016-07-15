@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onArtistsListFragmentInteraction(String artistName){
-        //populate a list fragment with songs of an author
+        startArtistSongsFragment(artistName);
     }
 
     @Override
@@ -127,23 +127,6 @@ public class MainActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
-
-    /*
-    @Override
-    public void onBackPressed(){
-        int count = getFragmentManager().getBackStackEntryCount();
-        if (count == 0){
-            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-            if (drawer.isDrawerOpen(GravityCompat.START)){
-                drawer.closeDrawer(GravityCompat.START);
-            } else {
-                super.onBackPressed();
-            }
-        } else {
-            getFragmentManager().popBackStack();
-        }
-    }
-    */
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -208,9 +191,15 @@ public class MainActivity extends AppCompatActivity
         transaction.commit();
     }
 
-    private void startPlayerFragment(List<Mp3File> mp3FileList, int index){
-        PlayerFragment newFragment =PlayerFragment.newInstance((Serializable) mp3FileList,index);
+    private void startArtistSongsFragment(String artist){
+        ArtistSongsFragment newFragment = ArtistSongsFragment.newInstance(1,artist);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.addToBackStack(null);
+        transaction.replace(R.id.fragment_container, newFragment).commit();
+    }
 
+    private void startPlayerFragment(List<Mp3File> mp3FileList, int index){
+        PlayerFragment newFragment = PlayerFragment.newInstance((Serializable) mp3FileList,index);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.addToBackStack(null);
         transaction.replace(R.id.fragment_container, newFragment).commit();

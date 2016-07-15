@@ -10,8 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.sgvplayer.sgvplayer.dummy.DummyContent;
-import com.sgvplayer.sgvplayer.dummy.DummyContent.DummyItem;
 import com.sgvplayer.sgvplayer.model.fileNavigator.FileNavigatorImp;
 import com.sgvplayer.sgvplayer.model.fileNavigator.Mp3File;
 import com.sgvplayer.sgvplayer.viewAdapters.MyArtistSongsRecyclerViewAdapter;
@@ -28,25 +26,26 @@ public class ArtistSongsFragment extends Fragment {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
+    private static final String ARG_ARTIST_NAME = "artist-name";
     // TODO: Customize parameters
     private int mColumnCount = 1;
+    private String mArtist;
     private OnListFragmentInteractionListener mListener;
 
-    String artist;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public ArtistSongsFragment() {
-    }
+    public ArtistSongsFragment() {}
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
-    public static ArtistSongsFragment newInstance(int columnCount) {
+    public static ArtistSongsFragment newInstance(int columnCount, String artist) {
         ArtistSongsFragment fragment = new ArtistSongsFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
+        args.putString(ARG_ARTIST_NAME, artist);
         fragment.setArguments(args);
         return fragment;
     }
@@ -57,13 +56,14 @@ public class ArtistSongsFragment extends Fragment {
 
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
+            mArtist = getArguments().getString(ARG_ARTIST_NAME);
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_artist_songs_list_item, container, false);
+        View view = inflater.inflate(R.layout.fragment_artist_songs, container, false);
 
         // Set the adapter
         if (view instanceof RecyclerView) {
@@ -75,9 +75,7 @@ public class ArtistSongsFragment extends Fragment {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
             FileNavigatorImp fileNavigator = new FileNavigatorImp();
-            //TODO:Get and save artist somewhere else
-            this.artist = "Samsung"; //Only for testing
-            recyclerView.setAdapter(new MyArtistSongsRecyclerViewAdapter(fileNavigator.getAllSongsFromArtist(getActivity(),artist), mListener));
+            recyclerView.setAdapter(new MyArtistSongsRecyclerViewAdapter(fileNavigator.getAllSongsFromArtist(getActivity(),mArtist), mListener));
         }
         return view;
     }

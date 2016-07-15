@@ -6,6 +6,7 @@
     android:name="com.sgvplayer.sgvplayer.ArtistsFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/transparent"
     app:layoutManager="LinearLayoutManager"
     tools:context="com.sgvplayer.sgvplayer.ArtistsFragment"
     tools:listitem="@layout/fragment_artists_list_item" />
