@@ -74,8 +74,10 @@ public class ArtistSongsFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            FileNavigatorImp fileNavigator = new FileNavigatorImp();
-            recyclerView.setAdapter(new MyArtistSongsRecyclerViewAdapter(fileNavigator.getAllSongsFromArtist(getActivity(),mArtist), mListener));
+            if (mArtist != null){
+                FileNavigatorImp fileNavigator = new FileNavigatorImp();
+                recyclerView.setAdapter(new MyArtistSongsRecyclerViewAdapter(fileNavigator.getAllSongsFromArtist(getActivity(),mArtist), mListener));
+            }
         }
         return view;
     }

@@ -57,6 +57,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/scrolling_song_title"
         android:text="Single-line text view that scrolls automatically if the text is too long to fit in the widget"
+        android:textColor="@color/colorAccent"
         android:singleLine="true"
         android:ellipsize="marquee"
         android:marqueeRepeatLimit ="marquee_forever"

@@ -13,14 +13,16 @@
         android:gravity="center|top"
         android:layout_marginTop="190dp"
         android:layout_marginLeft="125dp"
-        android:text="Author" />
+        android:text="Author"
+        android:textColor="@color/colorAccent"/>
 
     <TextView
         android:id="@+id/file_name"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:text="@string/hello_blank_fragment" />
+        android:text="Song name"
+        android:textColor="@color/colorAccent"/>
 
     <include layout="@layout/shared_player_main"
         android:layout_gravity="bottom"
