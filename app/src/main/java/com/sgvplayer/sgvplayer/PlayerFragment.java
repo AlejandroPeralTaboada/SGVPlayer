@@ -168,12 +168,37 @@ public class PlayerFragment extends Fragment
 
     private void forwardButtonAction(){
         mp3Service.nextSong();
-        //Update UI
+        index = index+1;
+        mp3File = mp3Files.get(index);
+        stopSeekBar();
+        updatePlayerUI();
+        updatePlayerDisplay();
     }
 
     private void rewindButtonAction(){
-       mp3Service.previousSong();
-        //Update UI
+        mp3Service.previousSong();
+        stopSeekBar();
+        updatePlayerUI();
+        updatePlayerDisplay();
+    }
+
+    private void updatePlayerUI(){
+        initSeekBar();
+
+        String songTitle = this.mp3File.getFile().getName();
+        TextView scrollingSongTitle = (TextView) getView().findViewById(R.id.scrolling_song_title);
+        scrollingSongTitle.setText(songTitle);
+        scrollingSongTitle.setSelected(true);
+    }
+
+    private void updatePlayerDisplay(){
+        String name = "Playing " + this.mp3File.getFile().getName();
+        TextView fileName = (TextView) getView().findViewById(R.id.file_name);
+        fileName.setText(name);
+
+        String artist = this.mp3File.getArtist();
+        TextView artistName = (TextView) getView().findViewById(R.id.artist_name);
+        artistName.setText(artist);
     }
 
     //Media Player methods:
@@ -194,7 +219,8 @@ public class PlayerFragment extends Fragment
                 int totalDuration = mp3Service.getDuration();
                 int currentPosition = mp3Service.getCurrentPosition();
                 seekBar.setMax(totalDuration);
-                while (currentPosition < totalDuration) {
+                Thread thisThread = Thread.currentThread();
+                while (currentPosition < totalDuration && updateSeekBar == thisThread) {
                     try {
                         sleep(250);
                         currentPosition = mp3Service.getCurrentPosition();
@@ -224,6 +250,10 @@ public class PlayerFragment extends Fragment
                 mp3Service.setCurrentPosition(seekBar.getProgress());
             }
         });
+    }
+
+    private void stopSeekBar(){
+        this.updateSeekBar = null;
     }
 
     /**
