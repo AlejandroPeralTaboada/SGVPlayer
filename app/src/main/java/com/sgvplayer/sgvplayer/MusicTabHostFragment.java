@@ -93,7 +93,7 @@ public class MusicTabHostFragment extends Fragment
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(new MusicFragment());
         fragments.add(new AllSongsFragment());
-        fragments.add(new ArtistFragment());
+        fragments.add(new ArtistsFragment());
         fragments.add(new AlbumsFragment());
         fragments.add(new GenresFragment());
         fragments.add(new PlaylistsFragment());
