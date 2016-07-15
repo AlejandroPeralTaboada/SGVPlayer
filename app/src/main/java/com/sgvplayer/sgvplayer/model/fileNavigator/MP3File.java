@@ -20,10 +20,13 @@ import java.io.Serializable;
 public class Mp3File implements Serializable {
     private File file;
     private boolean internalStorage;
+    MediaMetadataRetriever metadataRetriever;
 
     public Mp3File(String path){
         file = new File(path);
         internalStorage = isInternalStorage(file);
+        metadataRetriever = new MediaMetadataRetriever();
+        metadataRetriever.setDataSource(this.file.getPath());
     }
 
     public File getFile() {
@@ -53,30 +56,20 @@ public class Mp3File implements Serializable {
     //Metadata retrieving:
 
     public String getArtist(){
-        MediaMetadataRetriever metadataRetriever = new MediaMetadataRetriever();
-        metadataRetriever.setDataSource(this.file.getPath());
         return metadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST);
     }
 
     public String getAlbum(){
-        MediaMetadataRetriever metadataRetriever = new MediaMetadataRetriever();
-        metadataRetriever.setDataSource(this.file.getPath());
         return metadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ALBUM);
     }
 
     public String getGenre(){
-        MediaMetadataRetriever metadataRetriever = new MediaMetadataRetriever();
-        metadataRetriever.setDataSource(this.file.getPath());
         return metadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_GENRE);
     }
 
     public Bitmap getAlbumCover(){
-        MediaMetadataRetriever metadataRetriever = new MediaMetadataRetriever();
-        metadataRetriever.setDataSource(this.file.getPath());
         byte [] imageData = metadataRetriever.getEmbeddedPicture();
         return BitmapFactory.decodeByteArray(imageData, 0, imageData.length);
     }
-
-
 
 }
