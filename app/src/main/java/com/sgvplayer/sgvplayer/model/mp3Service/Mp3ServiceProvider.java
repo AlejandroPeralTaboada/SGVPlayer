@@ -14,16 +14,21 @@ public class Mp3ServiceProvider implements ServiceConnection {
 
     private Mp3ServiceProvided mp3ServiceProvided;
     private Activity activity;
+    private static Mp3Service mp3Service;
 
-    public Mp3ServiceProvider(Mp3ServiceProvided mp3ServiceProvided, Activity activity){
+    public Mp3ServiceProvider(Mp3ServiceProvided mp3ServiceProvided, Activity activity) {
         this.mp3ServiceProvided = mp3ServiceProvided;
-        this.activity=activity;
-        Intent intent = new Intent(activity.getBaseContext(), Mp3Service.class);
-        activity.startService(intent);
-        activity.bindService(intent, this, Context.BIND_AUTO_CREATE);
+        this.activity = activity;
+        if (mp3Service == null) {
+            Intent intent = new Intent(activity.getBaseContext(), Mp3Service.class);
+            activity.startService(intent);
+            activity.bindService(intent, this, Context.BIND_AUTO_CREATE);
+        }else{
+            mp3ServiceProvided.onServiceConnected(mp3Service);
+        }
     }
 
-    public void disconnect(){
+    public void disconnect() {
         activity.unbindService(this);
     }
 

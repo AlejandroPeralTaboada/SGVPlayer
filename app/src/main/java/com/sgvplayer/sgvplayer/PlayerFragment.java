@@ -166,10 +166,12 @@ public class PlayerFragment extends Fragment
         }
     }
 
+
+
     private void forwardButtonAction(){
         mp3Service.nextSong();
-        index = index+1;
-        mp3File = mp3Files.get(index);
+        index = mp3Service.getIndex();
+        mp3File = mp3Service.getSong();
         stopSeekBar();
         updatePlayerUI();
         updatePlayerDisplay();
@@ -177,6 +179,8 @@ public class PlayerFragment extends Fragment
 
     private void rewindButtonAction(){
         mp3Service.previousSong();
+        index = mp3Service.getIndex();
+        mp3File = mp3Service.getSong();
         stopSeekBar();
         updatePlayerUI();
         updatePlayerDisplay();

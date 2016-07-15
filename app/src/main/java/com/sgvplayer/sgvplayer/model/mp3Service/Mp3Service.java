@@ -112,5 +112,13 @@ public class Mp3Service extends Service{
         mediaPlayer.start();
     }
 
+    public Mp3File getSong(){
+        return songs.get(index);
+    }
+
+    public int getIndex(){
+        return index;
+    }
+
 
 }
