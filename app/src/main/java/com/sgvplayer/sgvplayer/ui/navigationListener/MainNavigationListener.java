@@ -1,11 +1,11 @@
-package com.sgvplayer.sgvplayer.navigationListener;
+package com.sgvplayer.sgvplayer.ui.navigationListener;
 
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
 
-import com.sgvplayer.sgvplayer.fragmentSelector.FragmentSelector;
+import com.sgvplayer.sgvplayer.ui.fragmentSelector.FragmentSelector;
 
 /**
  * Manages the animation of a toolbar

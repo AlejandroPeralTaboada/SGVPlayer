@@ -1,4 +1,4 @@
-package com.sgvplayer.sgvplayer;
+package com.sgvplayer.sgvplayer.ui;
 
 import android.Manifest;
 import android.content.ComponentName;
@@ -23,12 +23,19 @@ import android.view.MenuItem;
 //Added by Alvaro:
 import android.support.v4.app.FragmentTransaction;
 import android.widget.Toast;
+
+import com.sgvplayer.sgvplayer.R;
 import com.sgvplayer.sgvplayer.model.fileNavigator.Mp3File;
 
-import com.sgvplayer.sgvplayer.fragmentSelector.FragmentSelector;
+import com.sgvplayer.sgvplayer.ui.fragmentSelector.FragmentSelector;
 import com.sgvplayer.sgvplayer.model.mp3Service.Mp3Service;
 import com.sgvplayer.sgvplayer.model.mp3Service.Mp3ServiceImp;
-import com.sgvplayer.sgvplayer.navigationListener.MainNavigationListener;
+import com.sgvplayer.sgvplayer.ui.uiMusicTabs.AllSongsFragment;
+import com.sgvplayer.sgvplayer.ui.uiMusicTabs.ArtistSongsFragment;
+import com.sgvplayer.sgvplayer.ui.uiMusicTabs.ArtistsFragment;
+import com.sgvplayer.sgvplayer.ui.uiMusicTabs.MusicFragment;
+import com.sgvplayer.sgvplayer.ui.uiMusicTabs.MusicTabHostFragment;
+import com.sgvplayer.sgvplayer.ui.navigationListener.MainNavigationListener;
 
 import java.io.Serializable;
 import java.util.List;

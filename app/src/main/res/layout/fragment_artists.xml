@@ -8,5 +8,5 @@
     android:layout_height="match_parent"
     android:background="@color/transparent"
     app:layoutManager="LinearLayoutManager"
-    tools:context="com.sgvplayer.sgvplayer.ArtistsFragment"
+    tools:context=".ui.uiMusicTabs.ArtistsFragment"
     tools:listitem="@layout/fragment_artists_list_item" />

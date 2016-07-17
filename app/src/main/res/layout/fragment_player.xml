@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:layout_marginTop="56dp"
     android:background="@mipmap/strokes_wallpaper"
-    tools:context="com.sgvplayer.sgvplayer.PlayerFragment">
+    tools:context=".ui.PlayerFragment">
 
     <TextView
         android:id="@+id/artist_name"

@@ -1,4 +1,4 @@
-package com.sgvplayer.sgvplayer;
+package com.sgvplayer.sgvplayer.ui.uiMusicTabs;
 
 
 import android.os.Bundle;
@@ -7,14 +7,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.sgvplayer.sgvplayer.R;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AlbumsFragment extends Fragment {
+public class PlaylistsFragment extends Fragment {
 
 
-    public AlbumsFragment() {
+    public PlaylistsFragment() {
         // Required empty public constructor
     }
 
@@ -23,7 +25,7 @@ public class AlbumsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_albums, container, false);
+        return inflater.inflate(R.layout.fragment_playlists, container, false);
     }
 
 }

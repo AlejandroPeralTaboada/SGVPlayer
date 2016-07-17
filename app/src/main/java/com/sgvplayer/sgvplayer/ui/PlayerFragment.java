@@ -1,4 +1,4 @@
-package com.sgvplayer.sgvplayer;
+package com.sgvplayer.sgvplayer.ui;
 
 import android.content.Context;
 import android.net.Uri;
@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.sgvplayer.sgvplayer.R;
 import com.sgvplayer.sgvplayer.model.fileNavigator.Mp3File;
 import com.sgvplayer.sgvplayer.model.mp3Service.Mp3Service;
 

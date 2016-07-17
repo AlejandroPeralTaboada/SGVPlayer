@@ -1,9 +1,10 @@
-package com.sgvplayer.sgvplayer;
+package com.sgvplayer.sgvplayer.ui;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
+import com.sgvplayer.sgvplayer.R;
 import com.sgvplayer.sgvplayer.model.fileNavigator.Mp3File;
 import com.sgvplayer.sgvplayer.model.mp3Service.Mp3ServiceImp;
 

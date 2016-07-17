@@ -1,4 +1,4 @@
-package com.sgvplayer.sgvplayer;
+package com.sgvplayer.sgvplayer.ui.uiMusicTabs;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,19 +10,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.sgvplayer.sgvplayer.R;
 import com.sgvplayer.sgvplayer.model.fileNavigator.FileNavigatorImp;
-import com.sgvplayer.sgvplayer.model.fileNavigator.Mp3File;
-import com.sgvplayer.sgvplayer.viewAdapters.MyAllSongsRecyclerViewAdapter;
-
-import java.util.List;
+import com.sgvplayer.sgvplayer.ui.adapters.MyArtistsRecyclerViewAdapter;
 
 /**
  * A fragment representing a list of Items.
- * <p>
+ * <p/>
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
-public class AllSongsFragment extends Fragment {
+public class ArtistsFragment extends Fragment {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -34,12 +32,13 @@ public class AllSongsFragment extends Fragment {
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public AllSongsFragment() {}
+    public ArtistsFragment() {
+    }
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
-    public static AllSongsFragment newInstance(int columnCount) {
-        AllSongsFragment fragment = new AllSongsFragment();
+    public static ArtistsFragment newInstance(int columnCount) {
+        ArtistsFragment fragment = new ArtistsFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
@@ -58,7 +57,7 @@ public class AllSongsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_all_songs, container, false);
+        View view = inflater.inflate(R.layout.fragment_artists, container, false);
 
         // Set the adapter
         if (view instanceof RecyclerView) {
@@ -70,7 +69,7 @@ public class AllSongsFragment extends Fragment {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
             FileNavigatorImp fileNavigator = new FileNavigatorImp();
-            recyclerView.setAdapter(new MyAllSongsRecyclerViewAdapter(fileNavigator.getAllMp3Files(getActivity()), mListener));
+            recyclerView.setAdapter(new MyArtistsRecyclerViewAdapter(fileNavigator.getAllArtists(getActivity()), mListener));
         }
         return view;
     }
@@ -98,13 +97,13 @@ public class AllSongsFragment extends Fragment {
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
      * activity.
-     * <p>
+     * <p/>
      * See the Android Training lesson <a href=
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(List<Mp3File> mp3File, int index);
+        void onArtistsListFragmentInteraction(String artistName);
     }
 }

@@ -8,6 +8,6 @@
     android:layout_height="match_parent"
     android:background="@mipmap/strokes_wallpaper"
     app:layoutManager="LinearLayoutManager"
-    tools:context="com.sgvplayer.sgvplayer.ArtistSongsFragment"
+    tools:context=".ui.uiMusicTabs.ArtistSongsFragment"
     tools:listitem="@layout/fragment_artist_songs_list_item" />
     <!-- android:background="@color/transparent" no funciona!!-->

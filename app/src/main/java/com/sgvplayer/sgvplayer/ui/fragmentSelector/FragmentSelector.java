@@ -1,4 +1,4 @@
-package com.sgvplayer.sgvplayer.fragmentSelector;
+package com.sgvplayer.sgvplayer.ui.fragmentSelector;
 
 /**
  * Selects a fragment of an activity based on a id

@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -34,7 +34,7 @@
         <service android:name=".model.mp3Service.Mp3ServiceImp" />
 
         <activity
-            android:name=".PlayerActivity"
+            android:name=".ui.PlayerActivity"
             android:label="@string/title_activity_player"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>

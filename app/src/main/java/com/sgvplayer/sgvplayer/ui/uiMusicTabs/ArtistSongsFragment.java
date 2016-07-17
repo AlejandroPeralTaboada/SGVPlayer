@@ -1,4 +1,4 @@
-package com.sgvplayer.sgvplayer;
+package com.sgvplayer.sgvplayer.ui.uiMusicTabs;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,9 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.sgvplayer.sgvplayer.R;
 import com.sgvplayer.sgvplayer.model.fileNavigator.FileNavigatorImp;
 import com.sgvplayer.sgvplayer.model.fileNavigator.Mp3File;
-import com.sgvplayer.sgvplayer.viewAdapters.MyArtistSongsRecyclerViewAdapter;
+import com.sgvplayer.sgvplayer.ui.adapters.MyArtistSongsRecyclerViewAdapter;
 
 import java.util.List;
 

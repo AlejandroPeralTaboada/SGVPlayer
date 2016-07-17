@@ -1,4 +1,4 @@
-package com.sgvplayer.sgvplayer;
+package com.sgvplayer.sgvplayer.ui.uiMusicTabs;
 
 
 import android.content.Context;
@@ -18,10 +18,9 @@ import android.widget.TabHost;
 import android.widget.TextView;
 
 
-import com.sgvplayer.sgvplayer.MusicFragment.OnFragmentInteractionListener;
+import com.sgvplayer.sgvplayer.R;
 import com.sgvplayer.sgvplayer.model.fileNavigator.Mp3File;
 import com.sgvplayer.sgvplayer.model.mp3Service.Mp3Service;
-import com.sgvplayer.sgvplayer.model.mp3Service.Mp3ServiceImp;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +28,7 @@ import java.util.List;
 public class MusicTabHostFragment extends Fragment
         implements ViewPager.OnPageChangeListener,
         TabHost.OnTabChangeListener,
-        OnFragmentInteractionListener,
+        MusicFragment.OnFragmentInteractionListener,
         View.OnClickListener {
 
     ViewPager viewPager;
@@ -48,7 +47,7 @@ public class MusicTabHostFragment extends Fragment
     private static final String ARG_MP3FILE = "mp3File";
     private Mp3File mp3File;
     private Mp3Service mp3Service;
-    private OnFragmentInteractionListener mListener;
+    private MusicFragment.OnFragmentInteractionListener mListener;
     Thread updateSeekBar;
     SeekBar seekBar;
 

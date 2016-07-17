@@ -1,4 +1,4 @@
-package com.sgvplayer.sgvplayer.viewAdapters;
+package com.sgvplayer.sgvplayer.ui.adapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -6,23 +6,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.sgvplayer.sgvplayer.ArtistSongsFragment.OnListFragmentInteractionListener;
+import com.sgvplayer.sgvplayer.ui.uiMusicTabs.ArtistsFragment.OnListFragmentInteractionListener;
 import com.sgvplayer.sgvplayer.R;
-import com.sgvplayer.sgvplayer.model.fileNavigator.Mp3File;
+import com.sgvplayer.sgvplayer.dummy.DummyContent.DummyItem;
 
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link Mp3File} and makes a call to the
+ * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
-public class MyArtistSongsRecyclerViewAdapter extends RecyclerView.Adapter<MyArtistSongsRecyclerViewAdapter.ViewHolder> {
+public class MyArtistsRecyclerViewAdapter extends RecyclerView.Adapter<MyArtistsRecyclerViewAdapter.ViewHolder> {
 
-    private final List<Mp3File> mValues;
+    private final List<String> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public MyArtistSongsRecyclerViewAdapter(List<Mp3File> items, OnListFragmentInteractionListener listener) {
+    public MyArtistsRecyclerViewAdapter(List<String> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -30,14 +30,15 @@ public class MyArtistSongsRecyclerViewAdapter extends RecyclerView.Adapter<MyArt
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_artist_songs_list_item, parent, false);
+                .inflate(R.layout.fragment_artists_list_item, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, final int position) {
-        final int index = holder.getAdapterPosition();
-        holder.mContentView.setText(mValues.get(position).getName());
+    public void onBindViewHolder(final ViewHolder holder, int position) {
+        holder.mItem = mValues.get(position);
+        //holder.mIdView.setText(mValues.get(position).id);
+        holder.mContentView.setText(mValues.get(position));
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,7 +46,7 @@ public class MyArtistSongsRecyclerViewAdapter extends RecyclerView.Adapter<MyArt
                 if (null != mListener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    mListener.onArtistSongsListFragmentInteraction(mValues,index);
+                    mListener.onArtistsListFragmentInteraction(holder.mItem);
                 }
             }
         });
@@ -60,8 +61,8 @@ public class MyArtistSongsRecyclerViewAdapter extends RecyclerView.Adapter<MyArt
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
+        public String mItem;
 
-        //Alv: Does this the display of a full object?
         public ViewHolder(View view) {
             super(view);
             mView = view;

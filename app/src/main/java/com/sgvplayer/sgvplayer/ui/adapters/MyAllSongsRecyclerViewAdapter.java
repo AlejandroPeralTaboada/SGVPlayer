@@ -1,4 +1,4 @@
-package com.sgvplayer.sgvplayer.viewAdapters;
+package com.sgvplayer.sgvplayer.ui.adapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.sgvplayer.sgvplayer.AllSongsFragment.OnListFragmentInteractionListener;
+import com.sgvplayer.sgvplayer.ui.uiMusicTabs.AllSongsFragment.OnListFragmentInteractionListener;
 import com.sgvplayer.sgvplayer.R;
 import com.sgvplayer.sgvplayer.model.fileNavigator.Mp3File;
 
