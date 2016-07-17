@@ -1,10 +1,15 @@
 package com.sgvplayer.sgvplayer;
 
 import android.Manifest;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -21,6 +26,8 @@ import android.widget.Toast;
 import com.sgvplayer.sgvplayer.model.fileNavigator.Mp3File;
 
 import com.sgvplayer.sgvplayer.fragmentSelector.FragmentSelector;
+import com.sgvplayer.sgvplayer.model.mp3Service.Mp3Service;
+import com.sgvplayer.sgvplayer.model.mp3Service.Mp3ServiceImp;
 import com.sgvplayer.sgvplayer.navigationListener.MainNavigationListener;
 
 import java.io.Serializable;
@@ -28,16 +35,25 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements
+        Mp3Service,
         MusicFragment.OnFragmentInteractionListener,
         PlayerFragment.OnFragmentInteractionListener,
         ClassifierFragment.OnFragmentInteractionListener,
         AllSongsFragment.OnListFragmentInteractionListener,
         ArtistsFragment.OnListFragmentInteractionListener,
         ArtistSongsFragment.OnListFragmentInteractionListener,
-        FragmentSelector {
+        FragmentSelector, ServiceConnection {
 
 
     private static final int READ_EXTERNAL_STORAGE = 1;
+    private Mp3ServiceImp mp3Service;
+    private MusicTabHostFragment musicTabHostFragment;
+
+    @Override
+    protected void onDestroy() {
+        unbindService(this);
+        super.onDestroy();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +80,9 @@ public class MainActivity extends AppCompatActivity
         }
 
         checkPermissions();
+        Intent intent = new Intent(getBaseContext(), Mp3ServiceImp.class);
+        startService(intent);
+        bindService(intent, this, Context.BIND_AUTO_CREATE);
     }
 
 
@@ -168,7 +187,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    MusicTabHostFragment musicTabHostFragment;
+
     private void moveToMusicTabHostFragment(){
         musicTabHostFragment = new MusicTabHostFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -215,5 +234,71 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onFragmentInteraction(int id) {
 
+    }
+
+    @Override
+    public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+        Mp3ServiceImp.LocalService localService = (Mp3ServiceImp.LocalService) iBinder;
+        mp3Service = localService.getService();
+    }
+
+    @Override
+    public void onServiceDisconnected(ComponentName componentName) {
+
+    }
+
+    @Override
+    public void playSong(List<Mp3File> songs, int index) {
+        mp3Service.playSong(songs,index);
+    }
+
+    @Override
+    public void startStop() {
+        mp3Service.startStop();
+    }
+
+    @Override
+    public void seek(int ms) {
+        mp3Service.seek(ms);
+    }
+
+    @Override
+    public int getCurrentPosition() {
+        return mp3Service.getCurrentPosition();
+    }
+
+    @Override
+    public int getDuration() {
+        return mp3Service.getDuration();
+    }
+
+    @Override
+    public boolean isPlaying() {
+        return mp3Service.isPlaying();
+    }
+
+    @Override
+    public void setCurrentPosition(int position) {
+        mp3Service.setCurrentPosition(position);
+    }
+
+    @Override
+    public void nextSong() {
+        mp3Service.nextSong();
+    }
+
+    @Override
+    public void previousSong() {
+        mp3Service.previousSong();
+    }
+
+    @Override
+    public Mp3File getSong() {
+        return mp3Service.getSong();
+    }
+
+    @Override
+    public int getIndex() {
+        return mp3Service.getIndex();
     }
 }

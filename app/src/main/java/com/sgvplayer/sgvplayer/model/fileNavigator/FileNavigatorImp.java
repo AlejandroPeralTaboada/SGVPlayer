@@ -6,8 +6,6 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Log;
 
-import com.sgvplayer.sgvplayer.model.mp3Service.Mp3Service;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,14 +44,26 @@ public class FileNavigatorImp implements FileNavigator {
 
     @Override
     public List<String> getAllArtists(Activity activity){
-        List<String> artistList = new ArrayList<>();
-        List<Mp3File> allMp3Files = getAllMp3Files(activity);
-        for (Mp3File file : allMp3Files){
-            if (!(artistList.contains(file.getArtist()))){
-                artistList.add(file.getArtist());
+        Uri uri = MediaStore.Audio.Media.getContentUri("external");
+        String[] cols = new String[]{"DISTINCT " +MediaStore.Audio.Media.ARTIST};
+        Cursor cursor = null;
+        try {
+            cursor = activity.getContentResolver().query(uri, cols, MediaStore.Audio.Media.ARTIST,null, null);
+            if (cursor == null)
+                return null;
+            int idxData = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ARTIST);
+            List<String> mp3Files = new ArrayList<>();
+            while (cursor.moveToNext()) {
+                mp3Files.add(cursor.getString(idxData));
             }
+            return mp3Files;
+        } catch (NullPointerException e) {
+            Log.e("Cursor error", e.getLocalizedMessage());
+            return null;
+        } finally {
+            if (cursor != null)
+                cursor.close();
         }
-        return artistList;
     }
 
     @Override

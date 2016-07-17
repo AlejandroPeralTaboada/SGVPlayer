@@ -21,7 +21,7 @@ import android.widget.TextView;
 import com.sgvplayer.sgvplayer.MusicFragment.OnFragmentInteractionListener;
 import com.sgvplayer.sgvplayer.model.fileNavigator.Mp3File;
 import com.sgvplayer.sgvplayer.model.mp3Service.Mp3Service;
-import com.sgvplayer.sgvplayer.model.mp3Service.Mp3ServiceProvided;
+import com.sgvplayer.sgvplayer.model.mp3Service.Mp3ServiceImp;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,8 +30,7 @@ public class MusicTabHostFragment extends Fragment
         implements ViewPager.OnPageChangeListener,
         TabHost.OnTabChangeListener,
         OnFragmentInteractionListener,
-        View.OnClickListener,
-        Mp3ServiceProvided {
+        View.OnClickListener {
 
     ViewPager viewPager;
     TabHost tabHost;
@@ -66,6 +65,18 @@ public class MusicTabHostFragment extends Fragment
         return view;
 
     }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof Mp3Service) {
+            mp3Service =  (Mp3Service) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement mp3Service");
+        }
+    }
+
 
     private void initTabHost() {
         tabHost = (TabHost) view.findViewById(R.id.tabHost);
@@ -169,13 +180,6 @@ public class MusicTabHostFragment extends Fragment
 
     //Media Player methods:
     //Called by Mp3ServiceProvider
-    @Override
-    public void onServiceConnected(Mp3Service mp3Service){
-        //implement onServiceConnected
-        this.mp3Service = mp3Service;
-        //this.mp3Service.playSong(mp3File);
-        initSeekBar();
-    }
 
     //Seek bar:
     private void initSeekBar() {

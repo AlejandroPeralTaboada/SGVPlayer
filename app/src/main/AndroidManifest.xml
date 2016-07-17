@@ -31,7 +31,7 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".model.mp3Service.Mp3Service" />
+        <service android:name=".model.mp3Service.Mp3ServiceImp" />
 
         <activity
             android:name=".PlayerActivity"

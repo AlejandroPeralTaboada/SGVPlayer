@@ -1,12 +1,9 @@
 package com.sgvplayer.sgvplayer;
 
 import android.content.Context;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,11 +13,8 @@ import android.widget.TextView;
 
 import com.sgvplayer.sgvplayer.model.fileNavigator.Mp3File;
 import com.sgvplayer.sgvplayer.model.mp3Service.Mp3Service;
-import com.sgvplayer.sgvplayer.model.mp3Service.Mp3ServiceProvided;
-import com.sgvplayer.sgvplayer.model.mp3Service.Mp3ServiceProvider;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -32,8 +26,7 @@ import java.util.List;
  * Use the {@link PlayerFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PlayerFragment extends Fragment
-        implements Mp3ServiceProvided,
+public class PlayerFragment extends Fragment implements
         View.OnClickListener {
 
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -43,8 +36,8 @@ public class PlayerFragment extends Fragment
     private int index;
     private Mp3File mp3File;
     private List<Mp3File> mp3Files;
-    private Mp3Service mp3Service;
     private OnFragmentInteractionListener mListener;
+    private Mp3Service mp3Service;
 
     //For the UI:
     Thread updateSeekBar;
@@ -82,8 +75,8 @@ public class PlayerFragment extends Fragment
             index = (int) getArguments().getSerializable(ARG_INDEX);
             mp3File = mp3Files.get(index);
         }
-        //Para el player:
-        Mp3ServiceProvider mp3ServiceProvider = new Mp3ServiceProvider(this, this.getActivity());
+        this.mp3Service.playSong(mp3Files,index);
+        //initSeekBar();
     }
 
     @Override
@@ -142,6 +135,7 @@ public class PlayerFragment extends Fragment
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
+            mp3Service =  (Mp3Service) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -153,6 +147,7 @@ public class PlayerFragment extends Fragment
         super.onDetach();
         mListener = null;
     }
+
 
     @Override
     public void onClick(View v) {
@@ -190,7 +185,7 @@ public class PlayerFragment extends Fragment
     }
 
     private void updatePlayerUI(){
-        initSeekBar();
+        //initSeekBar();
 
         String songTitle = this.mp3File.getFile().getName();
         scrollingSongTitle.setText(songTitle);
@@ -206,14 +201,7 @@ public class PlayerFragment extends Fragment
     }
 
     //Media Player methods:
-    //Called by Mp3ServiceProvider
-    @Override
-    public void onServiceConnected(Mp3Service mp3Service) {
-        //implement onServiceConnected
-        this.mp3Service = mp3Service;
-        this.mp3Service.playSong(mp3Files,index);
-        initSeekBar();
-    }
+
 
     //Seek bar:
     private void initSeekBar() {
