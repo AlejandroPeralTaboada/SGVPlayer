@@ -11,13 +11,16 @@ import android.widget.LinearLayout;
 import com.sgvplayer.sgvplayer.R;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.Serializable;
 
 /**
  * Encapsulates a mp3file and checks if it is on the internal storage or on a external sd
  * Created by apt_a on 07/07/2016.
  */
-public class Mp3File implements Serializable {
+public class Mp3File {
     private File file;
     private boolean internalStorage;
     MediaMetadataRetriever metadataRetriever;
@@ -25,10 +28,28 @@ public class Mp3File implements Serializable {
     public Mp3File(String path){
         file = new File(path);
         internalStorage = isInternalStorage(file);
-        metadataRetriever = new MediaMetadataRetriever();
-        metadataRetriever.setDataSource(this.file.getPath());
+        setDataSource();
     }
 
+    private void setDataSource(){
+        metadataRetriever = new MediaMetadataRetriever();
+        FileInputStream inputStream = null;
+        try {
+            inputStream = new FileInputStream(file.getAbsolutePath());
+            metadataRetriever.setDataSource(inputStream.getFD());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            if (inputStream != null){
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+    }
     public File getFile() {
         return file;
     }
