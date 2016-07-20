@@ -67,13 +67,13 @@ public class FileNavigatorImp implements FileNavigator {
         Set<String> artists= new HashSet<>();
         List<Mp3File> allMp3Files = getAllMp3Files();
         for (Mp3File file : allMp3Files) {
-            if (!(artists.contains(file.getAlbum()))) {
-                artists.add(file.getAlbum());
+            if (!(artists.contains(file.getArtist()))) {
+                artists.add(file.getArtist());
             }
         }
         return new ArrayList<>(artists);
     }
-    
+
     @Override
     public List<Mp3File> getAllSongsFromArtist(Activity activity, String artist) {
         List<Mp3File> songList = new ArrayList<>();
@@ -88,14 +88,14 @@ public class FileNavigatorImp implements FileNavigator {
 
     @Override
     public List<String> getAllAlbums(Activity activity) {
-        List<String> albumList = new ArrayList<>();
+        Set<String> albums= new HashSet<>();
         List<Mp3File> allMp3Files = getAllMp3Files();
         for (Mp3File file : allMp3Files) {
-            if (!(albumList.contains(file.getAlbum()))) {
-                albumList.add(file.getAlbum());
+            if (!(albums.contains(file.getAlbum()))) {
+                albums.add(file.getAlbum());
             }
         }
-        return albumList;
+        return new ArrayList<>(albums);
     }
 
     @Override
@@ -103,7 +103,7 @@ public class FileNavigatorImp implements FileNavigator {
         List<String> genreList = new ArrayList<>();
         List<Mp3File> allMp3Files = getAllMp3Files();
         for (Mp3File file : allMp3Files) {
-            if (!(genreList.contains(file.getGenre()))) {
+            if (!(genreList.contains(file.getGenre()))){
                 genreList.add(file.getGenre());
             }
         }

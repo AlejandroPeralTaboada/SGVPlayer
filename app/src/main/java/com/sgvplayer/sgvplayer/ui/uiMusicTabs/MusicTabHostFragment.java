@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.sgvplayer.sgvplayer.R;
 import com.sgvplayer.sgvplayer.model.fileNavigator.Mp3File;
 import com.sgvplayer.sgvplayer.model.mp3Service.Mp3Service;
+import com.sgvplayer.sgvplayer.ui.AlbumsFragment;
 
 import java.util.ArrayList;
 import java.util.List;

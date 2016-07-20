@@ -77,7 +77,6 @@ public class PlayerFragment extends Fragment implements
             mp3File = mp3Files.get(index);
         }
         this.mp3Service.playSong(mp3Files,index);
-        //initSeekBar();
     }
 
     @Override
@@ -116,6 +115,7 @@ public class PlayerFragment extends Fragment implements
         rewindButton.setOnClickListener(this);
 
         seekBar = (SeekBar) view.findViewById(R.id.seek_bar);
+        initSeekBar();
 
         String songTitle = this.mp3File.getFile().getName();
         scrollingSongTitle = (TextView) view.findViewById(R.id.scrolling_song_title);

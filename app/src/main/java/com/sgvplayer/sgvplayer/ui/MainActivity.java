@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity
         AllSongsFragment.OnListFragmentInteractionListener,
         ArtistsFragment.OnListFragmentInteractionListener,
         ArtistSongsFragment.OnListFragmentInteractionListener,
+        AlbumsFragment.OnListFragmentInteractionListener,
         FragmentSelector, ServiceConnection {
 
 
@@ -142,6 +143,11 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onArtistSongsListFragmentInteraction(List<Mp3File> mp3Files, int index){
         startPlayerFragment(mp3Files, index);
+    }
+
+    @Override
+    public void onAlbumsListFragmentInteraction(String albumName){
+        //startAlbumSongsFragment (albumName);
     }
 
     @Override
