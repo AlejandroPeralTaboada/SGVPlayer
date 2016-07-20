@@ -12,10 +12,9 @@ public interface FileNavigator {
     /**
      * Returns a list of files that contains all mp3 files of the device.
      * This method requires external data storage permissions
-     * @param activity the activity who invokes that method
      * @return a list of MP3Files of all system
      */
-    List<Mp3File> getAllMp3Files(Activity activity);
+    List<Mp3File> getAllMp3Files();
 
     List<String> getAllArtists(Activity activity);
 

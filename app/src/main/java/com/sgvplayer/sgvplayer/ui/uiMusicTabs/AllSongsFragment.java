@@ -70,8 +70,8 @@ public class AllSongsFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            FileNavigatorImp fileNavigator = new FileNavigatorImp();
-            recyclerView.setAdapter(new MyAllSongsRecyclerViewAdapter(fileNavigator.getAllMp3Files(getActivity()), mListener));
+            FileNavigatorImp fileNavigator =  FileNavigatorImp.getInstance(getActivity());
+            recyclerView.setAdapter(new MyAllSongsRecyclerViewAdapter(fileNavigator.getAllMp3Files(), mListener));
         }
         return view;
     }
