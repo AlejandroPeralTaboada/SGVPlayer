@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.sgvplayer.sgvplayer.R;
+import com.sgvplayer.sgvplayer.model.fileNavigator.FileNavigator;
 import com.sgvplayer.sgvplayer.model.fileNavigator.FileNavigatorImp;
 import com.sgvplayer.sgvplayer.ui.adapters.MyArtistsRecyclerViewAdapter;
 
@@ -68,7 +69,7 @@ public class ArtistsFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            FileNavigatorImp fileNavigator = new FileNavigatorImp();
+            FileNavigatorImp fileNavigator = FileNavigatorImp.getInstance(getActivity());
             recyclerView.setAdapter(new MyArtistsRecyclerViewAdapter(fileNavigator.getAllArtists(getActivity()), mListener));
         }
         return view;

@@ -76,7 +76,7 @@ public class ArtistSongsFragment extends Fragment {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
             if (mArtist != null){
-                FileNavigatorImp fileNavigator = new FileNavigatorImp();
+                FileNavigatorImp fileNavigator = FileNavigatorImp.getInstance(getActivity());
                 recyclerView.setAdapter(new MyArtistSongsRecyclerViewAdapter(fileNavigator.getAllSongsFromArtist(getActivity(),mArtist), mListener));
             }
         }
