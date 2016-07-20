@@ -65,7 +65,7 @@ public class FileNavigatorImp implements FileNavigator {
                 cursor.close();
         }
     }
-
+    
     @Override
     public List<Mp3File> getAllSongsFromArtist(Activity activity, String artist){
         List<Mp3File> songList = new ArrayList<>();
