@@ -44,6 +44,17 @@ public class FileNavigatorImp implements FileNavigator {
 
     @Override
     public List<String> getAllArtists(Activity activity){
+        List<String> artistList = new ArrayList<>();
+        List<Mp3File> allMp3Files = getAllMp3Files(activity);
+        for (Mp3File file : allMp3Files){
+            if (!(artistList.contains(file.getArtist()))){
+                artistList.add(file.getArtist());
+            }
+        }
+        return artistList;
+    }
+    /*
+    public List<String> getAllArtists(Activity activity){
         Uri uri = MediaStore.Audio.Media.getContentUri("external");
         String[] cols = new String[]{"DISTINCT " +MediaStore.Audio.Media.ARTIST};
         Cursor cursor = null;
@@ -65,6 +76,7 @@ public class FileNavigatorImp implements FileNavigator {
                 cursor.close();
         }
     }
+    */
 
     @Override
     public List<Mp3File> getAllSongsFromArtist(Activity activity, String artist){
