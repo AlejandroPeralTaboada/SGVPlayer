@@ -34,6 +34,7 @@ import com.sgvplayer.sgvplayer.ui.uiMusicTabs.AlbumsFragment;
 import com.sgvplayer.sgvplayer.ui.uiMusicTabs.AllSongsFragment;
 import com.sgvplayer.sgvplayer.ui.uiMusicTabs.ArtistSongsFragment;
 import com.sgvplayer.sgvplayer.ui.uiMusicTabs.ArtistsFragment;
+import com.sgvplayer.sgvplayer.ui.uiMusicTabs.GenresFragment;
 import com.sgvplayer.sgvplayer.ui.uiMusicTabs.MusicFragment;
 import com.sgvplayer.sgvplayer.ui.uiMusicTabs.MusicTabHostFragment;
 import com.sgvplayer.sgvplayer.ui.navigationListener.MainNavigationListener;
@@ -51,6 +52,7 @@ public class MainActivity extends AppCompatActivity
         ArtistsFragment.OnListFragmentInteractionListener,
         ArtistSongsFragment.OnListFragmentInteractionListener,
         AlbumsFragment.OnListFragmentInteractionListener,
+        GenresFragment.OnListFragmentInteractionListener,
         FragmentSelector, ServiceConnection {
 
 
@@ -149,6 +151,11 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onAlbumsListFragmentInteraction(String albumName){
         //startAlbumSongsFragment (albumName);
+    }
+
+    @Override
+    public void onGenresListFragmentInteraction(String genreName){
+        //startGenreSongsFragment (genreName);
     }
 
     @Override
