@@ -16,7 +16,7 @@ import java.util.Set;
 
 /**
  * Implementation of FileNavigator using cursors and media providers
- * Created by apt_a on 07/07/2016.
+ * Created by Alejandro y Alvaro Furlan Falcao on 07/07/2016.
  */
 public class FileNavigatorImp implements FileNavigator {
 
@@ -64,14 +64,17 @@ public class FileNavigatorImp implements FileNavigator {
 
     @Override
     public List<String> getAllArtists(Activity activity) {
-        Set<String> artists= new HashSet<>();
+        Set<String> artistsSet= new HashSet<>();
         List<Mp3File> allMp3Files = getAllMp3Files();
         for (Mp3File file : allMp3Files) {
-            if (!(artists.contains(file.getArtist()))) {
-                artists.add(file.getArtist());
+            if (!(artistsSet.contains(file.getArtist()))) {
+                artistsSet.add(file.getArtist());
             }
         }
-        return new ArrayList<>(artists);
+        if (artistsSet.contains(null)){
+            artistsSet.remove(null);
+        }
+        return new ArrayList<>(artistsSet);
     }
 
     @Override
@@ -88,26 +91,32 @@ public class FileNavigatorImp implements FileNavigator {
 
     @Override
     public List<String> getAllAlbums(Activity activity) {
-        Set<String> albums= new HashSet<>();
+        Set<String> albumsSet= new HashSet<>();
         List<Mp3File> allMp3Files = getAllMp3Files();
         for (Mp3File file : allMp3Files) {
-            if (!(albums.contains(file.getAlbum()))) {
-                albums.add(file.getAlbum());
+            if (!(albumsSet.contains(file.getAlbum()))) {
+                albumsSet.add(file.getAlbum());
             }
         }
-        return new ArrayList<>(albums);
+        if (albumsSet.contains(null)){
+            albumsSet.remove(null);
+        }
+        return new ArrayList<>(albumsSet);
     }
 
     @Override
     public List<String> getAllGenres(Activity activity) {
-        List<String> genreList = new ArrayList<>();
+        Set<String> genresSet = new HashSet<>();
         List<Mp3File> allMp3Files = getAllMp3Files();
         for (Mp3File file : allMp3Files) {
-            if (!(genreList.contains(file.getGenre()))){
-                genreList.add(file.getGenre());
+            if (!(genresSet.contains(file.getGenre()))){
+                genresSet.add(file.getGenre());
             }
         }
-        return genreList;
+        if (genresSet.contains(null)){
+            genresSet.remove(null);
+        }
+        return new ArrayList<>(genresSet);
     }
 
 }

@@ -1,4 +1,4 @@
-package com.sgvplayer.sgvplayer.ui;
+package com.sgvplayer.sgvplayer.ui.uiMusicTabs;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -11,14 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.sgvplayer.sgvplayer.R;
-import com.sgvplayer.sgvplayer.ui.dummy.DummyContent;
-import com.sgvplayer.sgvplayer.ui.dummy.DummyContent.DummyItem;
-import com.sgvplayer.sgvplayer.model.fileNavigator.FileNavigator;
 import com.sgvplayer.sgvplayer.model.fileNavigator.FileNavigatorImp;
-import com.sgvplayer.sgvplayer.ui.MyAlbumsRecyclerViewAdapter;
-
-
-import java.util.List;
+import com.sgvplayer.sgvplayer.ui.adapters.MyAlbumsRecyclerViewAdapter;
 
 /**
  * A fragment representing a list of Items.

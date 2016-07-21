@@ -30,6 +30,7 @@ import com.sgvplayer.sgvplayer.model.fileNavigator.Mp3File;
 import com.sgvplayer.sgvplayer.ui.fragmentSelector.FragmentSelector;
 import com.sgvplayer.sgvplayer.model.mp3Service.Mp3Service;
 import com.sgvplayer.sgvplayer.model.mp3Service.Mp3ServiceImp;
+import com.sgvplayer.sgvplayer.ui.uiMusicTabs.AlbumsFragment;
 import com.sgvplayer.sgvplayer.ui.uiMusicTabs.AllSongsFragment;
 import com.sgvplayer.sgvplayer.ui.uiMusicTabs.ArtistSongsFragment;
 import com.sgvplayer.sgvplayer.ui.uiMusicTabs.ArtistsFragment;
