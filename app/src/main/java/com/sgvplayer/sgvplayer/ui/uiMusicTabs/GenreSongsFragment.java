@@ -13,7 +13,8 @@ import android.view.ViewGroup;
 import com.sgvplayer.sgvplayer.R;
 import com.sgvplayer.sgvplayer.model.fileNavigator.FileNavigatorImp;
 import com.sgvplayer.sgvplayer.model.fileNavigator.Mp3File;
-import com.sgvplayer.sgvplayer.ui.adapters.MyArtistSongsRecyclerViewAdapter;
+import com.sgvplayer.sgvplayer.ui.adapters.MyGenreSongsRecyclerViewAdapter;
+import com.sgvplayer.sgvplayer.ui.dummy.DummyContent;
 
 import java.util.List;
 
@@ -23,29 +24,30 @@ import java.util.List;
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
-public class ArtistSongsFragment extends Fragment {
+public class GenreSongsFragment extends Fragment {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
-    private static final String ARG_ARTIST_NAME = "artist-name";
+    public static final String ARG_GENRE_NAME = "genre-name";
     // TODO: Customize parameters
     private int mColumnCount = 1;
-    private String mArtist;
+    private String mGenre;
     private OnListFragmentInteractionListener mListener;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public ArtistSongsFragment() {}
+    public GenreSongsFragment() {
+    }
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
-    public static ArtistSongsFragment newInstance(int columnCount, String artist) {
-        ArtistSongsFragment fragment = new ArtistSongsFragment();
+    public static GenreSongsFragment newInstance(int columnCount, String genre) {
+        GenreSongsFragment fragment = new GenreSongsFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
-        args.putString(ARG_ARTIST_NAME, artist);
+        args.putString(ARG_GENRE_NAME, genre);
         fragment.setArguments(args);
         return fragment;
     }
@@ -56,14 +58,14 @@ public class ArtistSongsFragment extends Fragment {
 
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
-            mArtist = getArguments().getString(ARG_ARTIST_NAME);
+            mGenre = getArguments().getString(ARG_GENRE_NAME);
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_artist_songs, container, false);
+        View view = inflater.inflate(R.layout.fragment_genre_songs, container, false);
 
         // Set the adapter
         if (view instanceof RecyclerView) {
@@ -74,9 +76,9 @@ public class ArtistSongsFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            if (mArtist != null){
+            if (mGenre != null){
                 FileNavigatorImp fileNavigator = FileNavigatorImp.getInstance(getActivity());
-                recyclerView.setAdapter(new MyArtistSongsRecyclerViewAdapter(fileNavigator.getAllSongsFromArtist(getActivity(),mArtist), mListener));
+                recyclerView.setAdapter(new MyGenreSongsRecyclerViewAdapter(fileNavigator.getAllSongsFromGenre(mGenre), mListener));
             }
         }
         return view;
@@ -111,6 +113,7 @@ public class ArtistSongsFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnListFragmentInteractionListener {
-        void onArtistSongsListFragmentInteraction(List<Mp3File> mp3File, int index);
+        // TODO: Update arg name (add plural)
+        void onGenreSongsListFragmentInteraction(List<Mp3File> mp3File, int index);
     }
 }

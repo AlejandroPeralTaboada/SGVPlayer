@@ -35,6 +35,7 @@ import com.sgvplayer.sgvplayer.ui.uiMusicTabs.AlbumsFragment;
 import com.sgvplayer.sgvplayer.ui.uiMusicTabs.AllSongsFragment;
 import com.sgvplayer.sgvplayer.ui.uiMusicTabs.ArtistSongsFragment;
 import com.sgvplayer.sgvplayer.ui.uiMusicTabs.ArtistsFragment;
+import com.sgvplayer.sgvplayer.ui.uiMusicTabs.GenreSongsFragment;
 import com.sgvplayer.sgvplayer.ui.uiMusicTabs.GenresFragment;
 import com.sgvplayer.sgvplayer.ui.uiMusicTabs.MusicFragment;
 import com.sgvplayer.sgvplayer.ui.uiMusicTabs.MusicTabHostFragment;
@@ -54,6 +55,7 @@ public class MainActivity extends AppCompatActivity
         AlbumsFragment.OnListFragmentInteractionListener,
         AlbumSongsFragment.OnListFragmentInteractionListener,
         GenresFragment.OnListFragmentInteractionListener,
+        GenreSongsFragment.OnListFragmentInteractionListener,
         FragmentSelector, ServiceConnection {
 
 
@@ -161,7 +163,12 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onGenresListFragmentInteraction(String genreName){
-        //startGenreSongsFragment (genreName);
+        startGenreSongsFragment (genreName);
+    }
+
+    @Override
+    public void onGenreSongsListFragmentInteraction(List<Mp3File> mp3Files, int index){
+        startPlayerFragment(mp3Files, index);
     }
 
     @Override
@@ -246,6 +253,13 @@ public class MainActivity extends AppCompatActivity
 
     private void startAlbumSongsFragment(String album){
         AlbumSongsFragment newFragment = AlbumSongsFragment.newInstance(1,album);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.addToBackStack(null);
+        transaction.replace(R.id.fragment_container, newFragment).commit();
+    }
+
+    private void startGenreSongsFragment(String genre){
+        GenreSongsFragment newFragment = GenreSongsFragment.newInstance(1,genre);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.addToBackStack(null);
         transaction.replace(R.id.fragment_container, newFragment).commit();
