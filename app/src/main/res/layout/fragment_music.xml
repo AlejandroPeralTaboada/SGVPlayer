@@ -18,17 +18,6 @@
         android:layout_toStartOf="@+id/artists_button" />
 
     <Button
-        android:id="@+id/playlists_button"
-        android:layout_width="160dp"
-        android:layout_height="100dp"
-        android:text="@string/music_playlists"
-        android:alpha="0.6"
-        android:layout_gravity="end|top"
-        android:layout_below="@+id/genres_button"
-        android:layout_alignLeft="@+id/genres_button"
-        android:layout_alignStart="@+id/genres_button" />
-
-    <Button
         android:id="@+id/artists_button"
         android:layout_width="160dp"
         android:layout_height="100dp"
@@ -38,8 +27,8 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginRight="30dp"
-        android:layout_marginEnd="30dp" />
+        android:layout_marginRight="20dp"
+        android:layout_marginEnd="20dp" />
 
     <Button
         android:id="@+id/albums_button"
@@ -47,10 +36,10 @@
         android:layout_height="100dp"
         android:text="@string/music_albums"
         android:alpha="0.6"
-        android:layout_gravity="end|center"
-        android:layout_below="@+id/artists_button"
-        android:layout_alignLeft="@+id/artists_button"
-        android:layout_alignStart="@+id/artists_button" />
+        android:layout_gravity="start|bottom"
+        android:layout_below="@+id/all_songs_button"
+        android:layout_alignLeft="@+id/all_songs_button"
+        android:layout_alignStart="@+id/all_songs_button" />
 
     <Button
         android:id="@+id/genres_button"
@@ -58,10 +47,21 @@
         android:layout_height="100dp"
         android:text="@string/music_genres"
         android:alpha="0.6"
-        android:layout_gravity="start|bottom"
-        android:layout_below="@+id/all_songs_button"
-        android:layout_alignLeft="@+id/all_songs_button"
-        android:layout_alignStart="@+id/all_songs_button" />
+        android:layout_gravity="end|center"
+        android:layout_below="@+id/artists_button"
+        android:layout_alignLeft="@+id/artists_button"
+        android:layout_alignStart="@+id/artists_button" />
+
+    <Button
+        android:id="@+id/playlists_button"
+        android:layout_width="160dp"
+        android:layout_height="100dp"
+        android:text="@string/music_playlists"
+        android:alpha="0.6"
+        android:layout_gravity="end|top"
+        android:layout_below="@+id/albums_button"
+        android:layout_alignLeft="@+id/albums_button"
+        android:layout_alignStart="@+id/albums_button" />
 
     <Button
         android:id="@+id/folders_button"
@@ -70,8 +70,8 @@
         android:text="@string/music_folders"
         android:alpha="0.6"
         android:layout_gravity="end|bottom"
-        android:layout_below="@+id/albums_button"
-        android:layout_alignLeft="@+id/albums_button"
-        android:layout_alignStart="@+id/albums_button" />
+        android:layout_below="@+id/genres_button"
+        android:layout_alignLeft="@+id/genres_button"
+        android:layout_alignStart="@+id/genres_button" />
 
 </RelativeLayout>
