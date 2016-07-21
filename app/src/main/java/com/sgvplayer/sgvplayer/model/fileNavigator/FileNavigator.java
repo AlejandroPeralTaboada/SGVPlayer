@@ -22,5 +22,7 @@ public interface FileNavigator {
 
     List<String> getAllAlbums (Activity activity);
 
+    List<Mp3File> getAllSongsFromAlbum(String album);
+
     List<String> getAllGenres (Activity activity);
 }

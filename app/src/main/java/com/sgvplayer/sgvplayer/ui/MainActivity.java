@@ -43,8 +43,7 @@ import java.io.Serializable;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
-        implements
-        Mp3Service,
+        implements Mp3Service,
         MusicFragment.OnFragmentInteractionListener,
         PlayerFragment.OnFragmentInteractionListener,
         ClassifierFragment.OnFragmentInteractionListener,
@@ -52,6 +51,7 @@ public class MainActivity extends AppCompatActivity
         ArtistsFragment.OnListFragmentInteractionListener,
         ArtistSongsFragment.OnListFragmentInteractionListener,
         AlbumsFragment.OnListFragmentInteractionListener,
+        AlbumSongsFragment.OnListFragmentInteractionListener,
         GenresFragment.OnListFragmentInteractionListener,
         FragmentSelector, ServiceConnection {
 
@@ -150,7 +150,12 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onAlbumsListFragmentInteraction(String albumName){
-        //startAlbumSongsFragment (albumName);
+        startAlbumSongsFragment (albumName);
+    }
+
+    @Override
+    public void onAlbumSongsListFragmentInteraction(List<Mp3File> mp3Files, int index){
+        startPlayerFragment(mp3Files, index);
     }
 
     @Override
@@ -233,6 +238,13 @@ public class MainActivity extends AppCompatActivity
 
     private void startArtistSongsFragment(String artist){
         ArtistSongsFragment newFragment = ArtistSongsFragment.newInstance(1,artist);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.addToBackStack(null);
+        transaction.replace(R.id.fragment_container, newFragment).commit();
+    }
+
+    private void startAlbumSongsFragment(String album){
+        AlbumSongsFragment newFragment = AlbumSongsFragment.newInstance(1,album);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.addToBackStack(null);
         transaction.replace(R.id.fragment_container, newFragment).commit();

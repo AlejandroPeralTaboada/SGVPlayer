@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/list"
+    android:name="com.sgvplayer.sgvplayer.ui.AlbumSongsFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="@dimen/nav_header_margin"
+    android:background="@mipmap/strokes_wallpaper"
+    app:layoutManager="LinearLayoutManager"
+    tools:context="com.sgvplayer.sgvplayer.ui.AlbumSongsFragment"
+    tools:listitem="@layout/fragment_album_songs_list_item" />
+    <!-- android:background="@color/transparent" no funciona!!-->
