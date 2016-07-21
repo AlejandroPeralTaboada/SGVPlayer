@@ -1,6 +1,8 @@
 package com.sgvplayer.sgvplayer.ui;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -45,6 +47,7 @@ public class PlayerFragment extends Fragment implements
     SeekBar seekBar;
     TextView fileName;
     TextView artistName;
+    ImageButton playPauseButton;
     TextView scrollingSongTitle;
 
     public PlayerFragment() {
@@ -105,7 +108,7 @@ public class PlayerFragment extends Fragment implements
      * Initialises the player widget UI
      */
     private void initPlayerUI(View view){
-        ImageButton playPauseButton = (ImageButton) view.findViewById(R.id.play_pause_button);
+        playPauseButton = (ImageButton) view.findViewById(R.id.play_pause_button);
         playPauseButton.setOnClickListener(this);
 
         ImageButton forwardButton = (ImageButton) view.findViewById(R.id.forward_button);
@@ -154,7 +157,7 @@ public class PlayerFragment extends Fragment implements
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.play_pause_button:
-                this.mp3Service.startStop();
+                playPauseButtonAction();
                 break;
             case R.id.forward_button:
                 forwardButtonAction();
@@ -165,7 +168,14 @@ public class PlayerFragment extends Fragment implements
         }
     }
 
-
+    private void playPauseButtonAction(){
+        this.mp3Service.startStop();
+        if (this.mp3Service.isPlaying()){
+            playPauseButton.setImageResource(R.drawable.ic_pause_black_24dp);
+            } else {
+            playPauseButton.setImageResource(R.drawable.ic_play_arrow_black_24dp);
+        }
+    }
 
     private void forwardButtonAction(){
         mp3Service.nextSong();

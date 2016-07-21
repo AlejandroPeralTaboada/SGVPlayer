@@ -15,7 +15,7 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:src="@drawable/ic_play_arrow_black_24dp"
+        android:src="@drawable/ic_pause_black_24dp"
         android:layout_centerVertical="true"
         android:layout_toLeftOf="@+id/forward_button"
         android:layout_toStartOf="@+id/forward_button" />
