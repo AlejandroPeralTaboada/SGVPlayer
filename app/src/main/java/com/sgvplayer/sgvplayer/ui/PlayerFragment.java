@@ -1,8 +1,6 @@
 package com.sgvplayer.sgvplayer.ui;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -126,14 +124,6 @@ public class PlayerFragment extends Fragment implements
         scrollingSongTitle.setSelected(true);
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -196,8 +186,7 @@ public class PlayerFragment extends Fragment implements
     }
 
     private void updatePlayerUI(){
-        //initSeekBar();
-
+        initSeekBar();
         String songTitle = this.mp3File.getFile().getName();
         scrollingSongTitle.setText(songTitle);
         scrollingSongTitle.setSelected(true);
@@ -213,7 +202,6 @@ public class PlayerFragment extends Fragment implements
 
     //Media Player methods:
 
-
     //Seek bar:
     private void initSeekBar() {
         updateSeekBar = new Thread() {
@@ -221,16 +209,28 @@ public class PlayerFragment extends Fragment implements
             public void run() {
                 int totalDuration = mp3Service.getDuration();
                 int currentPosition = mp3Service.getCurrentPosition();
+                int adv=totalDuration-currentPosition;
+                adv = (adv<500) ? adv : 500 ;
                 seekBar.setMax(totalDuration);
                 Thread thisThread = Thread.currentThread();
-                while (currentPosition < totalDuration && updateSeekBar == thisThread) {
+                while ((adv>2) && updateSeekBar == thisThread) {
                     try {
-                        sleep(250);
-                        currentPosition = mp3Service.getCurrentPosition();
-                        if (!seekBar.isPressed())
-                            seekBar.setProgress(currentPosition);
+                        if (mp3Service.isReady()){
+                            currentPosition = mp3Service.getCurrentPosition();
+                            if (!seekBar.isPressed())
+                                seekBar.setProgress(currentPosition);
+                            sleep(adv);
+                            adv=totalDuration-currentPosition;
+                            adv = (adv<500) ? adv : 500 ;
+                            if (adv < 2){
+                                forwardButtonAction();
+                            }
+                        }
                     } catch (InterruptedException e) {
                         e.printStackTrace();
+                    } catch (IllegalStateException e) {
+                        seekBar.setProgress(totalDuration);
+                        break;
                     }
                 }
             }

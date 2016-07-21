@@ -8,9 +8,11 @@ import com.sgvplayer.sgvplayer.model.fileNavigator.Mp3File;
 import java.util.List;
 
 /**
- * Created by apt_a on 17/07/2016.
+ * Created by Alvaro Furlan Falcao and Alejandro Peral on 17/07/2016.
  */
 public interface Mp3Service {
+
+    boolean isReady();
 
     void playSong(List<Mp3File> songs, int index);
 
@@ -33,4 +35,9 @@ public interface Mp3Service {
     Mp3File getSong();
 
     int getIndex();
+
+    void setOnCompletionListener(MediaPlayer.OnCompletionListener onCompletionListener);
+
+    void setOnPreparedListener(MediaPlayer.OnPreparedListener onPreparedListener);
+
 }

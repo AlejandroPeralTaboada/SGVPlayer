@@ -6,6 +6,7 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Binder;
 import android.os.IBinder;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import com.sgvplayer.sgvplayer.model.fileNavigator.Mp3File;
 
@@ -52,6 +53,9 @@ public class Mp3ServiceImp extends Service implements  Mp3Service{
         }
     }
 
+    public boolean isReady(){
+        return true;
+    }
 
     public void playSong(List<Mp3File> songs,int index) {
         this.songs = songs;
@@ -120,5 +124,14 @@ public class Mp3ServiceImp extends Service implements  Mp3Service{
         return index;
     }
 
+    @Override
+    public void setOnCompletionListener(MediaPlayer.OnCompletionListener onCompletionListener) {
+        mediaPlayer.setOnCompletionListener(onCompletionListener);
+    }
+
+    @Override
+    public void setOnPreparedListener(MediaPlayer.OnPreparedListener onPreparedListener){
+        mediaPlayer.setOnPreparedListener(onPreparedListener);
+    }
 
 }

@@ -9,4 +9,5 @@
     <dimen name="text_margin">16dp</dimen>
     <!-- Margins added by developers. -->
     <dimen name="nav_header_margin">56dp</dimen>
+    <dimen name="bottom_shared_player_height">120dp</dimen>
 </resources>

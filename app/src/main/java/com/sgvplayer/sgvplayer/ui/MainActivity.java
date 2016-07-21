@@ -44,8 +44,8 @@ import com.sgvplayer.sgvplayer.ui.navigationListener.MainNavigationListener;
 import java.io.Serializable;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity
-        implements Mp3Service,
+public class MainActivity extends MainActivityMp3Service
+        implements
         MusicFragment.OnFragmentInteractionListener,
         PlayerFragment.OnFragmentInteractionListener,
         ClassifierFragment.OnFragmentInteractionListener,
@@ -60,7 +60,6 @@ public class MainActivity extends AppCompatActivity
 
 
     private static final int READ_EXTERNAL_STORAGE = 1;
-    private Mp3ServiceImp mp3Service;
     private MusicTabHostFragment musicTabHostFragment;
 
     @Override
@@ -72,6 +71,11 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Intent intent = new Intent(getBaseContext(), Mp3ServiceImp.class);
+        startService(intent);
+        bindService(intent, this, Context.BIND_AUTO_CREATE);
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -94,9 +98,6 @@ public class MainActivity extends AppCompatActivity
         }
 
         checkPermissions();
-        Intent intent = new Intent(getBaseContext(), Mp3ServiceImp.class);
-        startService(intent);
-        bindService(intent, this, Context.BIND_AUTO_CREATE);
     }
 
 
@@ -270,19 +271,10 @@ public class MainActivity extends AppCompatActivity
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.addToBackStack(null);
         transaction.replace(R.id.fragment_container, newFragment).commit();
-
-        //FragmentManager fragmentManager = getSupportFragmentManager();
-        //fragmentManager.beginTransaction().replace(R.id.fragment_container, newFragment).commit();
-        // Send the (@link Mp3File) selected. See:
-        // http://stackoverflow.com/questions/13445594/data-sharing-between-fragments-and-activity-in-android
-        // http://stackoverflow.com/questions/17436298/how-to-pass-a-variable-from-activity-to-fragment-and-pass-it-back
-        // http://stackoverflow.com/questions/21093809/pass-custom-class-to-fragment
     }
 
     @Override
-    public void onFragmentInteraction(int id) {
-
-    }
+    public void onFragmentInteraction(int id) {}
 
     @Override
     public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
@@ -291,62 +283,11 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onServiceDisconnected(ComponentName componentName) {
-
-    }
+    public void onServiceDisconnected(ComponentName componentName) {}
 
     @Override
-    public void playSong(List<Mp3File> songs, int index) {
-        mp3Service.playSong(songs,index);
+    public boolean isReady(){
+        return (mp3Service != null);
     }
 
-    @Override
-    public void startStop() {
-        mp3Service.startStop();
-    }
-
-    @Override
-    public void seek(int ms) {
-        mp3Service.seek(ms);
-    }
-
-    @Override
-    public int getCurrentPosition() {
-        return mp3Service.getCurrentPosition();
-    }
-
-    @Override
-    public int getDuration() {
-        return mp3Service.getDuration();
-    }
-
-    @Override
-    public boolean isPlaying() {
-        return mp3Service.isPlaying();
-    }
-
-    @Override
-    public void setCurrentPosition(int position) {
-        mp3Service.setCurrentPosition(position);
-    }
-
-    @Override
-    public void nextSong() {
-        mp3Service.nextSong();
-    }
-
-    @Override
-    public void previousSong() {
-        mp3Service.previousSong();
-    }
-
-    @Override
-    public Mp3File getSong() {
-        return mp3Service.getSong();
-    }
-
-    @Override
-    public int getIndex() {
-        return mp3Service.getIndex();
-    }
 }
