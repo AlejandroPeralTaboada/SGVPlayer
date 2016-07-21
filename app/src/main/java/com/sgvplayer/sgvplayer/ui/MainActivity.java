@@ -138,7 +138,7 @@ public class MainActivity extends MainActivityMp3Service
     }
 
     @Override
-    public void onListFragmentInteraction(List<Mp3File> mp3Files, int index){
+    public void onAllSongsListFragmentInteraction(List<Mp3File> mp3Files, int index){
         startPlayerFragment(mp3Files, index);
     }
 
@@ -267,7 +267,8 @@ public class MainActivity extends MainActivityMp3Service
     }
 
     private void startPlayerFragment(List<Mp3File> mp3FileList, int index){
-        PlayerFragment newFragment = PlayerFragment.newInstance((Serializable) mp3FileList,index);
+        this.playSong(mp3FileList,index);
+        PlayerFragment newFragment = new PlayerFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.addToBackStack(null);
         transaction.replace(R.id.fragment_container, newFragment).commit();

@@ -106,6 +106,6 @@ public class AllSongsFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(List<Mp3File> mp3File, int index);
+        void onAllSongsListFragmentInteraction(List<Mp3File> mp3File, int index);
     }
 }

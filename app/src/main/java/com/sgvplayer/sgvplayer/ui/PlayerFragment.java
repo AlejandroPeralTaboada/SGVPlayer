@@ -1,6 +1,7 @@
 package com.sgvplayer.sgvplayer.ui;
 
 import android.content.Context;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -28,15 +29,12 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class PlayerFragment extends Fragment implements
-        View.OnClickListener {
+        View.OnClickListener, MediaPlayer.OnCompletionListener {
 
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_MP3FILES = "mp3File";
     private static final String ARG_INDEX = "index";
 
-    private int index;
-    private Mp3File mp3File;
-    private List<Mp3File> mp3Files;
     private OnFragmentInteractionListener mListener;
     private Mp3Service mp3Service;
 
@@ -71,13 +69,7 @@ public class PlayerFragment extends Fragment implements
     @Override @SuppressWarnings("unchecked") //Alv:This is SO ugly
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            Object o = getArguments().getSerializable(ARG_MP3FILES);
-            mp3Files = (List<Mp3File>) o;
-            index = (int) getArguments().getSerializable(ARG_INDEX);
-            mp3File = mp3Files.get(index);
-        }
-        this.mp3Service.playSong(mp3Files,index);
+        if (getArguments() != null) {}
     }
 
     @Override
@@ -93,11 +85,11 @@ public class PlayerFragment extends Fragment implements
     }
 
     private void initPlayerDisplay(View view){
-        String name = "Playing " + this.mp3File.getFile().getName();
+        String name = "Playing " + mp3Service.getSong().getFile().getName();
         fileName = (TextView) view.findViewById(R.id.file_name);
         fileName.setText(name);
 
-        String artist = this.mp3File.getArtist();
+        String artist = this.mp3Service.getSong().getArtist();
         artistName = (TextView) view.findViewById(R.id.artist_name);
         artistName.setText(artist);
     }
@@ -117,8 +109,9 @@ public class PlayerFragment extends Fragment implements
 
         seekBar = (SeekBar) view.findViewById(R.id.seek_bar);
         initSeekBar();
+        mp3Service.setOnCompletionListener(this);
 
-        String songTitle = this.mp3File.getFile().getName();
+        String songTitle = mp3Service.getSong().getFile().getName();
         scrollingSongTitle = (TextView) view.findViewById(R.id.scrolling_song_title);
         scrollingSongTitle.setText(songTitle);
         scrollingSongTitle.setSelected(true);
@@ -169,8 +162,6 @@ public class PlayerFragment extends Fragment implements
 
     private void forwardButtonAction(){
         mp3Service.nextSong();
-        index = mp3Service.getIndex();
-        mp3File = mp3Service.getSong();
         stopSeekBar();
         updatePlayerUI();
         updatePlayerDisplay();
@@ -178,8 +169,6 @@ public class PlayerFragment extends Fragment implements
 
     private void rewindButtonAction(){
         mp3Service.previousSong();
-        index = mp3Service.getIndex();
-        mp3File = mp3Service.getSong();
         stopSeekBar();
         updatePlayerUI();
         updatePlayerDisplay();
@@ -187,16 +176,17 @@ public class PlayerFragment extends Fragment implements
 
     private void updatePlayerUI(){
         initSeekBar();
-        String songTitle = this.mp3File.getFile().getName();
+        mp3Service.setOnCompletionListener(this);
+        String songTitle = mp3Service.getSong().getFile().getName();
         scrollingSongTitle.setText(songTitle);
         scrollingSongTitle.setSelected(true);
     }
 
     private void updatePlayerDisplay(){
-        String name = "Playing " + this.mp3File.getFile().getName();
+        String name = "Playing " + mp3Service.getSong().getFile().getName();
         fileName.setText(name);
 
-        String artist = this.mp3File.getArtist();
+        String artist = mp3Service.getSong().getArtist();
         artistName.setText(artist);
     }
 
@@ -222,9 +212,6 @@ public class PlayerFragment extends Fragment implements
                             sleep(adv);
                             adv=totalDuration-currentPosition;
                             adv = (adv<500) ? adv : 500 ;
-                            if (adv < 2){
-                                forwardButtonAction();
-                            }
                         }
                     } catch (InterruptedException e) {
                         e.printStackTrace();
@@ -257,6 +244,11 @@ public class PlayerFragment extends Fragment implements
 
     private void stopSeekBar(){
         this.updateSeekBar = null;
+    }
+
+    @Override
+    public void onCompletion(MediaPlayer mediaPlayer) {
+        forwardButtonAction();
     }
 
     /**

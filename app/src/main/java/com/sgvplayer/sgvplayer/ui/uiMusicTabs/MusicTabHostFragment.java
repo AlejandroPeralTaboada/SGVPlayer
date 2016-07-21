@@ -3,7 +3,9 @@ package com.sgvplayer.sgvplayer.ui.uiMusicTabs;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -30,6 +32,7 @@ public class MusicTabHostFragment extends Fragment
         implements ViewPager.OnPageChangeListener,
         TabHost.OnTabChangeListener,
         MusicFragment.OnFragmentInteractionListener,
+        MediaPlayer.OnCompletionListener,
         View.OnClickListener {
 
     ViewPager viewPager;
@@ -177,10 +180,7 @@ public class MusicTabHostFragment extends Fragment
             mp3File = mp3Service.getSong();
             initPlayerUI();
         } else {
-            //set listener and wait? Then, as a callback:
-            //FileNavigatorImp fileNavigator = FileNavigatorImp.getInstance(getActivity());
-            //mp3Service.playSong(fileNavigator.getAllMp3Files(),0);
-            //mp3Service.startStop();
+            //start with a default stopped
         }
     }
 
@@ -199,6 +199,7 @@ public class MusicTabHostFragment extends Fragment
 
         seekBar = (SeekBar) view.findViewById(R.id.seek_bar);
         initSeekBar();
+        mp3Service.setOnCompletionListener(this);
 
         String songTitle = this.mp3File.getFile().getName();
         scrollingSongTitle = (TextView) view.findViewById(R.id.scrolling_song_title);
@@ -287,9 +288,15 @@ public class MusicTabHostFragment extends Fragment
 
     private void updatePlayerUI(){
         initSeekBar();
+        mp3Service.setOnCompletionListener(this);
         String songTitle = this.mp3File.getFile().getName();
         scrollingSongTitle.setText(songTitle);
         scrollingSongTitle.setSelected(true);
+    }
+
+    @Override
+    public void onCompletion(MediaPlayer mediaPlayer) {
+        forwardButtonAction();
     }
 
     //Tab Host Adapter:

@@ -9,7 +9,7 @@ import com.sgvplayer.sgvplayer.model.mp3Service.Mp3Service;
 import java.util.List;
 
 /**
- * Created by Alvaro and Alejandro Peral on 21/07/2016.
+ * Created by Alvaro Furlan Falcao and Alejandro Peral on 21/07/2016.
  */
 public abstract class MainActivityMp3Service extends AppCompatActivity implements Mp3Service {
 
