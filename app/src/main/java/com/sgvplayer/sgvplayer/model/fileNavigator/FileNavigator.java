@@ -5,8 +5,8 @@ import android.app.Activity;
 import java.util.List;
 
 /**
- * Interface to navigate mp3files
- * Created by Alejandro and Alvaro on 4/07/16.
+ * Interface to navigate (@link Mp3File)s
+ * Created by Alejandro Peral and Alvaro Furlan Falcao on 4/07/16.
  */
 public interface FileNavigator {
     /**
@@ -25,4 +25,6 @@ public interface FileNavigator {
     List<Mp3File> getAllSongsFromAlbum(String album);
 
     List<String> getAllGenres (Activity activity);
+
+    List<Mp3File> getAllSongsFromGenre(String genre);
 }
