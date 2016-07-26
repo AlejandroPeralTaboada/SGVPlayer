@@ -125,7 +125,7 @@ public class PlayerFragment extends Fragment implements
             mp3Service =  (Mp3Service) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+                    + " must implement OnClassifierFragmentInteractionListener");
         }
     }
 

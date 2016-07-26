@@ -54,7 +54,7 @@ public class Mp3ServiceImp extends Service implements  Mp3Service{
     }
 
     public boolean isReady(){
-        return true;
+        return songs!= null;
     }
 
     public void playSong(List<Mp3File> songs,int index) {

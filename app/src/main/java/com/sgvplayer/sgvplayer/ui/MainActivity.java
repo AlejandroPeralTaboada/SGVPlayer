@@ -15,7 +15,6 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,8 +27,8 @@ import com.sgvplayer.sgvplayer.R;
 import com.sgvplayer.sgvplayer.model.fileNavigator.Mp3File;
 
 import com.sgvplayer.sgvplayer.ui.fragmentSelector.FragmentSelector;
-import com.sgvplayer.sgvplayer.model.mp3Service.Mp3Service;
 import com.sgvplayer.sgvplayer.model.mp3Service.Mp3ServiceImp;
+import com.sgvplayer.sgvplayer.ui.uiClassifier.ClassifierFragment;
 import com.sgvplayer.sgvplayer.ui.uiMusicTabs.AlbumSongsFragment;
 import com.sgvplayer.sgvplayer.ui.uiMusicTabs.AlbumsFragment;
 import com.sgvplayer.sgvplayer.ui.uiMusicTabs.AllSongsFragment;
@@ -41,14 +40,13 @@ import com.sgvplayer.sgvplayer.ui.uiMusicTabs.MusicFragment;
 import com.sgvplayer.sgvplayer.ui.uiMusicTabs.MusicTabHostFragment;
 import com.sgvplayer.sgvplayer.ui.navigationListener.MainNavigationListener;
 
-import java.io.Serializable;
 import java.util.List;
 
 public class MainActivity extends MainActivityMp3Service
         implements
         MusicFragment.OnFragmentInteractionListener,
         PlayerFragment.OnFragmentInteractionListener,
-        ClassifierFragment.OnFragmentInteractionListener,
+        ClassifierFragment.OnClassifierFragmentInteractionListener,
         AllSongsFragment.OnListFragmentInteractionListener,
         ArtistsFragment.OnListFragmentInteractionListener,
         ArtistSongsFragment.OnListFragmentInteractionListener,
@@ -125,11 +123,6 @@ public class MainActivity extends MainActivityMp3Service
     }
 
     //All Fragment listeners should go here:
-
-    @Override
-    public void onFragmentInteraction() {
-        //do stuff
-    }
 
     @Override
     public void onFragmentInteraction(Uri uri) {
@@ -288,7 +281,11 @@ public class MainActivity extends MainActivityMp3Service
 
     @Override
     public boolean isReady(){
-        return (mp3Service != null);
+        return (mp3Service != null) && mp3Service.isReady();
     }
 
+    @Override
+    public void onClassifierFragmentInteraction(Mp3File mp3File) {
+        Toast.makeText(this,mp3File.getName(),Toast.LENGTH_LONG).show();
+    }
 }

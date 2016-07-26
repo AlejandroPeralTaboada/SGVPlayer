@@ -4,7 +4,7 @@
              android:layout_height="match_parent"
              tools:context=".ui.uiMusicTabs.MusicTabHostFragment"
              android:layout_marginTop="56dp"
-             android:background="@mipmap/strokes_wallpaper">
+             android:background="@color/transparent">
 
     <TabHost
         android:id="@+id/tabHost"
