@@ -143,4 +143,9 @@ public class FileNavigatorImp implements FileNavigator {
         return songList;
     }
 
+    @Override
+    public Mp3File getSong(int index) {
+        return files.get(index);
+    }
+
 }

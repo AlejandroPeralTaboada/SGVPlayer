@@ -28,7 +28,8 @@ import com.sgvplayer.sgvplayer.model.fileNavigator.Mp3File;
 
 import com.sgvplayer.sgvplayer.ui.fragmentSelector.FragmentSelector;
 import com.sgvplayer.sgvplayer.model.mp3Service.Mp3ServiceImp;
-import com.sgvplayer.sgvplayer.ui.uiClassifier.ClassifierFragment;
+import com.sgvplayer.sgvplayer.ui.uiClassifier.ClassifierListFragment;
+import com.sgvplayer.sgvplayer.ui.uiClassifier.SongInfo;
 import com.sgvplayer.sgvplayer.ui.uiMusicTabs.AlbumSongsFragment;
 import com.sgvplayer.sgvplayer.ui.uiMusicTabs.AlbumsFragment;
 import com.sgvplayer.sgvplayer.ui.uiMusicTabs.AllSongsFragment;
@@ -46,7 +47,7 @@ public class MainActivity extends MainActivityMp3Service
         implements
         MusicFragment.OnFragmentInteractionListener,
         PlayerFragment.OnFragmentInteractionListener,
-        ClassifierFragment.OnClassifierFragmentInteractionListener,
+        ClassifierListFragment.OnClassifierFragmentInteractionListener,
         AllSongsFragment.OnListFragmentInteractionListener,
         ArtistsFragment.OnListFragmentInteractionListener,
         ArtistSongsFragment.OnListFragmentInteractionListener,
@@ -226,7 +227,7 @@ public class MainActivity extends MainActivityMp3Service
 
     private void moveToClassifierFragment() {
         // Create fragment
-        ClassifierFragment newFragment = new ClassifierFragment();
+        ClassifierListFragment newFragment = new ClassifierListFragment();
 
         // Replace whatever is in the fragment_container view with this fragment,
         // and add the transaction to the back stack so the user can navigate back
@@ -285,7 +286,15 @@ public class MainActivity extends MainActivityMp3Service
     }
 
     @Override
-    public void onClassifierFragmentInteraction(Mp3File mp3File) {
-        Toast.makeText(this,mp3File.getName(),Toast.LENGTH_LONG).show();
+    public void onClassifierFragmentInteraction(int index) {
+        startSongInfo(index);
+    }
+
+    private void startSongInfo(int index){
+        SongInfo newFragment = SongInfo.newInstance(index);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.addToBackStack(null);
+        transaction.replace(R.id.fragment_container, newFragment).commit();
+
     }
 }

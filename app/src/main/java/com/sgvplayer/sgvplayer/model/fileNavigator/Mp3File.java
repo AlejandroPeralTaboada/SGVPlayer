@@ -70,8 +70,11 @@ public class Mp3File {
         return file.getAbsolutePath().startsWith(Environment.getExternalStorageDirectory().getAbsolutePath());
     }
 
-    public String getName(){
-        return this.file.getName();
+    public String getTitle(){
+        String title = metadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE);
+        if ((title==null) || title.trim().equals(""))
+            title = file.getName();
+        return title;
     }
 
     //Metadata retrieving:

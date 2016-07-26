@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.sgvplayer.sgvplayer.R;
 import com.sgvplayer.sgvplayer.model.fileNavigator.Mp3File;
-import com.sgvplayer.sgvplayer.ui.uiClassifier.ClassifierFragment;
+import com.sgvplayer.sgvplayer.ui.uiClassifier.ClassifierListFragment;
 
 import java.util.List;
 
@@ -16,9 +16,9 @@ import java.util.List;
 public class ClassifierRecyclerAdapter extends RecyclerView.Adapter<ClassifierRecyclerAdapter.ViewHolder> {
 
     private final List<Mp3File> mValues;
-    private final ClassifierFragment.OnClassifierFragmentInteractionListener mListener;
+    private final ClassifierListFragment.OnClassifierFragmentInteractionListener mListener;
 
-    public ClassifierRecyclerAdapter(List<Mp3File> items, ClassifierFragment.OnClassifierFragmentInteractionListener listener) {
+    public ClassifierRecyclerAdapter(List<Mp3File> items, ClassifierListFragment.OnClassifierFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -32,7 +32,7 @@ public class ClassifierRecyclerAdapter extends RecyclerView.Adapter<ClassifierRe
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         final int index = holder.getAdapterPosition();
-        holder.mContentView.setText(mValues.get(position).getName());
+        holder.mContentView.setText(mValues.get(position).getTitle());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,7 +40,7 @@ public class ClassifierRecyclerAdapter extends RecyclerView.Adapter<ClassifierRe
                 if (null != mListener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    mListener.onClassifierFragmentInteraction(mValues.get(index));
+                    mListener.onClassifierFragmentInteraction(index);
                 }
             }
         });

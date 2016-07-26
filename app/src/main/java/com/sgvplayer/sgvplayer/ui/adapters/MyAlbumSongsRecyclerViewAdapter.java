@@ -38,7 +38,7 @@ public class MyAlbumSongsRecyclerViewAdapter extends RecyclerView.Adapter<MyAlbu
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         final int index = holder.getAdapterPosition();
-        holder.mContentView.setText(mValues.get(position).getName());
+        holder.mContentView.setText(mValues.get(position).getTitle());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override

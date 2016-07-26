@@ -27,4 +27,6 @@ public interface FileNavigator {
     List<String> getAllGenres (Activity activity);
 
     List<Mp3File> getAllSongsFromGenre(String genre);
+
+    Mp3File getSong(int index);
 }
