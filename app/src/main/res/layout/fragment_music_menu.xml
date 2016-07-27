@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:layout_marginTop="@dimen/nav_header_margin"
     android:background="@color/transparent"
-    tools:context=".ui.uiMusicTabs.MusicFragment">
+    tools:context=".ui.uiMusicTabs.MusicMenuFragment">
 
     <Button
         android:id="@+id/all_songs_button"

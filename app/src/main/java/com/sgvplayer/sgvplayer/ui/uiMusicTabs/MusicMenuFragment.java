@@ -11,12 +11,12 @@ import android.widget.Button;
 import com.sgvplayer.sgvplayer.R;
 
 
-public class MusicFragment extends Fragment
+public class MusicMenuFragment extends Fragment
                     implements View.OnClickListener {
 
     View view;
     OnFragmentInteractionListener mListener;
-    public MusicFragment(){
+    public MusicMenuFragment(){
     }
 
 
@@ -25,7 +25,7 @@ public class MusicFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_music, container, false);
+        view = inflater.inflate(R.layout.fragment_music_menu, container, false);
         setButtonListener(R.id.all_songs_button);
         setButtonListener(R.id.artists_button);
         setButtonListener(R.id.albums_button);

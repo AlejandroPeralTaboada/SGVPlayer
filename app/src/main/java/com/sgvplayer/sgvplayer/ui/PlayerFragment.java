@@ -15,9 +15,9 @@ import android.widget.TextView;
 import com.sgvplayer.sgvplayer.R;
 import com.sgvplayer.sgvplayer.model.fileNavigator.Mp3File;
 import com.sgvplayer.sgvplayer.model.mp3Service.Mp3Service;
+import com.sgvplayer.sgvplayer.ui.uiMusicTabs.MusicMenuFragment;
 
 import java.io.Serializable;
-import java.util.List;
 
 
 /**
@@ -29,7 +29,8 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class PlayerFragment extends Fragment implements
-        View.OnClickListener, MediaPlayer.OnCompletionListener {
+        View.OnClickListener,
+        MediaPlayer.OnCompletionListener {
 
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_MP3FILES = "mp3File";
@@ -38,11 +39,15 @@ public class PlayerFragment extends Fragment implements
     private OnFragmentInteractionListener mListener;
     private Mp3Service mp3Service;
 
+    //For the Media Player:
+    View view;
+    private int index;
+    private Mp3File mp3File;
+
+
     //For the UI:
     Thread updateSeekBar;
     SeekBar seekBar;
-    TextView fileName;
-    TextView artistName;
     ImageButton playPauseButton;
     TextView scrollingSongTitle;
 
@@ -76,28 +81,28 @@ public class PlayerFragment extends Fragment implements
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_player, container, false);
+        view = inflater.inflate(R.layout.fragment_player, container, false);
 
-        initPlayerDisplay(view);
-        initPlayerUI(view);
+        initMusicPlayer();
 
         return view;
     }
 
-    private void initPlayerDisplay(View view){
-        String name = "Playing " + mp3Service.getSong().getFile().getName();
-        fileName = (TextView) view.findViewById(R.id.file_name);
-        fileName.setText(name);
-
-        String artist = this.mp3Service.getSong().getArtist();
-        artistName = (TextView) view.findViewById(R.id.artist_name);
-        artistName.setText(artist);
+    //Media Player methods:
+    private void initMusicPlayer(){
+        if (mp3Service.isReady()){
+            index = mp3Service.getIndex();
+            mp3File = mp3Service.getSong();
+            initPlayerUI();
+        } else {
+            //start with a default stopped
+        }
     }
 
     /**
      * Initialises the player widget UI
      */
-    private void initPlayerUI(View view){
+    private void initPlayerUI(){
         playPauseButton = (ImageButton) view.findViewById(R.id.play_pause_button);
         playPauseButton.setOnClickListener(this);
 
@@ -111,7 +116,7 @@ public class PlayerFragment extends Fragment implements
         initSeekBar();
         mp3Service.setOnCompletionListener(this);
 
-        String songTitle = mp3Service.getSong().getFile().getName();
+        String songTitle = this.mp3File.getFile().getName();
         scrollingSongTitle = (TextView) view.findViewById(R.id.scrolling_song_title);
         scrollingSongTitle.setText(songTitle);
         scrollingSongTitle.setSelected(true);
@@ -164,31 +169,23 @@ public class PlayerFragment extends Fragment implements
         mp3Service.nextSong();
         stopSeekBar();
         updatePlayerUI();
-        updatePlayerDisplay();
+
     }
 
     private void rewindButtonAction(){
         mp3Service.previousSong();
         stopSeekBar();
         updatePlayerUI();
-        updatePlayerDisplay();
     }
 
     private void updatePlayerUI(){
         initSeekBar();
         mp3Service.setOnCompletionListener(this);
-        String songTitle = mp3Service.getSong().getFile().getName();
+        String songTitle = this.mp3File.getFile().getName();
         scrollingSongTitle.setText(songTitle);
         scrollingSongTitle.setSelected(true);
     }
 
-    private void updatePlayerDisplay(){
-        String name = "Playing " + mp3Service.getSong().getFile().getName();
-        fileName.setText(name);
-
-        String artist = mp3Service.getSong().getArtist();
-        artistName.setText(artist);
-    }
 
     //Media Player methods:
 

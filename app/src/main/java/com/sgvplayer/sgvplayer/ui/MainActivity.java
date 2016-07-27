@@ -37,15 +37,17 @@ import com.sgvplayer.sgvplayer.ui.uiMusicTabs.ArtistSongsFragment;
 import com.sgvplayer.sgvplayer.ui.uiMusicTabs.ArtistsFragment;
 import com.sgvplayer.sgvplayer.ui.uiMusicTabs.GenreSongsFragment;
 import com.sgvplayer.sgvplayer.ui.uiMusicTabs.GenresFragment;
-import com.sgvplayer.sgvplayer.ui.uiMusicTabs.MusicFragment;
+import com.sgvplayer.sgvplayer.ui.uiMusicTabs.MusicMenuFragment;
 import com.sgvplayer.sgvplayer.ui.uiMusicTabs.MusicTabHostFragment;
 import com.sgvplayer.sgvplayer.ui.navigationListener.MainNavigationListener;
+import com.sgvplayer.sgvplayer.ui.uiMusicTabs.MusicUIRootFragment;
 
 import java.util.List;
 
 public class MainActivity extends MainActivityMp3Service
         implements
-        MusicFragment.OnFragmentInteractionListener,
+        MusicUIRootFragment.OnFragmentInteractionListener,
+        MusicMenuFragment.OnFragmentInteractionListener,
         PlayerFragment.OnFragmentInteractionListener,
         ClassifierListFragment.OnClassifierFragmentInteractionListener,
         AllSongsFragment.OnListFragmentInteractionListener,
@@ -59,7 +61,7 @@ public class MainActivity extends MainActivityMp3Service
 
 
     private static final int READ_EXTERNAL_STORAGE = 1;
-    private MusicTabHostFragment musicTabHostFragment;
+    private MusicUIRootFragment musicUIRootFragment;
 
     @Override
     protected void onDestroy() {
@@ -91,7 +93,8 @@ public class MainActivity extends MainActivityMp3Service
             if (savedInstanceState != null) {
                 return;
             }
-            MusicTabHostFragment firstFragment = new MusicTabHostFragment();
+            //MusicTabHostFragment firstFragment = new MusicTabHostFragment();
+            MusicUIRootFragment firstFragment = new MusicUIRootFragment();
 
             getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, firstFragment).commit();
         }
@@ -205,7 +208,7 @@ public class MainActivity extends MainActivityMp3Service
     public void select(int id) {
         switch (id) {
             case R.id.nav_music:
-                moveToMusicTabHostFragment();
+                moveToMusicUIRootFragment();
                 break;
             case R.id.nav_classifier:
                 moveToClassifierFragment();
@@ -216,11 +219,10 @@ public class MainActivity extends MainActivityMp3Service
         }
     }
 
-
-    private void moveToMusicTabHostFragment(){
-        musicTabHostFragment = new MusicTabHostFragment();
+    private void moveToMusicUIRootFragment(){
+        musicUIRootFragment = new MusicUIRootFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container, musicTabHostFragment);
+        transaction.replace(R.id.fragment_container, musicUIRootFragment);
         //transaction.addToBackStack(null);
         transaction.commit();
     }
@@ -243,21 +245,21 @@ public class MainActivity extends MainActivityMp3Service
         ArtistSongsFragment newFragment = ArtistSongsFragment.newInstance(1,artist);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.addToBackStack(null);
-        transaction.replace(R.id.fragment_container, newFragment).commit();
+        transaction.replace(R.id.fragment_main, newFragment).commit();
     }
 
     private void startAlbumSongsFragment(String album){
         AlbumSongsFragment newFragment = AlbumSongsFragment.newInstance(1,album);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.addToBackStack(null);
-        transaction.replace(R.id.fragment_container, newFragment).commit();
+        transaction.replace(R.id.fragment_main, newFragment).commit();
     }
 
     private void startGenreSongsFragment(String genre){
         GenreSongsFragment newFragment = GenreSongsFragment.newInstance(1,genre);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.addToBackStack(null);
-        transaction.replace(R.id.fragment_container, newFragment).commit();
+        transaction.replace(R.id.fragment_main, newFragment).commit();
     }
 
     private void startPlayerFragment(List<Mp3File> mp3FileList, int index){

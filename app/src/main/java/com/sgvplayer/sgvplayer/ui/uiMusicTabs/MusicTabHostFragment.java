@@ -1,11 +1,8 @@
 package com.sgvplayer.sgvplayer.ui.uiMusicTabs;
 
-
 import android.content.Context;
 import android.content.res.Resources;
-import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -14,16 +11,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
-import android.widget.ImageButton;
-import android.widget.SeekBar;
 import android.widget.TabHost;
 import android.widget.TextView;
 
 
 import com.sgvplayer.sgvplayer.R;
-import com.sgvplayer.sgvplayer.model.fileNavigator.FileNavigatorImp;
-import com.sgvplayer.sgvplayer.model.fileNavigator.Mp3File;
-import com.sgvplayer.sgvplayer.model.mp3Service.Mp3Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,8 +23,7 @@ import java.util.List;
 public class MusicTabHostFragment extends Fragment
         implements ViewPager.OnPageChangeListener,
         TabHost.OnTabChangeListener,
-        MusicFragment.OnFragmentInteractionListener,
-        MediaPlayer.OnCompletionListener,
+        MusicMenuFragment.OnFragmentInteractionListener,
         View.OnClickListener {
 
     ViewPager viewPager;
@@ -46,21 +37,8 @@ public class MusicTabHostFragment extends Fragment
     public static int PLAYLISTS = 5;
     public static int FOLDERS = 6;
 
-    private MusicFragment.OnFragmentInteractionListener mListener;
+    private MusicMenuFragment.OnFragmentInteractionListener mListener;
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_MP3FILE = "mp3File";
-
-    //For the Media Player:
-    private int index;
-    private Mp3File mp3File;
-
-    //For the UI:
-    Thread updateSeekBar;
-    SeekBar seekBar;
-    ImageButton playPauseButton;
-    TextView scrollingSongTitle;
-
-    private Mp3Service mp3Service;
 
     public MusicTabHostFragment() {}
 
@@ -71,7 +49,6 @@ public class MusicTabHostFragment extends Fragment
 
         initTabHost();
         initViewPager();
-        initMusicPlayer();
         return view;
 
     }
@@ -79,14 +56,7 @@ public class MusicTabHostFragment extends Fragment
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof Mp3Service) {
-            mp3Service =  (Mp3Service) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement mp3Service");
-        }
     }
-
 
     private void initTabHost() {
         tabHost = (TabHost) view.findViewById(R.id.tabHost);
@@ -106,12 +76,11 @@ public class MusicTabHostFragment extends Fragment
         tabHost.setOnTabChangedListener(this);
     }
 
-
     private void initViewPager() {
         viewPager = (ViewPager) view.findViewById(R.id.view_pager);
 
         List<Fragment> fragments = new ArrayList<>();
-        fragments.add(new MusicFragment());
+        fragments.add(new MusicMenuFragment());
         fragments.add(new AllSongsFragment());
         fragments.add(new ArtistsFragment());
         fragments.add(new AlbumsFragment());
@@ -120,21 +89,6 @@ public class MusicTabHostFragment extends Fragment
         fragments.add(new FoldersFragment());
         viewPager.setAdapter(new MyFragmentPageAdapter(getChildFragmentManager(), fragments));
         viewPager.addOnPageChangeListener(this);
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.play_pause_button:
-                playPauseButtonAction();
-                break;
-            case R.id.forward_button:
-                forwardButtonAction();
-                break;
-            case R.id.rewind_button:
-                rewindButtonAction();
-                break;
-        }
     }
 
     @Override
@@ -173,130 +127,9 @@ public class MusicTabHostFragment extends Fragment
         directSelect(id);
     }
 
-    //Media Player methods:
-    private void initMusicPlayer(){
-        if (mp3Service.isReady()){
-            index = mp3Service.getIndex();
-            mp3File = mp3Service.getSong();
-            initPlayerUI();
-        } else {
-            //start with a default stopped
-        }
-    }
-
-    /**
-     * Initialises the player widget UI
-     */
-    private void initPlayerUI(){
-        playPauseButton = (ImageButton) view.findViewById(R.id.play_pause_button);
-        playPauseButton.setOnClickListener(this);
-
-        ImageButton forwardButton = (ImageButton) view.findViewById(R.id.forward_button);
-        forwardButton.setOnClickListener(this);
-
-        ImageButton rewindButton = (ImageButton) view.findViewById(R.id.rewind_button);
-        rewindButton.setOnClickListener(this);
-
-        seekBar = (SeekBar) view.findViewById(R.id.seek_bar);
-        initSeekBar();
-        mp3Service.setOnCompletionListener(this);
-
-        String songTitle = this.mp3File.getFile().getName();
-        scrollingSongTitle = (TextView) view.findViewById(R.id.scrolling_song_title);
-        scrollingSongTitle.setText(songTitle);
-        scrollingSongTitle.setSelected(true);
-    }
-
-    //Seek bar:
-    private void initSeekBar() {
-        updateSeekBar = new Thread() {
-            @Override
-            public void run() {
-                int totalDuration = mp3Service.getDuration();
-                int currentPosition = mp3Service.getCurrentPosition();
-                int adv = totalDuration - currentPosition;
-                adv = (adv<500) ? adv : 500 ;
-                seekBar.setMax(totalDuration);
-                Thread thisThread = Thread.currentThread();
-                while ((adv>2) && updateSeekBar == thisThread) {
-                    try {
-                        if (mp3Service.isReady()){
-                            currentPosition = mp3Service.getCurrentPosition();
-                            if (!seekBar.isPressed())
-                                seekBar.setProgress(currentPosition);
-                            sleep(adv);
-                            adv = totalDuration - currentPosition;
-                            adv = (adv<500) ? adv : 500 ;
-                        }
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    } catch (IllegalStateException e) {
-                        seekBar.setProgress(totalDuration);
-                        break;
-                    }
-                }
-            }
-        };
-        updateSeekBar.start();
-
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                mp3Service.setCurrentPosition(seekBar.getProgress());
-            }
-        });
-    }
-
-    private void stopSeekBar(){
-        this.updateSeekBar = null;
-    }
-
-    private void playPauseButtonAction(){
-        this.mp3Service.startStop();
-        if (this.mp3Service.isPlaying()){
-            playPauseButton.setImageResource(R.drawable.ic_pause_black_24dp);
-        } else {
-            playPauseButton.setImageResource(R.drawable.ic_play_arrow_black_24dp);
-        }
-    }
-
-    private void forwardButtonAction(){
-        mp3Service.nextSong();
-        index = mp3Service.getIndex();
-        mp3File = mp3Service.getSong();
-        stopSeekBar();
-        updatePlayerUI();
-    }
-
-    private void rewindButtonAction(){
-        mp3Service.previousSong();
-        index = mp3Service.getIndex();
-        mp3File = mp3Service.getSong();
-        stopSeekBar();
-        updatePlayerUI();
-    }
-
-    private void updatePlayerUI(){
-        initSeekBar();
-        mp3Service.setOnCompletionListener(this);
-        String songTitle = this.mp3File.getFile().getName();
-        scrollingSongTitle.setText(songTitle);
-        scrollingSongTitle.setSelected(true);
-    }
-
     @Override
-    public void onCompletion(MediaPlayer mediaPlayer) {
-        forwardButtonAction();
+    public void onClick(View view) {
+        //do nothing
     }
 
     //Tab Host Adapter:
