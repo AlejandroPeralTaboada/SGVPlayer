@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 
 import com.sgvplayer.sgvplayer.R;
 import com.sgvplayer.sgvplayer.model.fileNavigator.FileNavigatorImp;
-import com.sgvplayer.sgvplayer.ui.adapters.MyGenresRecyclerViewAdapter;
+import com.sgvplayer.sgvplayer.ui.uiMusicTabs.adapters.MyGenresRecyclerViewAdapter;
 
 /**
  * A fragment representing a list of Items.

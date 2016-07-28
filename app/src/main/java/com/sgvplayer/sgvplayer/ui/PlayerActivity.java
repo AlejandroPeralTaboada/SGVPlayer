@@ -8,6 +8,7 @@ import com.sgvplayer.sgvplayer.R;
 import com.sgvplayer.sgvplayer.model.fileNavigator.Mp3File;
 import com.sgvplayer.sgvplayer.model.mp3Service.Mp3ServiceImp;
 
+//UNUSED CLASS
 public class PlayerActivity extends AppCompatActivity {
 
     private Mp3File mp3File;

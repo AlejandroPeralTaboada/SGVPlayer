@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/SGVPlayer.iml" filepath="$PROJECT_DIR$/SGVPlayer.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/jid3lib-0.5.4/jid3lib-0.5.4.iml" filepath="$PROJECT_DIR$/jid3lib-0.5.4/jid3lib-0.5.4.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jid3lib-0.5.4/jid3lib-0.5.4.iml" filepath="$PROJECT_DIR$/jid3lib-0.5.4/jid3lib-0.5.4.iml" />
     </modules>
   </component>
 </project>

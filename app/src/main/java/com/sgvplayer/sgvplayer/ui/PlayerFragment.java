@@ -15,7 +15,6 @@ import android.widget.TextView;
 import com.sgvplayer.sgvplayer.R;
 import com.sgvplayer.sgvplayer.model.fileNavigator.Mp3File;
 import com.sgvplayer.sgvplayer.model.mp3Service.Mp3Service;
-import com.sgvplayer.sgvplayer.ui.uiMusicTabs.MusicMenuFragment;
 
 import java.io.Serializable;
 
@@ -181,7 +180,8 @@ public class PlayerFragment extends Fragment implements
     private void updatePlayerUI(){
         initSeekBar();
         mp3Service.setOnCompletionListener(this);
-        String songTitle = this.mp3File.getFile().getName();
+        mp3File = mp3Service.getSong();
+        String songTitle = mp3File.getFile().getName();
         scrollingSongTitle.setText(songTitle);
         scrollingSongTitle.setSelected(true);
     }

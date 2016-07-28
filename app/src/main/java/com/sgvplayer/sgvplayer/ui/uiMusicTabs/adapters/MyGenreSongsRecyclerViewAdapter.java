@@ -1,4 +1,4 @@
-package com.sgvplayer.sgvplayer.ui.adapters;
+package com.sgvplayer.sgvplayer.ui.uiMusicTabs.adapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

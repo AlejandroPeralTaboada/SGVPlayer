@@ -60,7 +60,7 @@ public class MainActivity extends MainActivityMp3Service
         FragmentSelector, ServiceConnection {
 
 
-    private static final int READ_EXTERNAL_STORAGE = 1;
+    private static final int WRITE_EXTERNAL_STORAGE = 1;
     private MusicUIRootFragment musicUIRootFragment;
 
     @Override

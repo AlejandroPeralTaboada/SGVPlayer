@@ -11,9 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.sgvplayer.sgvplayer.R;
-import com.sgvplayer.sgvplayer.model.fileNavigator.FileNavigator;
 import com.sgvplayer.sgvplayer.model.fileNavigator.FileNavigatorImp;
-import com.sgvplayer.sgvplayer.ui.adapters.MyArtistsRecyclerViewAdapter;
+import com.sgvplayer.sgvplayer.ui.uiMusicTabs.adapters.MyArtistsRecyclerViewAdapter;
 
 /**
  * A fragment representing a list of Items.

@@ -1,4 +1,4 @@
-package com.sgvplayer.sgvplayer.ui.adapters;
+package com.sgvplayer.sgvplayer.ui.uiMusicTabs.adapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -6,9 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.sgvplayer.sgvplayer.ui.uiMusicTabs.ArtistsFragment.OnListFragmentInteractionListener;
 import com.sgvplayer.sgvplayer.R;
-import com.sgvplayer.sgvplayer.ui.uiMusicTabs.GenresFragment.OnListFragmentInteractionListener;
-import com.sgvplayer.sgvplayer.ui.dummy.DummyContent.DummyItem;
+import com.sgvplayer.sgvplayer.dummy.DummyContent.DummyItem;
 
 import java.util.List;
 
@@ -17,12 +17,12 @@ import java.util.List;
  * specified {@link OnListFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
-public class MyGenresRecyclerViewAdapter extends RecyclerView.Adapter<MyGenresRecyclerViewAdapter.ViewHolder> {
+public class MyArtistsRecyclerViewAdapter extends RecyclerView.Adapter<MyArtistsRecyclerViewAdapter.ViewHolder> {
 
     private final List<String> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public MyGenresRecyclerViewAdapter(List<String> items, OnListFragmentInteractionListener listener) {
+    public MyArtistsRecyclerViewAdapter(List<String> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -30,7 +30,7 @@ public class MyGenresRecyclerViewAdapter extends RecyclerView.Adapter<MyGenresRe
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_genres_list_item, parent, false);
+                .inflate(R.layout.fragment_artists_list_item, parent, false);
         return new ViewHolder(view);
     }
 
@@ -46,7 +46,7 @@ public class MyGenresRecyclerViewAdapter extends RecyclerView.Adapter<MyGenresRe
                 if (null != mListener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    mListener.onGenresListFragmentInteraction(holder.mItem);
+                    mListener.onArtistsListFragmentInteraction(holder.mItem);
                 }
             }
         });
