@@ -38,6 +38,7 @@ public class FileNavigatorImp implements FileNavigator {
         Uri uri = MediaStore.Audio.Media.getContentUri("external");
         String[] cols = new String[]{MediaStore.Audio.Media.DATA};
         Cursor cursor = null;
+        int id = 0;
         try {
             cursor = activity.getContentResolver().query(uri, cols, MediaStore.Audio.Media.DATA + " LIKE ? or " + MediaStore.Audio.Media.DATA + " LIKE ?", new String[]{"%.mp3", "%.MP3"}, null);
             if (cursor == null)
@@ -45,7 +46,8 @@ public class FileNavigatorImp implements FileNavigator {
             int idxData = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA);
             List<Mp3File> mp3Files = new ArrayList<>();
             while (cursor.moveToNext()) {
-                mp3Files.add(new Mp3File(cursor.getString(idxData)));
+                mp3Files.add(new Mp3File(cursor.getString(idxData),id));
+                id++;
             }
             return mp3Files;
         } catch (NullPointerException e) {
@@ -144,8 +146,8 @@ public class FileNavigatorImp implements FileNavigator {
     }
 
     @Override
-    public Mp3File getSong(int index) {
-        return files.get(index);
+    public Mp3File getSong(int id) {
+        return files.get(id);
     }
 
 }
