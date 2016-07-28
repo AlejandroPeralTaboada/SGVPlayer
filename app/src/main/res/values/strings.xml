@@ -26,6 +26,7 @@
 
     <!--Song Metadata-->
     <string name="title">Title</string>
+    <string name="artist">Artist</string>
 
     <!--Tabbs-->
     <string-array name="tabs_name">
@@ -38,4 +39,5 @@
         <item>@string/music_folders</item>
     </string-array>
     <string name="title_activity_player">PlayerActivity</string>
+
 </resources>

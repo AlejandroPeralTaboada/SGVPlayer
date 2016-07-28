@@ -23,12 +23,29 @@ import java.io.Serializable;
 public class Mp3File {
     private File file;
     private boolean internalStorage;
-    MediaMetadataRetriever metadataRetriever;
+    private MediaMetadataRetriever metadataRetriever;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    private int id;
 
     public Mp3File(String path){
         file = new File(path);
         internalStorage = isInternalStorage(file);
         setDataSource();
+    }
+
+    public Mp3File(String path,int id){
+        file = new File(path);
+        internalStorage = isInternalStorage(file);
+        setDataSource();
+        this.id = id;
     }
 
     private void setDataSource(){
