@@ -35,4 +35,11 @@ public class NotificationReturnSlot extends Activity {
             finish();
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        // TODO Auto-generated method stub
+        super.onDestroy();
+    }
+
 }

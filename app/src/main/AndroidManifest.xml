@@ -50,6 +50,14 @@
             android:taskAffinity=""
             android:excludeFromRecents="true"/>
 
+        <receiver android:name="com.sgvplayer.sgvplayer.PlayerNotificationBroadcastReceiver" >
+            <intent-filter>
+                <action android:name="com.sgvplayer.sgvplayer.ACTION_PLAYPAUSE" />
+                <action android:name="com.sgvplayer.sgvplayer.ACTION_FORWARD" />
+                <action android:name="com.sgvplayer.sgvplayer.ACTION_REWIND" />
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>

@@ -15,7 +15,6 @@ import android.support.v4.app.NotificationCompat;
 import android.widget.RemoteViews;
 
 import com.sgvplayer.sgvplayer.R;
-import com.sgvplayer.sgvplayer.model.mp3Service.Mp3Service;
 
 /**
  * Helper class for showing and canceling player
@@ -35,14 +34,14 @@ public class PlayerNotification {
     private NotificationCompat.Builder nBuilder;
     private RemoteViews notificationView;
 
-    public PlayerNotification (Context parent){
+    public PlayerNotification(Context parent) {
         this.parent = parent;
         nBuilder = new NotificationCompat.Builder(parent)
                 .setContentTitle("SONG TITLE")
                 .setContentText("")
                 .setSmallIcon(R.drawable.ic_play_arrow_white_24dp);
 
-        notificationView = new RemoteViews(parent.getPackageName(),R.layout.player_notification_custom_layout);
+        notificationView = new RemoteViews(parent.getPackageName(), R.layout.player_notification_custom_layout);
 
         //set the button listeners
         setListeners(notificationView);
@@ -52,24 +51,20 @@ public class PlayerNotification {
         nManager.notify(2, nBuilder.build());
     }
 
-    private void setListeners(RemoteViews view){
+    private void setListeners(RemoteViews view) {
         //listener 1
-        Intent playPauseIntent = new Intent(parent, NotificationReturnSlot.class);
-        playPauseIntent.putExtra("DO","startStop");
-        //PendingIntent playPausePendingIntent = PendingIntent.getActivity(parent, 0, playPauseIntent, 0);
-        PendingIntent playPausePendingIntent = PendingIntent.getService(parent, 0, playPauseIntent, 0);
+        Intent playPauseIntent = new Intent("com.sgvplayer.sgvplayer.ACTION_PLAYPAUSE");
+        PendingIntent playPausePendingIntent = PendingIntent.getBroadcast(parent, 0, playPauseIntent, 0);
         view.setOnClickPendingIntent(R.id.play_pause_button, playPausePendingIntent);
 
         //listener 2
-        Intent forwardIntent = new Intent(parent, NotificationReturnSlot.class);
-        forwardIntent.putExtra("DO", "forward");
-        PendingIntent forwardPendingIntent = PendingIntent.getActivity(parent, 1, forwardIntent, 0);
+        Intent forwardIntent = new Intent("com.sgvplayer.sgvplayer.ACTION_FORWARD");
+        PendingIntent forwardPendingIntent = PendingIntent.getBroadcast(parent, 1, forwardIntent, 0);
         view.setOnClickPendingIntent(R.id.forward_button, forwardPendingIntent);
 
         //listener 3
-        Intent rewindIntent = new Intent (parent, NotificationReturnSlot.class);
-        rewindIntent.putExtra("DO", "rewind");
-        PendingIntent rewindPendingIntent = PendingIntent.getActivity(parent, 2, rewindIntent, 0);
+        Intent rewindIntent = new Intent("com.sgvplayer.sgvplayer.ACTION_REWIND");
+        PendingIntent rewindPendingIntent = PendingIntent.getBroadcast(parent, 2, rewindIntent, 0);
         view.setOnClickPendingIntent(R.id.rewind_button, rewindPendingIntent);
 
     }
