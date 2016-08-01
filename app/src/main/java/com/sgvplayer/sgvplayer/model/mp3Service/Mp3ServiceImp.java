@@ -21,7 +21,7 @@ import com.sgvplayer.sgvplayer.ui.PlayerNotification;
 import java.util.List;
 
 
-public class Mp3ServiceImp extends Service implements  Mp3Service{
+public class Mp3ServiceImp extends Service implements Mp3Service {
     private MediaPlayer mediaPlayer;
     private List<Mp3File> songs;
     private int index;
@@ -61,14 +61,14 @@ public class Mp3ServiceImp extends Service implements  Mp3Service{
         }
     }
 
-    public boolean isReady(){
-        return songs!= null;
+    public boolean isReady() {
+        return songs != null;
     }
 
-    public void playSong(List<Mp3File> songs,int index) {
+    public void playSong(List<Mp3File> songs, int index) {
         this.songs = songs;
         this.index = index;
-        if (mediaPlayer!=null){
+        if (mediaPlayer != null) {
             mediaPlayer.release();
         }
         mediaPlayer = MediaPlayer.create(this, Uri.parse(songs.get(index).getFile().getAbsolutePath()));
@@ -109,27 +109,29 @@ public class Mp3ServiceImp extends Service implements  Mp3Service{
         mediaPlayer.seekTo(position);
     }
 
-    public void nextSong(){
+    public void nextSong() {
         mediaPlayer.release();
-        index = (index+1)%songs.size();
+        index = (index + 1) % songs.size();
         mediaPlayer = MediaPlayer.create(this, Uri.parse(songs.get(index).getFile().getAbsolutePath()));
         mediaPlayer.start();
+        startNotification();
     }
 
-    public void previousSong(){
+    public void previousSong() {
         mediaPlayer.release();
-        index = (index-1)%songs.size();
-        if (index <0)
-            index = songs.size()-1;
+        index = (index - 1) % songs.size();
+        if (index < 0)
+            index = songs.size() - 1;
         mediaPlayer = MediaPlayer.create(this, Uri.parse(songs.get(index).getFile().getAbsolutePath()));
         mediaPlayer.start();
+        startNotification();
     }
 
-    public Mp3File getSong(){
+    public Mp3File getSong() {
         return songs.get(index);
     }
 
-    public int getIndex(){
+    public int getIndex() {
         return index;
     }
 
@@ -139,11 +141,11 @@ public class Mp3ServiceImp extends Service implements  Mp3Service{
     }
 
     @Override
-    public void setOnPreparedListener(MediaPlayer.OnPreparedListener onPreparedListener){
+    public void setOnPreparedListener(MediaPlayer.OnPreparedListener onPreparedListener) {
         mediaPlayer.setOnPreparedListener(onPreparedListener);
     }
 
-    private void startNotification(){
+    private void startNotification() {
         PlayerNotification notification = new PlayerNotification(this);
     }
 
