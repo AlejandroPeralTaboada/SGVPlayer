@@ -41,10 +41,16 @@ public class PlayerNotification {
 
     public PlayerNotification(Context parent) {
         this.parent = parent;
+        //Open the App if the notification is chosen
+        Intent notificationIntent = new Intent (this.parent, MainActivity.class);
+        PendingIntent notificationPendingIntent = PendingIntent.getActivity(this.parent, 0, notificationIntent, 0);
+
+        //Build the notification
         nBuilder = new NotificationCompat.Builder(parent)
                 .setContentTitle("SONG TITLE")
                 .setContentText("")
-                .setSmallIcon(R.drawable.ic_play_arrow_white_24dp);
+                .setSmallIcon(R.drawable.ic_play_arrow_white_24dp)
+                .setContentIntent(notificationPendingIntent);
 
         notificationView = new RemoteViews(parent.getPackageName(), R.layout.player_notification_custom_layout);
 
@@ -53,7 +59,7 @@ public class PlayerNotification {
         mp3Service = mp3ServiceSingleton.getService();
         notificationView.setTextViewText(R.id.music_title, mp3Service.getSong().getTitle());
 
-        //set the button listeners
+        //Set the button listeners
         setListeners(notificationView);
         nBuilder.setContent(notificationView);
 
@@ -64,17 +70,17 @@ public class PlayerNotification {
     private void setListeners(RemoteViews view) {
         //listener 1
         Intent playPauseIntent = new Intent("com.sgvplayer.sgvplayer.ACTION_PLAYPAUSE");
-        PendingIntent playPausePendingIntent = PendingIntent.getBroadcast(parent, 0, playPauseIntent, 0);
+        PendingIntent playPausePendingIntent = PendingIntent.getBroadcast(parent, 1, playPauseIntent, 0);
         view.setOnClickPendingIntent(R.id.play_pause_button, playPausePendingIntent);
 
         //listener 2
         Intent forwardIntent = new Intent("com.sgvplayer.sgvplayer.ACTION_FORWARD");
-        PendingIntent forwardPendingIntent = PendingIntent.getBroadcast(parent, 1, forwardIntent, 0);
+        PendingIntent forwardPendingIntent = PendingIntent.getBroadcast(parent, 2, forwardIntent, 0);
         view.setOnClickPendingIntent(R.id.forward_button, forwardPendingIntent);
 
         //listener 3
         Intent rewindIntent = new Intent("com.sgvplayer.sgvplayer.ACTION_REWIND");
-        PendingIntent rewindPendingIntent = PendingIntent.getBroadcast(parent, 2, rewindIntent, 0);
+        PendingIntent rewindPendingIntent = PendingIntent.getBroadcast(parent, 3, rewindIntent, 0);
         view.setOnClickPendingIntent(R.id.rewind_button, rewindPendingIntent);
     }
 
