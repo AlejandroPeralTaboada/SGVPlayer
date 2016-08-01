@@ -16,12 +16,15 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 //Added by Alvaro:
 import android.support.v4.app.FragmentTransaction;
 import android.widget.Toast;
+
+import com.sgvplayer.sgvplayer.Mp3ServiceSingleton;
 
 import com.sgvplayer.sgvplayer.R;
 import com.sgvplayer.sgvplayer.model.fileNavigator.Mp3File;
@@ -98,8 +101,9 @@ public class MainActivity extends MainActivityMp3Service
 
             getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, firstFragment).commit();
         }
-
         checkPermissions();
+
+
     }
 
 
@@ -135,37 +139,37 @@ public class MainActivity extends MainActivityMp3Service
     }
 
     @Override
-    public void onAllSongsListFragmentInteraction(List<Mp3File> mp3Files, int index){
+    public void onAllSongsListFragmentInteraction(List<Mp3File> mp3Files, int index) {
         startPlayerFragment(mp3Files, index);
     }
 
     @Override
-    public void onArtistsListFragmentInteraction(String artistName){
+    public void onArtistsListFragmentInteraction(String artistName) {
         startArtistSongsFragment(artistName);
     }
 
     @Override
-    public void onArtistSongsListFragmentInteraction(List<Mp3File> mp3Files, int index){
+    public void onArtistSongsListFragmentInteraction(List<Mp3File> mp3Files, int index) {
         startPlayerFragment(mp3Files, index);
     }
 
     @Override
-    public void onAlbumsListFragmentInteraction(String albumName){
-        startAlbumSongsFragment (albumName);
+    public void onAlbumsListFragmentInteraction(String albumName) {
+        startAlbumSongsFragment(albumName);
     }
 
     @Override
-    public void onAlbumSongsListFragmentInteraction(List<Mp3File> mp3Files, int index){
+    public void onAlbumSongsListFragmentInteraction(List<Mp3File> mp3Files, int index) {
         startPlayerFragment(mp3Files, index);
     }
 
     @Override
-    public void onGenresListFragmentInteraction(String genreName){
-        startGenreSongsFragment (genreName);
+    public void onGenresListFragmentInteraction(String genreName) {
+        startGenreSongsFragment(genreName);
     }
 
     @Override
-    public void onGenreSongsListFragmentInteraction(List<Mp3File> mp3Files, int index){
+    public void onGenreSongsListFragmentInteraction(List<Mp3File> mp3Files, int index) {
         startPlayerFragment(mp3Files, index);
     }
 
@@ -219,7 +223,7 @@ public class MainActivity extends MainActivityMp3Service
         }
     }
 
-    private void moveToMusicUIRootFragment(){
+    private void moveToMusicUIRootFragment() {
         musicUIRootFragment = new MusicUIRootFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, musicUIRootFragment);
@@ -241,29 +245,29 @@ public class MainActivity extends MainActivityMp3Service
         transaction.commit();
     }
 
-    private void startArtistSongsFragment(String artist){
-        ArtistSongsFragment newFragment = ArtistSongsFragment.newInstance(1,artist);
+    private void startArtistSongsFragment(String artist) {
+        ArtistSongsFragment newFragment = ArtistSongsFragment.newInstance(1, artist);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.addToBackStack(null);
         transaction.replace(R.id.fragment_main, newFragment).commit();
     }
 
-    private void startAlbumSongsFragment(String album){
-        AlbumSongsFragment newFragment = AlbumSongsFragment.newInstance(1,album);
+    private void startAlbumSongsFragment(String album) {
+        AlbumSongsFragment newFragment = AlbumSongsFragment.newInstance(1, album);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.addToBackStack(null);
         transaction.replace(R.id.fragment_main, newFragment).commit();
     }
 
-    private void startGenreSongsFragment(String genre){
-        GenreSongsFragment newFragment = GenreSongsFragment.newInstance(1,genre);
+    private void startGenreSongsFragment(String genre) {
+        GenreSongsFragment newFragment = GenreSongsFragment.newInstance(1, genre);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.addToBackStack(null);
         transaction.replace(R.id.fragment_main, newFragment).commit();
     }
 
-    private void startPlayerFragment(List<Mp3File> mp3FileList, int index){
-        this.playSong(mp3FileList,index);
+    private void startPlayerFragment(List<Mp3File> mp3FileList, int index) {
+        this.playSong(mp3FileList, index);
         PlayerFragment newFragment = new PlayerFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.addToBackStack(null);
@@ -271,19 +275,22 @@ public class MainActivity extends MainActivityMp3Service
     }
 
     @Override
-    public void onFragmentInteraction(int id) {}
+    public void onFragmentInteraction(int id) {
+    }
 
     @Override
     public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
         Mp3ServiceImp.LocalService localService = (Mp3ServiceImp.LocalService) iBinder;
         mp3Service = localService.getService();
+        Mp3ServiceSingleton.init(mp3Service);
     }
 
     @Override
-    public void onServiceDisconnected(ComponentName componentName) {}
+    public void onServiceDisconnected(ComponentName componentName) {
+    }
 
     @Override
-    public boolean isReady(){
+    public boolean isReady() {
         return (mp3Service != null) && mp3Service.isReady();
     }
 
@@ -292,7 +299,7 @@ public class MainActivity extends MainActivityMp3Service
         startSongInfo(index);
     }
 
-    private void startSongInfo(int index){
+    private void startSongInfo(int index) {
         SongInfo newFragment = SongInfo.newInstance(index);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.addToBackStack(null);

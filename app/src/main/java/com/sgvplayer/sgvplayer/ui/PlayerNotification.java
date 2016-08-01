@@ -15,7 +15,7 @@ import android.support.v4.app.NotificationCompat;
 import android.widget.RemoteViews;
 
 import com.sgvplayer.sgvplayer.R;
-import com.sgvplayer.sgvplayer.ui.uiMusicTabs.NotificationReturnSlot;
+import com.sgvplayer.sgvplayer.model.mp3Service.Mp3Service;
 
 /**
  * Helper class for showing and canceling player
@@ -56,7 +56,8 @@ public class PlayerNotification {
         //listener 1
         Intent playPauseIntent = new Intent(parent, NotificationReturnSlot.class);
         playPauseIntent.putExtra("DO","startStop");
-        PendingIntent playPausePendingIntent = PendingIntent.getActivity(parent, 0, playPauseIntent, 0);
+        //PendingIntent playPausePendingIntent = PendingIntent.getActivity(parent, 0, playPauseIntent, 0);
+        PendingIntent playPausePendingIntent = PendingIntent.getService(parent, 0, playPauseIntent, 0);
         view.setOnClickPendingIntent(R.id.play_pause_button, playPausePendingIntent);
 
         //listener 2
