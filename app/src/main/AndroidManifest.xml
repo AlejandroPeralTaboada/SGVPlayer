@@ -43,6 +43,13 @@
             android:label="@string/title_activity_player"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".ui.uiMusicTabs.NotificationReturnSlot"
+            android:launchMode="singleTask"
+            android:taskAffinity=""
+            android:excludeFromRecents="true"/>
+
     </application>
 
 </manifest>

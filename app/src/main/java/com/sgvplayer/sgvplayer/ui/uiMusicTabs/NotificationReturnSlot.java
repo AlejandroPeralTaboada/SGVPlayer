@@ -1,0 +1,36 @@
+package com.sgvplayer.sgvplayer.ui.uiMusicTabs;
+
+import android.app.Activity;
+import android.content.Context;
+import android.os.Bundle;
+import android.util.Log;
+
+import com.sgvplayer.sgvplayer.model.mp3Service.Mp3Service;
+
+/**
+ * Created by Alvaro on 01/08/2016.
+ */
+public class NotificationReturnSlot extends Activity {
+
+    Context context;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        String action = (String) getIntent().getExtras().get("DO");
+        if (action != null) {
+            //Mp3Service mp3Service = (Mp3Service) getApplicationContext();
+            if (action.equals("startStop")) {
+                Log.i("NotificationReturnSlot", "startStop");
+            //    mp3Service.startStop();
+            } else if (action.equals("forward")) {
+                Log.i("NotificationReturnSlot", "forward");
+            //    mp3Service.nextSong();
+            } else if (action.equals("rewind")) {
+                Log.i("NotificationReturnSlot", "rewind");
+            //    mp3Service.previousSong();
+            }
+            finish();
+        }
+    }
+}

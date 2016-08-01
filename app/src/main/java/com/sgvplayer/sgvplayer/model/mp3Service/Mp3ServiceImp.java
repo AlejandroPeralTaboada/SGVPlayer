@@ -1,6 +1,7 @@
 package com.sgvplayer.sgvplayer.model.mp3Service;
 
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -14,6 +15,7 @@ import android.widget.RemoteViews;
 
 import com.sgvplayer.sgvplayer.R;
 import com.sgvplayer.sgvplayer.model.fileNavigator.Mp3File;
+import com.sgvplayer.sgvplayer.ui.MainActivity;
 import com.sgvplayer.sgvplayer.ui.PlayerNotification;
 
 import java.util.List;
@@ -71,7 +73,7 @@ public class Mp3ServiceImp extends Service implements  Mp3Service{
         }
         mediaPlayer = MediaPlayer.create(this, Uri.parse(songs.get(index).getFile().getAbsolutePath()));
         mediaPlayer.start();
-        startNotificationV2();
+        startNotification();
     }
 
     public void startStop() {
@@ -142,21 +144,7 @@ public class Mp3ServiceImp extends Service implements  Mp3Service{
     }
 
     private void startNotification(){
-        NotificationManager notificationManager =
-                (NotificationManager) getSystemService(Service.NOTIFICATION_SERVICE);
-        PlayerNotification notification = new PlayerNotification(/* your notification */);
-        //PendingIntent pendingIntent = /* your intent */;
-        //notification.setLatestEventInfo(this, /* your content */, pendingIntent);
-        notificationManager.notify(001, notification);
+        PlayerNotification notification = new PlayerNotification(this);
     }
 
-    private void startNotificationV2(){
-        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        RemoteViews remoteView = new RemoteViews(getPackageName(),R.layout.player_notification_custom_layout);
-        NotificationCompat.Builder notification = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.drawable.ic_play_arrow_white_24dp)
-                .setContent(remoteView);
-
-        notificationManager.notify(001, notification.build());
-    }
 }
