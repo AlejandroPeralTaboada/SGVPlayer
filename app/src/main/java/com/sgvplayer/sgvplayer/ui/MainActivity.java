@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.NavUtils;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -191,15 +192,28 @@ public class MainActivity extends MainActivityMp3Service
         return true;
     }
 
+    // Handle action bar item clicks here. The action bar will
+    // automatically handle clicks on the Home/Up button, so long
+    // as you specify a parent activity in AndroidManifest.xml.
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        return super.onOptionsItemSelected(item);
+        switch (id) {
+            case android.R.id.home:
+                super.onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
+    private void goBackV1(int id){
+        // Retrieve this Activiy's parent Up intent
+        Intent upIntent = NavUtils.getParentActivityIntent(this);
+        // Add the required Intent extras as appropriate
+        upIntent.putExtra("KEY", id);
+        NavUtils.navigateUpTo(this, upIntent);
+    }
 
     @Override
     public void select(int id) {
@@ -220,8 +234,8 @@ public class MainActivity extends MainActivityMp3Service
         musicUIRootFragment = new MusicUIRootFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, musicUIRootFragment);
-        //transaction.addToBackStack(null);
         transaction.commit();
+        updateNavBar("My music", false);
     }
 
     private void moveToClassifierFragment() {
@@ -229,6 +243,7 @@ public class MainActivity extends MainActivityMp3Service
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, newFragment);
         transaction.commit();
+        updateNavBar("Music classifier", false);
     }
 
 
@@ -237,6 +252,7 @@ public class MainActivity extends MainActivityMp3Service
         MusicUIRootFragment rootFragment = (MusicUIRootFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
         FragmentTransaction transaction = rootFragment.getChildFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_main, newFragment).commit();
+        updateNavBar(artist, true);
     }
 
     private void startAlbumSongsFragment(String album) {
@@ -244,6 +260,7 @@ public class MainActivity extends MainActivityMp3Service
         MusicUIRootFragment rootFragment = (MusicUIRootFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
         FragmentTransaction transaction = rootFragment.getChildFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_main, newFragment).commit();
+        updateNavBar(album, true);
     }
 
     private void startGenreSongsFragment(String genre) {
@@ -251,6 +268,7 @@ public class MainActivity extends MainActivityMp3Service
         MusicUIRootFragment rootFragment = (MusicUIRootFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
         FragmentTransaction transaction = rootFragment.getChildFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_main, newFragment).commit();
+        updateNavBar(genre, true);
     }
 
     private void startPlayerFragment(List<Mp3File> mp3FileList, int index) {
@@ -264,15 +282,19 @@ public class MainActivity extends MainActivityMp3Service
         PlayerDisplayFragment secondNewFragment = new PlayerDisplayFragment();
         transaction.replace(R.id.fragment_main, secondNewFragment).commit();
 
-        updateNavBar("Now playing");
+        updateNavBar("Now playing", true);
     }
 
-    private void updateNavBar(String newTitle){
-        if (getSupportActionBar() != null) {
+    private void updateNavBar(String newTitle, boolean enableBackButton){
+        if (enableBackButton){
+            if (getSupportActionBar() != null) {
+                getSupportActionBar().setTitle(newTitle);
+                getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back_white_24dp);
+                getSupportActionBar().setHomeButtonEnabled(true);
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            }
+        } else {
             getSupportActionBar().setTitle(newTitle);
-            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back_white_24dp);
-            getSupportActionBar().setHomeButtonEnabled(true);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
     }
 
