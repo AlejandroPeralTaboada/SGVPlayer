@@ -87,6 +87,12 @@ public class PlayerFragment extends Fragment implements
         return view;
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        //updatePlayerUI();
+    }
+
     //Media Player methods:
     private void initMusicPlayer(){
         if (mp3Service.isReady()){

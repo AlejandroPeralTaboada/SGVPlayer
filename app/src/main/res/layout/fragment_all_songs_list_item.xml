@@ -1,24 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:layout_height="@dimen/tile_height"
+    android:orientation="horizontal"
+>
 
     <ImageView
         android:id="@+id/icon"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_marginLeft="@dimen/fab_margin"
-        android:layout_marginTop="8dp"/>
-
-    <TextView
-        android:id="@+id/id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:textAppearance="?attr/textAppearanceListItem"
-        android:textColor="@color/colorAccent"/>
-
+        android:layout_marginLeft="@dimen/left_avatar_padding"
+        android:layout_marginStart="@dimen/left_avatar_padding"
+        android:layout_marginTop="4dp"/>
 
     <TextView
         android:id="@+id/content"
@@ -26,6 +19,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
         android:textAppearance="?attr/textAppearanceListItem"
-        android:textColor="@color/colorAccent" />
+        android:textColor="@color/colorAccent"
+        android:maxLines="1"
+        android:ellipsize="end" />
 
 </LinearLayout>

@@ -6,7 +6,7 @@
     android:name="com.sgvplayer.sgvplayer.ui.AlbumSongsFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/strokes_wallpaper"
+    android:background="@color/transparent"
     app:layoutManager="LinearLayoutManager"
     tools:context=".ui.uiMusicTabs.AlbumSongsFragment"
     tools:listitem="@layout/fragment_album_songs_list_item" />

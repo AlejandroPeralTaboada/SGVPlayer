@@ -50,4 +50,7 @@
         ac mauris sed massa congue volutpat. Donec sed erat sit amet turpis viverra rhoncus sit amet
         nec magna. Donec lacinia ligula at libero volutpat volutpat nec nec tortor.
     </string>
+
+    <!-- ImageView content descriptors -->
+    <string name="album_cover">Album Cover</string>
 </resources>

@@ -3,6 +3,9 @@ package com.sgvplayer.sgvplayer.model.fileNavigator;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.media.MediaMetadataRetriever;
 import android.os.Environment;
 import android.widget.ImageView;
@@ -113,8 +116,22 @@ public class Mp3File {
         if (imageData != null){
             return BitmapFactory.decodeByteArray(imageData, 0, imageData.length);
         }
-        return null; //Better return a default icon...
+        return defaultBitmap();
 
+    }
+
+    private Bitmap defaultBitmap(){
+        int width = 200;
+        int height = 200;
+        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+
+        Paint paint = new Paint();
+        paint.setColor(Color.BLACK);
+        paint.setStyle(Paint.Style.FILL);
+        canvas.drawPaint(paint);
+
+        return bitmap;
     }
 
 }

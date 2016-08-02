@@ -10,6 +10,16 @@
     <!-- Margins added by developers. -->
     <dimen name="nav_header_margin">56dp</dimen>
     <dimen name="bottom_shared_player_height">120dp</dimen>
+    <!--Avatar with text and icon list margins, per the Android Design guidelines. -->
+    <!-- https://material.google.com/components/lists.html#lists-specs -->
+    <dimen name='list_text_height'>16sp</dimen>
+    <dimen name='padding_above_list'>8dp</dimen>
+    <dimen name='tile_height'>72dp</dimen>
+    <dimen name='left_avatar_padding'>16dp</dimen>
+    <dimen name='text_padding_left'>72dp</dimen>
+    <dimen name='text_padding_right'>16dp</dimen>
+    <dimen name='icon_padding_left'>16dp</dimen>
+    <dimen name='icon_padding_right'>16dp</dimen>
     <!-- Image View and Icon dimensions, per the Android Design guidelines.
     https://material.google.com/style/icons.html#icons-product-icons
     Added by devs.-->

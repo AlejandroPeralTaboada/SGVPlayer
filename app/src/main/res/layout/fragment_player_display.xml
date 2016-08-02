@@ -1,0 +1,25 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="top"
+    android:background="@color/colorMainBackground"
+    tools:context="com.sgvplayer.sgvplayer.ui.uiMusicTabs.PlayerDisplayFragment">
+
+    <ImageView
+        android:id="@+id/songHeroImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/album_cover"
+        android:src="@drawable/ic_g_clef"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        />
+
+</RelativeLayout>
+
+
+
+

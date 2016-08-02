@@ -44,6 +44,7 @@ import com.sgvplayer.sgvplayer.ui.uiMusicTabs.MusicMenuFragment;
 import com.sgvplayer.sgvplayer.ui.uiMusicTabs.MusicTabHostFragment;
 import com.sgvplayer.sgvplayer.ui.navigationListener.MainNavigationListener;
 import com.sgvplayer.sgvplayer.ui.uiMusicTabs.MusicUIRootFragment;
+import com.sgvplayer.sgvplayer.ui.uiMusicTabs.PlayerDisplayFragment;
 
 import java.util.List;
 
@@ -52,6 +53,7 @@ public class MainActivity extends MainActivityMp3Service
         MusicUIRootFragment.OnFragmentInteractionListener,
         MusicMenuFragment.OnFragmentInteractionListener,
         PlayerFragment.OnFragmentInteractionListener,
+        PlayerDisplayFragment.OnFragmentInteractionListener,
         ClassifierListFragment.OnClassifierFragmentInteractionListener,
         AllSongsFragment.OnListFragmentInteractionListener,
         ArtistsFragment.OnListFragmentInteractionListener,
@@ -130,12 +132,11 @@ public class MainActivity extends MainActivityMp3Service
         }
     }
 
-    //All Fragment listeners should go here:
+    //FRAGMENT LISTENERS:
 
     @Override
     public void onFragmentInteraction(Uri uri) {
-
-        //do stuff
+        //do nothing
     }
 
     @Override
@@ -227,37 +228,41 @@ public class MainActivity extends MainActivityMp3Service
         ClassifierListFragment newFragment = new ClassifierListFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, newFragment);
-        //transaction.addToBackStack(null);
         transaction.commit();
     }
 
-    private void startArtistSongsFragment(String artist) {
+
+    private void startArtistSongsFragment(String artist){
         ArtistSongsFragment newFragment = ArtistSongsFragment.newInstance(1, artist);
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.addToBackStack(null);
+        MusicUIRootFragment rootFragment = (MusicUIRootFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        FragmentTransaction transaction = rootFragment.getChildFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_main, newFragment).commit();
     }
 
     private void startAlbumSongsFragment(String album) {
         AlbumSongsFragment newFragment = AlbumSongsFragment.newInstance(1, album);
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.addToBackStack(null);
+        MusicUIRootFragment rootFragment = (MusicUIRootFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        FragmentTransaction transaction = rootFragment.getChildFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_main, newFragment).commit();
     }
 
     private void startGenreSongsFragment(String genre) {
         GenreSongsFragment newFragment = GenreSongsFragment.newInstance(1, genre);
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.addToBackStack(null);
+        MusicUIRootFragment rootFragment = (MusicUIRootFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        FragmentTransaction transaction = rootFragment.getChildFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_main, newFragment).commit();
     }
 
     private void startPlayerFragment(List<Mp3File> mp3FileList, int index) {
         this.playSong(mp3FileList, index);
+
         PlayerFragment newFragment = new PlayerFragment();
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.addToBackStack(null);
-        transaction.replace(R.id.fragment_container, newFragment).commit();
+        MusicUIRootFragment rootFragment = (MusicUIRootFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        FragmentTransaction transaction = rootFragment.getChildFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_player, newFragment);
+
+        PlayerDisplayFragment secondNewFragment = new PlayerDisplayFragment();
+        transaction.replace(R.id.fragment_main, secondNewFragment).commit();
     }
 
     @Override
