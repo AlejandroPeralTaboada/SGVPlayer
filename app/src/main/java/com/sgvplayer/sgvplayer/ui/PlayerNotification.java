@@ -11,7 +11,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
+import android.provider.ContactsContract;
 import android.support.v4.app.NotificationCompat;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RemoteViews;
 
 import com.sgvplayer.sgvplayer.Mp3ServiceSingleton;
@@ -58,6 +61,12 @@ public class PlayerNotification {
         Mp3ServiceSingleton mp3ServiceSingleton = Mp3ServiceSingleton.getInstance();
         mp3Service = mp3ServiceSingleton.getService();
         notificationView.setTextViewText(R.id.music_title, mp3Service.getSong().getTitle());
+
+        if (mp3Service.isPlaying()){
+            notificationView.setImageViewResource(R.id.play_pause_button, R.drawable.ic_pause_black_24dp);
+        } else {
+            notificationView.setImageViewResource(R.id.play_pause_button, R.drawable.ic_play_arrow_black_24dp);
+        }
 
         //Set the button listeners
         setListeners(notificationView);

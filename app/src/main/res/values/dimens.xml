@@ -10,4 +10,8 @@
     <!-- Margins added by developers. -->
     <dimen name="nav_header_margin">56dp</dimen>
     <dimen name="bottom_shared_player_height">120dp</dimen>
+    <!-- Image View and Icon dimensions, per the Android Design guidelines.
+    https://material.google.com/style/icons.html#icons-product-icons
+    Added by devs.-->
+    <dimen name='round_system_icon_radius'>12dp</dimen>
 </resources>

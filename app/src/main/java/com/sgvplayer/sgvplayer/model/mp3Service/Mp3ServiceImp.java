@@ -82,6 +82,7 @@ public class Mp3ServiceImp extends Service implements Mp3Service {
         } else {
             mediaPlayer.start();
         }
+        startNotification();
     }
 
     public void seek(int ms) {

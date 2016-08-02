@@ -196,14 +196,6 @@ public class MainActivity extends MainActivityMp3Service
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-       /*
-        if (id == R.id.action_settings) {
-            return true;
-        }
-       */
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -232,16 +224,10 @@ public class MainActivity extends MainActivityMp3Service
     }
 
     private void moveToClassifierFragment() {
-        // Create fragment
         ClassifierListFragment newFragment = new ClassifierListFragment();
-
-        // Replace whatever is in the fragment_container view with this fragment,
-        // and add the transaction to the back stack so the user can navigate back
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, newFragment);
         //transaction.addToBackStack(null);
-
-        // Commit the transaction
         transaction.commit();
     }
 

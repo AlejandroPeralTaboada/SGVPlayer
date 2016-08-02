@@ -25,9 +25,7 @@ import java.util.List;
  */
 public class AllSongsFragment extends Fragment {
 
-    // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
 
@@ -37,7 +35,6 @@ public class AllSongsFragment extends Fragment {
      */
     public AllSongsFragment() {}
 
-    // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
     public static AllSongsFragment newInstance(int columnCount) {
         AllSongsFragment fragment = new AllSongsFragment();
@@ -71,7 +68,7 @@ public class AllSongsFragment extends Fragment {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
             FileNavigatorImp fileNavigator =  FileNavigatorImp.getInstance(getActivity());
-            recyclerView.setAdapter(new MyAllSongsRecyclerViewAdapter(fileNavigator.getAllMp3Files(), mListener));
+            recyclerView.setAdapter(new MyAllSongsRecyclerViewAdapter(fileNavigator.getAllMp3Files(), mListener, context));
         }
         return view;
     }
@@ -105,7 +102,6 @@ public class AllSongsFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onAllSongsListFragmentInteraction(List<Mp3File> mp3File, int index);
     }
 }

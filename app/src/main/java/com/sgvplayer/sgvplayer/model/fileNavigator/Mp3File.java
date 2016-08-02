@@ -110,7 +110,11 @@ public class Mp3File {
 
     public Bitmap getAlbumCover(){
         byte [] imageData = metadataRetriever.getEmbeddedPicture();
-        return BitmapFactory.decodeByteArray(imageData, 0, imageData.length);
+        if (imageData != null){
+            return BitmapFactory.decodeByteArray(imageData, 0, imageData.length);
+        }
+        return null; //Better return a default icon...
+
     }
 
 }
