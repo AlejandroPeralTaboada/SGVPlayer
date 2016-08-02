@@ -175,6 +175,14 @@ public class MainActivity extends MainActivityMp3Service
         startPlayerFragment(mp3Files, index);
     }
 
+    //Player Fragment:
+    @Override public void onMusicChanged(){
+        PlayerDisplayFragment secondNewFragment = new PlayerDisplayFragment();
+        MusicUIRootFragment rootFragment = (MusicUIRootFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        FragmentTransaction transaction = rootFragment.getChildFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_main, secondNewFragment).commit();
+    }
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -235,7 +243,7 @@ public class MainActivity extends MainActivityMp3Service
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, musicUIRootFragment);
         transaction.commit();
-        updateNavBar("My music", false);
+
     }
 
     private void moveToClassifierFragment() {

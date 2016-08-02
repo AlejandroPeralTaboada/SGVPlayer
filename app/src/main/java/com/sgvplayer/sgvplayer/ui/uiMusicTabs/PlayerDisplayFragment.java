@@ -63,10 +63,14 @@ public class PlayerDisplayFragment extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_player_display, container, false);
 
-        mSongHeroImage = (ImageView) view.findViewById(R.id.songHeroImage);
-        mSongHeroImage.setImageBitmap(mp3Service.getSong().getAlbumCover());
+        initUI();
 
         return view;
+    }
+
+    private void initUI(){
+        mSongHeroImage = (ImageView) view.findViewById(R.id.songHeroImage);
+        mSongHeroImage.setImageBitmap(mp3Service.getSong().getAlbumCover());
     }
 
     // TODO: Rename method, update argument and hook method into UI event

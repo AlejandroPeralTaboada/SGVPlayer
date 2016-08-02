@@ -190,6 +190,7 @@ public class PlayerFragment extends Fragment implements
         String songTitle = mp3File.getFile().getName();
         scrollingSongTitle.setText(songTitle);
         scrollingSongTitle.setSelected(true);
+        mListener.onMusicChanged();
     }
 
 
@@ -265,7 +266,6 @@ public class PlayerFragment extends Fragment implements
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onMusicChanged();
     }
 }
