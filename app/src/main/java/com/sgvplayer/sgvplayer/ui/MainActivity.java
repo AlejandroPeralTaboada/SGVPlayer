@@ -263,6 +263,17 @@ public class MainActivity extends MainActivityMp3Service
 
         PlayerDisplayFragment secondNewFragment = new PlayerDisplayFragment();
         transaction.replace(R.id.fragment_main, secondNewFragment).commit();
+
+        updateNavBar("Now playing");
+    }
+
+    private void updateNavBar(String newTitle){
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(newTitle);
+            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back_white_24dp);
+            getSupportActionBar().setHomeButtonEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
     }
 
     @Override

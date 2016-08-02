@@ -69,6 +69,7 @@ public class AllSongsFragment extends Fragment {
             }
             FileNavigatorImp fileNavigator =  FileNavigatorImp.getInstance(getActivity());
             recyclerView.setAdapter(new MyAllSongsRecyclerViewAdapter(fileNavigator.getAllMp3Files(), mListener, context));
+            recyclerView.addItemDecoration(new MyAllSongsRecyclerViewAdapter.DividerItemDecoration(getActivity()));
         }
         return view;
     }

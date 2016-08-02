@@ -166,7 +166,7 @@ public class PlayerFragment extends Fragment implements
         if (this.mp3Service.isPlaying()){
             playPauseButton.setImageResource(R.drawable.ic_pause_black_24dp);
             } else {
-            playPauseButton.setImageResource(R.drawable.ic_play_arrow_black_24dp);
+            playPauseButton.setImageResource(R.drawable.ic_play_arrow_white_24dp);
         }
     }
 

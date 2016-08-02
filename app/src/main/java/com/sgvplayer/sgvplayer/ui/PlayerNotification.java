@@ -1,20 +1,10 @@
 package com.sgvplayer.sgvplayer.ui;
 
-import android.annotation.TargetApi;
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.os.Build;
-import android.provider.ContactsContract;
 import android.support.v4.app.NotificationCompat;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.RemoteViews;
 
 import com.sgvplayer.sgvplayer.Mp3ServiceSingleton;
@@ -65,7 +55,7 @@ public class PlayerNotification {
         if (mp3Service.isPlaying()){
             notificationView.setImageViewResource(R.id.play_pause_button, R.drawable.ic_pause_black_24dp);
         } else {
-            notificationView.setImageViewResource(R.id.play_pause_button, R.drawable.ic_play_arrow_black_24dp);
+            notificationView.setImageViewResource(R.id.play_pause_button, R.drawable.ic_play_arrow_white_24dp);
         }
 
         //Set the button listeners

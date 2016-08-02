@@ -2,8 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="@dimen/bottom_shared_player_height"
     android:layout_gravity="top"
-    android:background="@color/colorMainBackground"
+    android:background="@color/transparent"
     tools:context="com.sgvplayer.sgvplayer.ui.uiMusicTabs.PlayerDisplayFragment">
 
     <ImageView
@@ -15,8 +16,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:adjustViewBounds="true"
-        android:scaleType="fitCenter"
-        />
+        android:scaleType="fitXY" />
 
 </RelativeLayout>
 
